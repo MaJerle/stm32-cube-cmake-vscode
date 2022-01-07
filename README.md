@@ -1,6 +1,6 @@
-# Convert STM32CubeIDE project to CMake for Visual Studio Code
+# Convert STM32CubeIDE project to CMake and Visual Studio Code
 
-This tutorial explains steps to effectively develop and debug STM32 application in Visual Studio Code, with *CMake* build automation system and *Ninja* build system
+This tutorial explains steps to effectively develop and debug STM32 application in *Visual Studio Code*, with *CMake* build automation system and *Ninja* build system
 
 > Windows is used for the sake of this tutorial. Similar steps apply for other operating systems too.
 
