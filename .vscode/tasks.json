@@ -3,9 +3,11 @@
 	"tasks": [
         {
             "type": "shell",
-            "label": "Run python file",
+            "label": "Run converter",
             "command": "python",
-            "args": ["${file}"],
+            "args": ["converter.py",
+                "--path", "script-projects/h735g-dk-usart/", "script-projects/h735g-dk-touchgfx/"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },

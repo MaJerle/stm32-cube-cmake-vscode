@@ -4,6 +4,8 @@ import glob
 import xml.etree.ElementTree as ET
 import json
 import re
+import argparse
+import pathlib
 
 #
 # Normalize XML tree to single entry array
@@ -556,12 +558,21 @@ def parse_and_generate(projectFolderBasePath):
 ##########################################################
 # Run script
 ##########################################################
+if __name__ == '__main__':
 
-# Get all projects in this folder
-basepath = os.path.dirname(os.path.abspath(__file__))
-allProjects = glob.glob(basepath + "/script-projects/*/")
-#allProjects = [
-#   os.path.join(basepath, 'h735g-dk-usart')
-#]
-for projectFolder in allProjects:
-   parse_and_generate(projectFolder)
+   # Define parser structure
+   parser = argparse.ArgumentParser(description = 'Generate CMakeLists.txt from STM32CubeIDE project path')
+   parser.add_argument('--path', nargs = '+', type = pathlib.Path, required = True, help = 'STM32CubeIDE root project folder location')
+   parser.print_help()
+   args = parser.parse_args()
+
+   # Base path of this fole
+   basepath = os.path.dirname(os.path.abspath(__file__))
+
+   # Go through all provided folders
+   for p in args.path:
+      path = str(p)
+      if not os.path.isabs(path):
+         path = os.path.join(basepath, path)
+      print("Path to parse:", path)
+      parse_and_generate(path)

@@ -846,6 +846,14 @@ Part of this repository is also `converter.py` experimetal script, target being 
 
 > Following aforementioned tutorial will make sure all the tools are installed, except python.
 
+## How to use it
+
+Run script with arguments:
+```
+python converter.py --path "path1" ["path2" ["pathn", [...]]]
+```
+`CMakeLists.txt` will be generated in the provided paths, but only if converter is able to find `.project` and `.cproject` files
+
 ## Known limitations
 
 - No support for dual-core devices
