@@ -6,6 +6,7 @@ import json
 import re
 import argparse
 import pathlib
+import shutil
 
 #
 # Normalize XML tree to single entry array
@@ -435,7 +436,7 @@ def parse_and_generate(projectFolderBasePath):
       elif target_mcu in ['STM32F7', 'STM32H7']:
          target_cpu = '-mcpu=cortex-m7'
       else:
-         printf("Unknown STM32")
+         print("Unknown STM32")
          return
 
       # Set floating point
@@ -530,6 +531,9 @@ def parse_and_generate(projectFolderBasePath):
       linker_file = linker_file.replace('workspace_loc:', '').replace('', '')
       linker_file = linker_file.replace('${ProjName}', '')
       linker_file = linker_file.replace('}', '')
+      if len(linker_file) > 2 and linker_file[0:2] == '..':
+         # Path starting with "../" is referenced with "Debug" folder from inside '.cproject' folder         linker_file = os.path.join('Debug', linker_file)
+         linker_file = os.path.join('Debug', linker_file)
       linker_file = os.path.join(CProjBasePath, linker_file)
       # Text format: '${workspace_loc:/${ProjName}/STM32G474RETX_FLASH.ld}'
       templatefiledata = templatefiledata.replace(var_replace_name, gen_relative_path_to_cmake_folder(projectFolderBasePath, linker_file))
@@ -543,12 +547,10 @@ def parse_and_generate(projectFolderBasePath):
       file.write(templatefiledata)
 
    # Copy compiler .cmake file to user path
-   dotCmakeCompilerTargetFile = os.path.join(projectFolderBasePath, 'gcc-arm-none-eabi.cmake')
-   data = ''
-   with open('templates/gcc-arm-none-eabi.cmake', 'r') as file:
-      data = file.read()
-   with open(dotCmakeCompilerTargetFile, "w") as file:
-      file.write(data)
+   try:
+      shutil.copytree('templates/', projectFolderBasePath)
+   except:
+      pass
 
    # That's it
    print("CMakeLists.txt file generated:", cmakelistsfile)
