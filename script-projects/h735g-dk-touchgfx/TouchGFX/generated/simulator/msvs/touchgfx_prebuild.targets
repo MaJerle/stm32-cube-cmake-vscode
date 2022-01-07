@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <AllGeneratedFolders Include="$(ApplicationRoot)\generated\fonts;$(ApplicationRoot)\generated\images;$(ApplicationRoot)\generated\texts;$(ApplicationRoot)\generated\videos" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ImageConvertExecutable Include="$(TouchGFXReleasePath)\framework\tools\imageconvert\build\msvs\ImageConvert.exe" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <UseBPPOption>/DUSE_BPP=$(UseBPP)</UseBPPOption>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(LCD)'!=''">
+    <LCDOption>/D$(LCD)</LCDOption>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(LCD)'==''">
+    <LCDOption/>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <touchgfx_env Condition="'$(TouchGFXEnvPath)'==''">$(TouchGFXReleasePath)\..\env</touchgfx_env>
+    <touchgfx_env Condition="'$(TouchGFXEnvPath)'!=''">$(TouchGFXEnvPath)</touchgfx_env>
+  </PropertyGroup>
+
+  <Target Name="GenerateBitmapDatabaseFiles" BeforeTargets="ClCompile">
+    <Message Text="Converting images" />
+    <Exec Command="echo Converting images" />
+    <Exec Command="&quot;%(ImageConvertExecutable.FullPath)&quot; -r assets\images -w generated\images" WorkingDirectory="$(ApplicationRoot)" />
+  </Target>
+
+  <Target Name="GenerateTextsAndFontsFiles" BeforeTargets="ClCompile">
+    <Message Text="Converting texts and fonts" />
+    <Exec Command="echo Converting texts and fonts" />
+    <Exec Command="&quot;$(touchgfx_env)\MinGW\msys\1.0\Ruby30-x64\bin\ruby.exe&quot; &quot;$(TouchGFXReleasePath)\framework\tools\textconvert\main.rb&quot; &quot;$(ApplicationRoot)\assets\texts\texts.xml&quot; &quot;$(TouchGFXReleasePath)\framework\tools\fontconvert\build\win\fontconvert.out&quot; &quot;$(ApplicationRoot)\generated\fonts&quot; &quot;$(ApplicationRoot)\generated\texts&quot; &quot;$(ApplicationRoot)\assets\fonts&quot; &quot;$(ApplicationRoot)&quot;" />
+  </Target>
+
+  <Target Name="GenerateVideos" BeforeTargets="ClCompile">
+    <Message Text="Converting videos" />
+    <Exec Command="echo Converting videos" />
+    <Exec Command="&quot;$(touchgfx_env)\MinGW\msys\1.0\Ruby30-x64\bin\ruby.exe&quot; &quot;$(TouchGFXReleasePath)\framework\tools\videoconvert\videoconvert.rb&quot; &quot;$(ApplicationRoot)&quot; assets\videos generated\videos" />
+  </Target>
+
+  <Target Name="CompileAllGeneratedFiles" BeforeTargets="ClCompile">
+    <ItemGroup>
+      <AllGeneratedCompileFiles Include="$(ApplicationRoot)\generated\fonts\**\*.cpp;$(ApplicationRoot)\generated\images\**\*.cpp;$(ApplicationRoot)\generated\texts\**\*.cpp;$(ApplicationRoot)\generated\videos\**\*.cpp" />
+    </ItemGroup>
+    <Message Text="Creating compile items for all generated source files: @(AllGeneratedCompileFiles)" />
+    <Exec Command="echo Creating compile items for all generated source files: @(AllGeneratedCompileFiles)" />
+    <CreateItem Include="@(AllGeneratedCompileFiles)">
+      <Output TaskParameter="Include" ItemName="ClCompile" />
+    </CreateItem>
+  </Target>
+
+  <Target Name="CleanupGeneratedFiles" AfterTargets="Clean">
+    <Message Text="Clean-up generated files: @(AllGeneratedFolders)" />
+    <Exec Command="echo Clean-up generated files: @(AllGeneratedFolders)" />
+    <RemoveDir Directories="@(AllGeneratedFolders)" />
+    <ItemGroup>
+      <PostBuildFiles Include="$(OutDir)\*.dll" />
+      <PostBuildFiles Include="$(OutDir)\*.bin" />
+      <PostBuildFiles Include="$(OutDir)\*.png" />
+    </ItemGroup>
+    <Delete Files="@(PostBuildFiles)" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="ClCompile">
+    <ItemGroup>
+      <OldVideoFiles Include="$(OutDir)\*.bin" />
+      <NewFiles Include="$(ApplicationRoot)\generated\videos\bin\*.bin" />
+      <NewFiles Include="$(TouchGFXReleasePath)\lib\sdl2\win32\SDL2.dll" />
+      <NewFiles Include="$(TouchGFXReleasePath)\lib\sdl2\win32\SDL2_image.dll" />
+      <NewFiles Include="$(TouchGFXReleasePath)\lib\sdl2\win32\libpng16-16.dll" />
+      <NewFiles Include="$(TouchGFXReleasePath)\lib\sdl2\win32\zlib1.dll" />
+      <NewFiles Include="$(TouchGFXReleasePath)\3rdparty\libjpeg\lib\win32\libjpeg-8.dll" />
+      <NewFiles Include="$(ApplicationRoot)\simulator\landscape.png" />
+      <NewFiles Include="$(ApplicationRoot)\simulator\portrait.png" />
+    </ItemGroup>
+    <Delete Files="@(OldVideoFiles)" />
+    <Copy SourceFiles="@(NewFiles)"
+          DestinationFolder="$(OutDir)"
+          SkipUnchangedFiles="true"
+          Condition="Exists('%(FullPath)')" />
+  </Target>
+</Project>

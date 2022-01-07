@@ -1,0 +1,41 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Microcontroller - STLink-V3",
+            "cwd": "${workspaceFolder}",
+            "type": "cortex-debug",
+
+            "executable": "build/h735g-dk-usart.elf",    //${command:cmake.launchTargetPath}
+            "request": "launch",    //Use "attach" to connect to target w/o download
+            "servertype": "stlink",
+            "device": "STM32H735IG",
+            "interface": "swd",
+            "serialNumber": "",
+            "runToMain": true,
+            "svdFile": "STM32H73x.svd",
+            "v1": false,
+            "showDevDebugOutput": true,
+
+            /*
+             * Will get automatically detected if STM32CubeIDE is installed to default directory.
+             * Otherwise provide paths manually to these below fields (all come with CubeIDE)
+             * 
+             * serverpath: Path to ST-Link_gdbserver.exe, including executable
+             * armToolchainPath: Compiler binary folder
+             * stm32cubeprogrammer: Path to CubeProgrammer
+             */
+            //"serverpath": "c:\\ST\\STM32CubeIDE_1.7.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.win32_2.0.100.202109301221\\tools\\bin\\ST-LINK_gdbserver.exe",
+            //"armToolchainPath": "c:\\ST\\STM32CubeIDE_1.7.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\\tools\\bin",
+            //"stm32cubeprogrammer": "c:\\Program Files\\STMicroelectronics\\STM32Cube\\STM32CubeProgrammer\\bin",
+
+            /*
+             * If you use external loader, add additional arguments
+             */
+            //"serverArgs": ["--extload", "test-ext-load-file.stldr"],
+        }
+    ]
+}

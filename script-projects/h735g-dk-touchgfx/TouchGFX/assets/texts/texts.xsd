@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--Types-->
+  <xs:simpleType name="direction" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LTR" />
+      <xs:enumeration value="RTL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="alignment" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Left" />
+      <xs:enumeration value="LEFT" />
+      <xs:enumeration value="left" />
+      <xs:enumeration value="Center" />
+      <xs:enumeration value="CENTER" />
+      <xs:enumeration value="center" />
+      <xs:enumeration value="Right" />
+      <xs:enumeration value="RIGHT" />
+      <xs:enumeration value="right" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="bpp" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="8" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="fallbackCharacter" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:pattern value="|.|skip|(0x[0-9a-fA-F]{1,4})" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ellipsisCharacter" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:pattern value="|.|skip|(0x[0-9a-fA-F]{1,4})" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="wildcardCharacterRanges" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:pattern value="|^(.)-(.)(.*)$|^(0[xX][0-9a-fA-F]+|\d+)(.*)|^(0[xX][0-9a-fA-F]+|\d+)-(0[xX][0-9a-fA-F]+|\d+)(.*)$" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--TextDatabase specification-->
+  <xs:element name="TextDatabase">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Texts">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Text">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="unbounded" name="Translation">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="Language" type="xs:string" use="required" />
+                            <xs:attribute name="TypographyId" type="xs:string" use="optional" />
+                            <xs:attribute name="Alignment" type="alignment" use="optional" />
+                            <xs:attribute name="Direction" type="direction" use="optional" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Id" type="xs:string" use="required" />
+                  <xs:attribute name="TypographyId" type="xs:string" use="required" />
+                  <xs:attribute name="Alignment" type="alignment" use="required" />
+                  <xs:attribute name="Direction" type="direction" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Typographies">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Typography">
+                <xs:complexType>
+                  <xs:attribute name="Id" type="xs:string" use="required" />
+                  <xs:attribute name="Font" type="xs:string" use="required" />
+                  <xs:attribute name="Size" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="Bpp" type="bpp" use="required" />
+                  <xs:attribute name="FallbackCharacter" type="fallbackCharacter" use="optional" />
+                  <xs:attribute name="WildcardCharacters" type="xs:string" use="optional" />
+                  <xs:attribute name="WidgetWildcardCharacters" type="xs:string" use="optional" />
+                  <xs:attribute name="WildcardCharacterRanges" type="wildcardCharacterRanges" use="optional" />
+                  <xs:attribute name="EllipsisCharacter" type="ellipsisCharacter" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

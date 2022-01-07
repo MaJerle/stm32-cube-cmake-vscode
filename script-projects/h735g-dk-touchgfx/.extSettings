@@ -1,0 +1,7 @@
+[ProjectFiles]
+HeaderPath=../Drivers/BSP/Components/Common;../Drivers/BSP/STM32H735G-DK
+[Groups]
+Drivers/BSP/STM32H735G-DK=../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.c;../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c;../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.c
+Drivers/BSP/Components=../Drivers/BSP/Components/s70kl1281/s70kl1281.c;../Drivers/BSP/Components/mx25lm51245g/mx25lm51245g.c;../Drivers/BSP/Components/ft5336/ft5336.c;../Drivers/BSP/Components/ft5336/ft5336_reg.c
+Application/User/TouchGFX/target=../TouchGFX/target/CortexMMCUInstrumentation.cpp
+[Others]

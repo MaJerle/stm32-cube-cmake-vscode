@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.18.0">
+  <Texts>
+    <Text Id="Main_text" TypographyId="Normal" Alignment="Left" Direction="LTR">
+      <Translation Language="GB">Lorem Ipsum is simply dummy &#10;text of the printing and type-&#10;setting industry.</Translation>
+      <Translation Language="AR" TypographyId="Normal_arabic" Alignment="Right" Direction="RTL">لوريم إيبسوم(Lorem Ipsum)&#10;هو ببساطة نص شكلي (بمعنى أن &#10;الغاية هي الشكل وليس المحتوى) &#10;ويُستخدم في صناعات المطابع &#10;ودور النشر.</Translation>
+    </Text>
+    <Text Id="Switch_language" TypographyId="Button_style_arabic" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">العربية</Translation>
+      <Translation Language="AR" TypographyId="Button_style" Direction="RTL">English</Translation>
+    </Text>
+    <Text Id="Tick_counter" TypographyId="Normal" Alignment="Left" Direction="LTR">
+      <Translation Language="GB">Timer: &lt;number&gt;</Translation>
+      <Translation Language="AR" TypographyId="Normal_arabic" Alignment="Right" Direction="RTL">مؤقت: &lt;x&gt;</Translation>
+    </Text>
+  </Texts>
+  <Typographies>
+    <Typography Id="Normal" Font="Asap-Regular.ttf" Size="14" Bpp="4" FallbackCharacter="skip" WildcardCharacterRanges="0-9" />
+    <Typography Id="Normal_arabic" Font="arabtype.ttf" Size="24" Bpp="4" FallbackCharacter="skip" WildcardCharacterRanges="0-9" />
+    <Typography Id="Button_style" Font="Asap-Regular.ttf" Size="18" Bpp="4" />
+    <Typography Id="Button_style_arabic" Font="arabtype.ttf" Size="26" Bpp="4" />
+  </Typographies>
+</TextDatabase>

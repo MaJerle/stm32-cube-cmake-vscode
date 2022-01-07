@@ -1,0 +1,10 @@
+[
+    {
+      "name": "GCC arm-none-eabi - custom toolchain setup",
+      "compilers": {
+        "C": "arm-none-eabi-gcc",
+        "CXX": "arm-none-eabi-g++"
+      },
+      "toolchainFile": "gcc-arm-none-eabi.cmake"
+    }
+]
