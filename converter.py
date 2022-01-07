@@ -553,9 +553,8 @@ def parse_and_generate(projectFolderBasePath):
       file.write(templatefiledata)
 
    # Copy compiler .cmake file to user path
-   copytree('templates/', os.path.join(projectFolderBasePath, '.'))
    try:
-      pass
+      copytree('templates/', os.path.join(projectFolderBasePath, '.'))
    except:
       print("Copy exception...")
       pass
@@ -584,5 +583,4 @@ if __name__ == '__main__':
       path = str(p)
       if not os.path.isabs(path):
          path = os.path.join(basepath, path)
-      print("Path to parse:", path)
       parse_and_generate(path)
