@@ -8,6 +8,15 @@ import argparse
 import pathlib
 import shutil
 
+def copytree(src, dst, symlinks=False, ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)
+
 #
 # Normalize XML tree to single entry array
 #
@@ -41,6 +50,7 @@ def gen_relative_path_to_cmake_folder(cmakefolder, path, add_prefix = True, repl
 # Main function to parse and generate CMakeLists.txt file
 #
 def parse_and_generate(projectFolderBasePath):
+   print("--------")
    print("Configuring project with base path:", projectFolderBasePath)
 
    # Source files to process
@@ -184,7 +194,6 @@ def parse_and_generate(projectFolderBasePath):
       #
       # We want to parse debug configuration only for the moment
       #
-      print(tEntry['tag'])
       if tEntry['tag'] == 'cconfiguration' and 'id' in tEntry['attr'] and 'com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug' in tEntry['attr']['id']:
          conf_key = 'debug'
 
@@ -397,8 +406,6 @@ def parse_and_generate(projectFolderBasePath):
             if path != '':
                data_obj['linked_files'].append(path)
 
-   print(json.dumps(data_obj, indent = 4))
-
    ##
    # TODO: Ignore any .c file from "/build/" directory
    # This is ninja build system
@@ -497,7 +504,6 @@ def parse_and_generate(projectFolderBasePath):
             path = os.path.join(os.path.join(CProjBasePath, 'Debug'), path)
             # Normalize path to remove "Debug" from path
             paths.append(os.path.normpath(path))
-            print(os.path.normpath(path))
          templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in paths]))
 
    #
@@ -547,9 +553,11 @@ def parse_and_generate(projectFolderBasePath):
       file.write(templatefiledata)
 
    # Copy compiler .cmake file to user path
+   copytree('templates/', os.path.join(projectFolderBasePath, '.'))
    try:
-      shutil.copytree('templates/', projectFolderBasePath)
+      pass
    except:
+      print("Copy exception...")
       pass
 
    # That's it
