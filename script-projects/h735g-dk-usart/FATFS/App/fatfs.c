@@ -27,14 +27,14 @@ FIL USERFile;       /* File object for USER */
 
 /* USER CODE END Variables */
 
-void MX_FATFS_Init(void)
-{
-  /*## FatFS: Link the USER driver ###########################*/
-  retUSER = FATFS_LinkDriver(&USER_Driver, USERPath);
+void
+MX_FATFS_Init(void) {
+    /*## FatFS: Link the USER driver ###########################*/
+    retUSER = FATFS_LinkDriver(&USER_Driver, USERPath);
 
-  /* USER CODE BEGIN Init */
-  /* additional user code for init */
-  /* USER CODE END Init */
+    /* USER CODE BEGIN Init */
+    /* additional user code for init */
+    /* USER CODE END Init */
 }
 
 /**
@@ -42,11 +42,11 @@ void MX_FATFS_Init(void)
   * @param  None
   * @retval Time in DWORD
   */
-DWORD get_fattime(void)
-{
-  /* USER CODE BEGIN get_fattime */
-  return 0;
-  /* USER CODE END get_fattime */
+DWORD
+get_fattime(void) {
+    /* USER CODE BEGIN get_fattime */
+    return 0;
+    /* USER CODE END get_fattime */
 }
 
 /* USER CODE BEGIN Application */

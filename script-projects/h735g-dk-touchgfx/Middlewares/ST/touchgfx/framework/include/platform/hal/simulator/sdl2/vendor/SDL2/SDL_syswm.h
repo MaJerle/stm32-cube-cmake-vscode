@@ -103,14 +103,13 @@ typedef Uint32 GLuint;
 
 #if defined(SDL_VIDEO_DRIVER_ANDROID)
 typedef struct ANativeWindow ANativeWindow;
-typedef void *EGLSurface;
+typedef void* EGLSurface;
 #endif
 
 /**
  *  These are the various supported windowing subsystems
  */
-typedef enum
-{
+typedef enum {
     SDL_SYSWM_UNKNOWN,
     SDL_SYSWM_WINDOWS,
     SDL_SYSWM_X11,
@@ -126,12 +125,10 @@ typedef enum
 /**
  *  The custom event structure.
  */
-struct SDL_SysWMmsg
-{
+struct SDL_SysWMmsg {
     SDL_version version;
     SDL_SYSWM_TYPE subsystem;
-    union
-    {
+    union {
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
         struct {
             HWND hwnd;                  /**< The window for the message */
@@ -151,8 +148,7 @@ struct SDL_SysWMmsg
         } dfb;
 #endif
 #if defined(SDL_VIDEO_DRIVER_COCOA)
-        struct
-        {
+        struct {
             /* Latest version of Xcode clang complains about empty structs in C v. C++:
                  error: empty struct has size 0 in C, size 1 in C++
              */
@@ -161,8 +157,7 @@ struct SDL_SysWMmsg
         } cocoa;
 #endif
 #if defined(SDL_VIDEO_DRIVER_UIKIT)
-        struct
-        {
+        struct {
             int dummy;
             /* No UIKit window events yet */
         } uikit;
@@ -178,57 +173,49 @@ struct SDL_SysWMmsg
  *  When this structure is returned, it holds information about which
  *  low level system it is using, and will be one of SDL_SYSWM_TYPE.
  */
-struct SDL_SysWMinfo
-{
+struct SDL_SysWMinfo {
     SDL_version version;
     SDL_SYSWM_TYPE subsystem;
-    union
-    {
+    union {
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
-        struct
-        {
+        struct {
             HWND window;                /**< The window handle */
             HDC hdc;                    /**< The window device context */
         } win;
 #endif
 #if defined(SDL_VIDEO_DRIVER_WINRT)
-        struct
-        {
-            IInspectable * window;      /**< The WinRT CoreWindow */
+        struct {
+            IInspectable* window;       /**< The WinRT CoreWindow */
         } winrt;
 #endif
 #if defined(SDL_VIDEO_DRIVER_X11)
-        struct
-        {
-            Display *display;           /**< The X11 display */
+        struct {
+            Display* display;           /**< The X11 display */
             Window window;              /**< The X11 window */
         } x11;
 #endif
 #if defined(SDL_VIDEO_DRIVER_DIRECTFB)
-        struct
-        {
-            IDirectFB *dfb;             /**< The directfb main interface */
-            IDirectFBWindow *window;    /**< The directfb window handle */
-            IDirectFBSurface *surface;  /**< The directfb client surface */
+        struct {
+            IDirectFB* dfb;             /**< The directfb main interface */
+            IDirectFBWindow* window;    /**< The directfb window handle */
+            IDirectFBSurface* surface;  /**< The directfb client surface */
         } dfb;
 #endif
 #if defined(SDL_VIDEO_DRIVER_COCOA)
-        struct
-        {
+        struct {
 #if defined(__OBJC__) && defined(__has_feature) && __has_feature(objc_arc)
-            NSWindow __unsafe_unretained *window; /* The Cocoa window */
+            NSWindow __unsafe_unretained* window; /* The Cocoa window */
 #else
-            NSWindow *window;                     /* The Cocoa window */
+            NSWindow* window;                     /* The Cocoa window */
 #endif
         } cocoa;
 #endif
 #if defined(SDL_VIDEO_DRIVER_UIKIT)
-        struct
-        {
+        struct {
 #if defined(__OBJC__) && defined(__has_feature) && __has_feature(objc_arc)
-            UIWindow __unsafe_unretained *window; /* The UIKit window */
+            UIWindow __unsafe_unretained* window; /* The UIKit window */
 #else
-            UIWindow *window;                     /* The UIKit window */
+            UIWindow* window;                     /* The UIKit window */
 #endif
             GLuint framebuffer; /* The GL view's Framebuffer Object. It must be bound when rendering to the screen using GL. */
             GLuint colorbuffer; /* The GL view's color Renderbuffer Object. It must be bound when SDL_GL_SwapWindow is called. */
@@ -236,25 +223,22 @@ struct SDL_SysWMinfo
         } uikit;
 #endif
 #if defined(SDL_VIDEO_DRIVER_WAYLAND)
-        struct
-        {
-            struct wl_display *display;            /**< Wayland display */
-            struct wl_surface *surface;            /**< Wayland surface */
-            struct wl_shell_surface *shell_surface; /**< Wayland shell_surface (window manager handle) */
+        struct {
+            struct wl_display* display;            /**< Wayland display */
+            struct wl_surface* surface;            /**< Wayland surface */
+            struct wl_shell_surface* shell_surface; /**< Wayland shell_surface (window manager handle) */
         } wl;
 #endif
 #if defined(SDL_VIDEO_DRIVER_MIR)
-        struct
-        {
-            struct MirConnection *connection;  /**< Mir display server connection */
-            struct MirSurface *surface;  /**< Mir surface */
+        struct {
+            struct MirConnection* connection;  /**< Mir display server connection */
+            struct MirSurface* surface;  /**< Mir surface */
         } mir;
 #endif
 
 #if defined(SDL_VIDEO_DRIVER_ANDROID)
-        struct
-        {
-            ANativeWindow *window;
+        struct {
+            ANativeWindow* window;
             EGLSurface surface;
         } android;
 #endif
@@ -286,8 +270,8 @@ typedef struct SDL_SysWMinfo SDL_SysWMinfo;
  *  if ( SDL_GetWindowWMInfo(window, &info) ) { ... }
  *  \endcode
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_GetWindowWMInfo(SDL_Window * window,
-                                                     SDL_SysWMinfo * info);
+extern DECLSPEC SDL_bool SDLCALL SDL_GetWindowWMInfo(SDL_Window* window,
+                                                     SDL_SysWMinfo* info);
 
 
 /* Ends C function definitions when using C++ */

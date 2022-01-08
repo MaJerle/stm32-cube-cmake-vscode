@@ -23,7 +23,7 @@
 #define STM32H735G_DISCO_ERRNO_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Common Error codes */

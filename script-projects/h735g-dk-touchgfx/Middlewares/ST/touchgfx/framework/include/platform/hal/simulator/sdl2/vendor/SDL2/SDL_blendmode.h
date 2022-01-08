@@ -37,8 +37,7 @@ extern "C" {
 /**
  *  \brief The blend mode used in SDL_RenderCopy() and drawing operations.
  */
-typedef enum
-{
+typedef enum {
     SDL_BLENDMODE_NONE = 0x00000000,     /**< no blending
                                               dstRGBA = srcRGBA */
     SDL_BLENDMODE_BLEND = 0x00000001,    /**< alpha blending

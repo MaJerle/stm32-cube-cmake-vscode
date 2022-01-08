@@ -48,8 +48,7 @@ extern "C" {
  *  \sa SDL_VERSION
  *  \sa SDL_GetVersion
  */
-typedef struct SDL_version
-{
+typedef struct SDL_version {
     Uint8 major;        /**< major version */
     Uint8 minor;        /**< minor version */
     Uint8 patch;        /**< update version */
@@ -77,11 +76,11 @@ typedef struct SDL_version
  *  \sa SDL_GetVersion
  */
 #define SDL_VERSION(x)                          \
-{                                   \
-    (x)->major = SDL_MAJOR_VERSION;                 \
-    (x)->minor = SDL_MINOR_VERSION;                 \
-    (x)->patch = SDL_PATCHLEVEL;                    \
-}
+    {                                   \
+        (x)->major = SDL_MAJOR_VERSION;                 \
+        (x)->minor = SDL_MINOR_VERSION;                 \
+        (x)->patch = SDL_PATCHLEVEL;                    \
+    }
 
 /**
  *  This macro turns the version numbers into a numeric value:
@@ -130,7 +129,7 @@ typedef struct SDL_version
  *
  *  \sa SDL_VERSION
  */
-extern DECLSPEC void SDLCALL SDL_GetVersion(SDL_version * ver);
+extern DECLSPEC void SDLCALL SDL_GetVersion(SDL_version* ver);
 
 /**
  *  \brief Get the code revision of SDL that is linked against your program.
@@ -139,7 +138,7 @@ extern DECLSPEC void SDLCALL SDL_GetVersion(SDL_version * ver);
  *  exact revision of the SDL library in use, and is only useful in comparing
  *  against other revisions. It is NOT an incrementing number.
  */
-extern DECLSPEC const char *SDLCALL SDL_GetRevision(void);
+extern DECLSPEC const char* SDLCALL SDL_GetRevision(void);
 
 /**
  *  \brief Get the revision number of SDL that is linked against your program.

@@ -50,13 +50,12 @@ extern "C" {
  *  \sa SDL_SetWindowDisplayMode()
  *  \sa SDL_GetWindowDisplayMode()
  */
-typedef struct
-{
+typedef struct {
     Uint32 format;              /**< pixel format */
     int w;                      /**< width, in screen coordinates */
     int h;                      /**< height, in screen coordinates */
     int refresh_rate;           /**< refresh rate (or zero for unspecified) */
-    void *driverdata;           /**< driver-specific data, initialize to 0 */
+    void* driverdata;           /**< driver-specific data, initialize to 0 */
 } SDL_DisplayMode;
 
 /**
@@ -93,8 +92,7 @@ typedef struct SDL_Window SDL_Window;
  *
  *  \sa SDL_GetWindowFlags()
  */
-typedef enum
-{
+typedef enum {
     SDL_WINDOW_FULLSCREEN = 0x00000001,         /**< fullscreen window */
     SDL_WINDOW_OPENGL = 0x00000002,             /**< window usable with OpenGL context */
     SDL_WINDOW_SHOWN = 0x00000004,              /**< window is visible */
@@ -119,7 +117,7 @@ typedef enum
 #define SDL_WINDOWPOS_UNDEFINED_DISPLAY(X)  (SDL_WINDOWPOS_UNDEFINED_MASK|(X))
 #define SDL_WINDOWPOS_UNDEFINED         SDL_WINDOWPOS_UNDEFINED_DISPLAY(0)
 #define SDL_WINDOWPOS_ISUNDEFINED(X)    \
-            (((X)&0xFFFF0000) == SDL_WINDOWPOS_UNDEFINED_MASK)
+    (((X)&0xFFFF0000) == SDL_WINDOWPOS_UNDEFINED_MASK)
 
 /**
  *  \brief Used to indicate that the window position should be centered.
@@ -128,13 +126,12 @@ typedef enum
 #define SDL_WINDOWPOS_CENTERED_DISPLAY(X)  (SDL_WINDOWPOS_CENTERED_MASK|(X))
 #define SDL_WINDOWPOS_CENTERED         SDL_WINDOWPOS_CENTERED_DISPLAY(0)
 #define SDL_WINDOWPOS_ISCENTERED(X)    \
-            (((X)&0xFFFF0000) == SDL_WINDOWPOS_CENTERED_MASK)
+    (((X)&0xFFFF0000) == SDL_WINDOWPOS_CENTERED_MASK)
 
 /**
  *  \brief Event subtype for window events
  */
-typedef enum
-{
+typedef enum {
     SDL_WINDOWEVENT_NONE,           /**< Never used */
     SDL_WINDOWEVENT_SHOWN,          /**< Window has been shown */
     SDL_WINDOWEVENT_HIDDEN,         /**< Window has been hidden */
@@ -161,13 +158,12 @@ typedef enum
 /**
  *  \brief An opaque handle to an OpenGL context.
  */
-typedef void *SDL_GLContext;
+typedef void* SDL_GLContext;
 
 /**
  *  \brief OpenGL configuration attributes
  */
-typedef enum
-{
+typedef enum {
     SDL_GL_RED_SIZE,
     SDL_GL_GREEN_SIZE,
     SDL_GL_BLUE_SIZE,
@@ -195,23 +191,20 @@ typedef enum
     SDL_GL_CONTEXT_RELEASE_BEHAVIOR
 } SDL_GLattr;
 
-typedef enum
-{
+typedef enum {
     SDL_GL_CONTEXT_PROFILE_CORE           = 0x0001,
     SDL_GL_CONTEXT_PROFILE_COMPATIBILITY  = 0x0002,
     SDL_GL_CONTEXT_PROFILE_ES             = 0x0004 /* GLX_CONTEXT_ES2_PROFILE_BIT_EXT */
 } SDL_GLprofile;
 
-typedef enum
-{
+typedef enum {
     SDL_GL_CONTEXT_DEBUG_FLAG              = 0x0001,
     SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002,
     SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG      = 0x0004,
     SDL_GL_CONTEXT_RESET_ISOLATION_FLAG    = 0x0008
 } SDL_GLcontextFlag;
 
-typedef enum
-{
+typedef enum {
     SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE   = 0x0000,
     SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH  = 0x0001
 } SDL_GLcontextReleaseFlag;
@@ -234,7 +227,7 @@ extern DECLSPEC int SDLCALL SDL_GetNumVideoDrivers(void);
  *
  *  \sa SDL_GetNumVideoDrivers()
  */
-extern DECLSPEC const char *SDLCALL SDL_GetVideoDriver(int index);
+extern DECLSPEC const char* SDLCALL SDL_GetVideoDriver(int index);
 
 /**
  *  \brief Initialize the video subsystem, optionally specifying a video driver.
@@ -250,7 +243,7 @@ extern DECLSPEC const char *SDLCALL SDL_GetVideoDriver(int index);
  *
  *  \sa SDL_VideoQuit()
  */
-extern DECLSPEC int SDLCALL SDL_VideoInit(const char *driver_name);
+extern DECLSPEC int SDLCALL SDL_VideoInit(const char* driver_name);
 
 /**
  *  \brief Shuts down the video subsystem.
@@ -270,7 +263,7 @@ extern DECLSPEC void SDLCALL SDL_VideoQuit(void);
  *  \sa SDL_GetNumVideoDrivers()
  *  \sa SDL_GetVideoDriver()
  */
-extern DECLSPEC const char *SDLCALL SDL_GetCurrentVideoDriver(void);
+extern DECLSPEC const char* SDLCALL SDL_GetCurrentVideoDriver(void);
 
 /**
  *  \brief Returns the number of available video displays.
@@ -286,7 +279,7 @@ extern DECLSPEC int SDLCALL SDL_GetNumVideoDisplays(void);
  *
  *  \sa SDL_GetNumVideoDisplays()
  */
-extern DECLSPEC const char * SDLCALL SDL_GetDisplayName(int displayIndex);
+extern DECLSPEC const char* SDLCALL SDL_GetDisplayName(int displayIndex);
 
 /**
  *  \brief Get the desktop area represented by a display, with the primary
@@ -296,7 +289,7 @@ extern DECLSPEC const char * SDLCALL SDL_GetDisplayName(int displayIndex);
  *
  *  \sa SDL_GetNumVideoDisplays()
  */
-extern DECLSPEC int SDLCALL SDL_GetDisplayBounds(int displayIndex, SDL_Rect * rect);
+extern DECLSPEC int SDLCALL SDL_GetDisplayBounds(int displayIndex, SDL_Rect* rect);
 
 /**
  *  \brief Get the dots/pixels-per-inch for a display
@@ -308,7 +301,7 @@ extern DECLSPEC int SDLCALL SDL_GetDisplayBounds(int displayIndex, SDL_Rect * re
  *
  *  \sa SDL_GetNumVideoDisplays()
  */
-extern DECLSPEC int SDLCALL SDL_GetDisplayDPI(int displayIndex, float * ddpi, float * hdpi, float * vdpi);
+extern DECLSPEC int SDLCALL SDL_GetDisplayDPI(int displayIndex, float* ddpi, float* hdpi, float* vdpi);
 
 /**
  *  \brief Returns the number of available display modes.
@@ -329,17 +322,17 @@ extern DECLSPEC int SDLCALL SDL_GetNumDisplayModes(int displayIndex);
  *  \sa SDL_GetNumDisplayModes()
  */
 extern DECLSPEC int SDLCALL SDL_GetDisplayMode(int displayIndex, int modeIndex,
-                                               SDL_DisplayMode * mode);
+                                               SDL_DisplayMode* mode);
 
 /**
  *  \brief Fill in information about the desktop display mode.
  */
-extern DECLSPEC int SDLCALL SDL_GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode * mode);
+extern DECLSPEC int SDLCALL SDL_GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode* mode);
 
 /**
  *  \brief Fill in information about the current display mode.
  */
-extern DECLSPEC int SDLCALL SDL_GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode * mode);
+extern DECLSPEC int SDLCALL SDL_GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode* mode);
 
 
 /**
@@ -363,7 +356,7 @@ extern DECLSPEC int SDLCALL SDL_GetCurrentDisplayMode(int displayIndex, SDL_Disp
  *  \sa SDL_GetNumDisplayModes()
  *  \sa SDL_GetDisplayMode()
  */
-extern DECLSPEC SDL_DisplayMode * SDLCALL SDL_GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode * mode, SDL_DisplayMode * closest);
+extern DECLSPEC SDL_DisplayMode* SDLCALL SDL_GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode* mode, SDL_DisplayMode* closest);
 
 /**
  *  \brief Get the display index associated with a window.
@@ -371,7 +364,7 @@ extern DECLSPEC SDL_DisplayMode * SDLCALL SDL_GetClosestDisplayMode(int displayI
  *  \return the display index of the display containing the center of the
  *          window, or -1 on error.
  */
-extern DECLSPEC int SDLCALL SDL_GetWindowDisplayIndex(SDL_Window * window);
+extern DECLSPEC int SDLCALL SDL_GetWindowDisplayIndex(SDL_Window* window);
 
 /**
  *  \brief Set the display mode used when a fullscreen window is visible.
@@ -387,9 +380,9 @@ extern DECLSPEC int SDLCALL SDL_GetWindowDisplayIndex(SDL_Window * window);
  *  \sa SDL_GetWindowDisplayMode()
  *  \sa SDL_SetWindowFullscreen()
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowDisplayMode(SDL_Window * window,
+extern DECLSPEC int SDLCALL SDL_SetWindowDisplayMode(SDL_Window* window,
                                                      const SDL_DisplayMode
-                                                         * mode);
+                                                     * mode);
 
 /**
  *  \brief Fill in information about the display mode used when a fullscreen
@@ -398,13 +391,13 @@ extern DECLSPEC int SDLCALL SDL_SetWindowDisplayMode(SDL_Window * window,
  *  \sa SDL_SetWindowDisplayMode()
  *  \sa SDL_SetWindowFullscreen()
  */
-extern DECLSPEC int SDLCALL SDL_GetWindowDisplayMode(SDL_Window * window,
-                                                     SDL_DisplayMode * mode);
+extern DECLSPEC int SDLCALL SDL_GetWindowDisplayMode(SDL_Window* window,
+                                                     SDL_DisplayMode* mode);
 
 /**
  *  \brief Get the pixel format associated with the window.
  */
-extern DECLSPEC Uint32 SDLCALL SDL_GetWindowPixelFormat(SDL_Window * window);
+extern DECLSPEC Uint32 SDLCALL SDL_GetWindowPixelFormat(SDL_Window* window);
 
 /**
  *  \brief Create a window with the specified position, dimensions, and flags.
@@ -433,9 +426,9 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetWindowPixelFormat(SDL_Window * window);
  *
  *  \sa SDL_DestroyWindow()
  */
-extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindow(const char *title,
-                                                      int x, int y, int w,
-                                                      int h, Uint32 flags);
+extern DECLSPEC SDL_Window* SDLCALL SDL_CreateWindow(const char* title,
+                                                     int x, int y, int w,
+                                                     int h, Uint32 flags);
 
 /**
  *  \brief Create an SDL window from an existing native window.
@@ -446,37 +439,37 @@ extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindow(const char *title,
  *
  *  \sa SDL_DestroyWindow()
  */
-extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindowFrom(const void *data);
+extern DECLSPEC SDL_Window* SDLCALL SDL_CreateWindowFrom(const void* data);
 
 /**
  *  \brief Get the numeric ID of a window, for logging purposes.
  */
-extern DECLSPEC Uint32 SDLCALL SDL_GetWindowID(SDL_Window * window);
+extern DECLSPEC Uint32 SDLCALL SDL_GetWindowID(SDL_Window* window);
 
 /**
  *  \brief Get a window from a stored ID, or NULL if it doesn't exist.
  */
-extern DECLSPEC SDL_Window * SDLCALL SDL_GetWindowFromID(Uint32 id);
+extern DECLSPEC SDL_Window* SDLCALL SDL_GetWindowFromID(Uint32 id);
 
 /**
  *  \brief Get the window flags.
  */
-extern DECLSPEC Uint32 SDLCALL SDL_GetWindowFlags(SDL_Window * window);
+extern DECLSPEC Uint32 SDLCALL SDL_GetWindowFlags(SDL_Window* window);
 
 /**
  *  \brief Set the title of a window, in UTF-8 format.
  *
  *  \sa SDL_GetWindowTitle()
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowTitle(SDL_Window * window,
-                                                const char *title);
+extern DECLSPEC void SDLCALL SDL_SetWindowTitle(SDL_Window* window,
+                                                const char* title);
 
 /**
  *  \brief Get the title of a window, in UTF-8 format.
  *
  *  \sa SDL_SetWindowTitle()
  */
-extern DECLSPEC const char *SDLCALL SDL_GetWindowTitle(SDL_Window * window);
+extern DECLSPEC const char* SDLCALL SDL_GetWindowTitle(SDL_Window* window);
 
 /**
  *  \brief Set the icon for a window.
@@ -484,8 +477,8 @@ extern DECLSPEC const char *SDLCALL SDL_GetWindowTitle(SDL_Window * window);
  *  \param window The window for which the icon should be set.
  *  \param icon The icon for the window.
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowIcon(SDL_Window * window,
-                                               SDL_Surface * icon);
+extern DECLSPEC void SDLCALL SDL_SetWindowIcon(SDL_Window* window,
+                                               SDL_Surface* icon);
 
 /**
  *  \brief Associate an arbitrary named pointer with a window.
@@ -500,9 +493,9 @@ extern DECLSPEC void SDLCALL SDL_SetWindowIcon(SDL_Window * window,
  *
  *  \sa SDL_GetWindowData()
  */
-extern DECLSPEC void* SDLCALL SDL_SetWindowData(SDL_Window * window,
-                                                const char *name,
-                                                void *userdata);
+extern DECLSPEC void* SDLCALL SDL_SetWindowData(SDL_Window* window,
+                                                const char* name,
+                                                void* userdata);
 
 /**
  *  \brief Retrieve the data pointer associated with a window.
@@ -514,8 +507,8 @@ extern DECLSPEC void* SDLCALL SDL_SetWindowData(SDL_Window * window,
  *
  *  \sa SDL_SetWindowData()
  */
-extern DECLSPEC void *SDLCALL SDL_GetWindowData(SDL_Window * window,
-                                                const char *name);
+extern DECLSPEC void* SDLCALL SDL_GetWindowData(SDL_Window* window,
+                                                const char* name);
 
 /**
  *  \brief Set the position of a window.
@@ -530,7 +523,7 @@ extern DECLSPEC void *SDLCALL SDL_GetWindowData(SDL_Window * window,
  *
  *  \sa SDL_GetWindowPosition()
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowPosition(SDL_Window * window,
+extern DECLSPEC void SDLCALL SDL_SetWindowPosition(SDL_Window* window,
                                                    int x, int y);
 
 /**
@@ -544,8 +537,8 @@ extern DECLSPEC void SDLCALL SDL_SetWindowPosition(SDL_Window * window,
  *
  *  \sa SDL_SetWindowPosition()
  */
-extern DECLSPEC void SDLCALL SDL_GetWindowPosition(SDL_Window * window,
-                                                   int *x, int *y);
+extern DECLSPEC void SDLCALL SDL_GetWindowPosition(SDL_Window* window,
+                                                   int* x, int* y);
 
 /**
  *  \brief Set the size of a window's client area.
@@ -564,7 +557,7 @@ extern DECLSPEC void SDLCALL SDL_GetWindowPosition(SDL_Window * window,
  *
  *  \sa SDL_GetWindowSize()
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowSize(SDL_Window * window, int w,
+extern DECLSPEC void SDLCALL SDL_SetWindowSize(SDL_Window* window, int w,
                                                int h);
 
 /**
@@ -583,8 +576,8 @@ extern DECLSPEC void SDLCALL SDL_SetWindowSize(SDL_Window * window, int w,
  *
  *  \sa SDL_SetWindowSize()
  */
-extern DECLSPEC void SDLCALL SDL_GetWindowSize(SDL_Window * window, int *w,
-                                               int *h);
+extern DECLSPEC void SDLCALL SDL_GetWindowSize(SDL_Window* window, int* w,
+                                               int* h);
 
 /**
  *  \brief Set the minimum size of a window's client area.
@@ -599,7 +592,7 @@ extern DECLSPEC void SDLCALL SDL_GetWindowSize(SDL_Window * window, int *w,
  *  \sa SDL_GetWindowMinimumSize()
  *  \sa SDL_SetWindowMaximumSize()
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowMinimumSize(SDL_Window * window,
+extern DECLSPEC void SDLCALL SDL_SetWindowMinimumSize(SDL_Window* window,
                                                       int min_w, int min_h);
 
 /**
@@ -612,8 +605,8 @@ extern DECLSPEC void SDLCALL SDL_SetWindowMinimumSize(SDL_Window * window,
  *  \sa SDL_GetWindowMaximumSize()
  *  \sa SDL_SetWindowMinimumSize()
  */
-extern DECLSPEC void SDLCALL SDL_GetWindowMinimumSize(SDL_Window * window,
-                                                      int *w, int *h);
+extern DECLSPEC void SDLCALL SDL_GetWindowMinimumSize(SDL_Window* window,
+                                                      int* w, int* h);
 
 /**
  *  \brief Set the maximum size of a window's client area.
@@ -628,7 +621,7 @@ extern DECLSPEC void SDLCALL SDL_GetWindowMinimumSize(SDL_Window * window,
  *  \sa SDL_GetWindowMaximumSize()
  *  \sa SDL_SetWindowMinimumSize()
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowMaximumSize(SDL_Window * window,
+extern DECLSPEC void SDLCALL SDL_SetWindowMaximumSize(SDL_Window* window,
                                                       int max_w, int max_h);
 
 /**
@@ -641,8 +634,8 @@ extern DECLSPEC void SDLCALL SDL_SetWindowMaximumSize(SDL_Window * window,
  *  \sa SDL_GetWindowMinimumSize()
  *  \sa SDL_SetWindowMaximumSize()
  */
-extern DECLSPEC void SDLCALL SDL_GetWindowMaximumSize(SDL_Window * window,
-                                                      int *w, int *h);
+extern DECLSPEC void SDLCALL SDL_GetWindowMaximumSize(SDL_Window* window,
+                                                      int* w, int* h);
 
 /**
  *  \brief Set the border state of a window.
@@ -658,7 +651,7 @@ extern DECLSPEC void SDLCALL SDL_GetWindowMaximumSize(SDL_Window * window,
  *
  *  \sa SDL_GetWindowFlags()
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowBordered(SDL_Window * window,
+extern DECLSPEC void SDLCALL SDL_SetWindowBordered(SDL_Window* window,
                                                    SDL_bool bordered);
 
 /**
@@ -666,33 +659,33 @@ extern DECLSPEC void SDLCALL SDL_SetWindowBordered(SDL_Window * window,
  *
  *  \sa SDL_HideWindow()
  */
-extern DECLSPEC void SDLCALL SDL_ShowWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_ShowWindow(SDL_Window* window);
 
 /**
  *  \brief Hide a window.
  *
  *  \sa SDL_ShowWindow()
  */
-extern DECLSPEC void SDLCALL SDL_HideWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_HideWindow(SDL_Window* window);
 
 /**
  *  \brief Raise a window above other windows and set the input focus.
  */
-extern DECLSPEC void SDLCALL SDL_RaiseWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_RaiseWindow(SDL_Window* window);
 
 /**
  *  \brief Make a window as large as possible.
  *
  *  \sa SDL_RestoreWindow()
  */
-extern DECLSPEC void SDLCALL SDL_MaximizeWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_MaximizeWindow(SDL_Window* window);
 
 /**
  *  \brief Minimize a window to an iconic representation.
  *
  *  \sa SDL_RestoreWindow()
  */
-extern DECLSPEC void SDLCALL SDL_MinimizeWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_MinimizeWindow(SDL_Window* window);
 
 /**
  *  \brief Restore the size and position of a minimized or maximized window.
@@ -700,7 +693,7 @@ extern DECLSPEC void SDLCALL SDL_MinimizeWindow(SDL_Window * window);
  *  \sa SDL_MaximizeWindow()
  *  \sa SDL_MinimizeWindow()
  */
-extern DECLSPEC void SDLCALL SDL_RestoreWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_RestoreWindow(SDL_Window* window);
 
 /**
  *  \brief Set a window's fullscreen state.
@@ -710,7 +703,7 @@ extern DECLSPEC void SDLCALL SDL_RestoreWindow(SDL_Window * window);
  *  \sa SDL_SetWindowDisplayMode()
  *  \sa SDL_GetWindowDisplayMode()
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowFullscreen(SDL_Window * window,
+extern DECLSPEC int SDLCALL SDL_SetWindowFullscreen(SDL_Window* window,
                                                     Uint32 flags);
 
 /**
@@ -726,7 +719,7 @@ extern DECLSPEC int SDLCALL SDL_SetWindowFullscreen(SDL_Window * window,
  *  \sa SDL_UpdateWindowSurface()
  *  \sa SDL_UpdateWindowSurfaceRects()
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_GetWindowSurface(SDL_Window * window);
+extern DECLSPEC SDL_Surface* SDLCALL SDL_GetWindowSurface(SDL_Window* window);
 
 /**
  *  \brief Copy the window surface to the screen.
@@ -736,7 +729,7 @@ extern DECLSPEC SDL_Surface * SDLCALL SDL_GetWindowSurface(SDL_Window * window);
  *  \sa SDL_GetWindowSurface()
  *  \sa SDL_UpdateWindowSurfaceRects()
  */
-extern DECLSPEC int SDLCALL SDL_UpdateWindowSurface(SDL_Window * window);
+extern DECLSPEC int SDLCALL SDL_UpdateWindowSurface(SDL_Window* window);
 
 /**
  *  \brief Copy a number of rectangles on the window surface to the screen.
@@ -746,8 +739,8 @@ extern DECLSPEC int SDLCALL SDL_UpdateWindowSurface(SDL_Window * window);
  *  \sa SDL_GetWindowSurface()
  *  \sa SDL_UpdateWindowSurfaceRect()
  */
-extern DECLSPEC int SDLCALL SDL_UpdateWindowSurfaceRects(SDL_Window * window,
-                                                         const SDL_Rect * rects,
+extern DECLSPEC int SDLCALL SDL_UpdateWindowSurfaceRects(SDL_Window* window,
+                                                         const SDL_Rect* rects,
                                                          int numrects);
 
 /**
@@ -761,7 +754,7 @@ extern DECLSPEC int SDLCALL SDL_UpdateWindowSurfaceRects(SDL_Window * window,
  *
  *  \sa SDL_GetWindowGrab()
  */
-extern DECLSPEC void SDLCALL SDL_SetWindowGrab(SDL_Window * window,
+extern DECLSPEC void SDLCALL SDL_SetWindowGrab(SDL_Window* window,
                                                SDL_bool grabbed);
 
 /**
@@ -771,7 +764,7 @@ extern DECLSPEC void SDLCALL SDL_SetWindowGrab(SDL_Window * window,
  *
  *  \sa SDL_SetWindowGrab()
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_GetWindowGrab(SDL_Window * window);
+extern DECLSPEC SDL_bool SDLCALL SDL_GetWindowGrab(SDL_Window* window);
 
 /**
  *  \brief Get the window that currently has an input grab enabled.
@@ -780,7 +773,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetWindowGrab(SDL_Window * window);
  *
  *  \sa SDL_SetWindowGrab()
  */
-extern DECLSPEC SDL_Window * SDLCALL SDL_GetGrabbedWindow(void);
+extern DECLSPEC SDL_Window* SDLCALL SDL_GetGrabbedWindow(void);
 
 /**
  *  \brief Set the brightness (gamma correction) for a window.
@@ -790,7 +783,7 @@ extern DECLSPEC SDL_Window * SDLCALL SDL_GetGrabbedWindow(void);
  *  \sa SDL_GetWindowBrightness()
  *  \sa SDL_SetWindowGammaRamp()
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowBrightness(SDL_Window * window, float brightness);
+extern DECLSPEC int SDLCALL SDL_SetWindowBrightness(SDL_Window* window, float brightness);
 
 /**
  *  \brief Get the brightness (gamma correction) for a window.
@@ -799,7 +792,7 @@ extern DECLSPEC int SDLCALL SDL_SetWindowBrightness(SDL_Window * window, float b
  *
  *  \sa SDL_SetWindowBrightness()
  */
-extern DECLSPEC float SDLCALL SDL_GetWindowBrightness(SDL_Window * window);
+extern DECLSPEC float SDLCALL SDL_GetWindowBrightness(SDL_Window* window);
 
 /**
  *  \brief Set the gamma ramp for a window.
@@ -819,10 +812,10 @@ extern DECLSPEC float SDLCALL SDL_GetWindowBrightness(SDL_Window * window);
  *
  *  \sa SDL_GetWindowGammaRamp()
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowGammaRamp(SDL_Window * window,
-                                                   const Uint16 * red,
-                                                   const Uint16 * green,
-                                                   const Uint16 * blue);
+extern DECLSPEC int SDLCALL SDL_SetWindowGammaRamp(SDL_Window* window,
+                                                   const Uint16* red,
+                                                   const Uint16* green,
+                                                   const Uint16* blue);
 
 /**
  *  \brief Get the gamma ramp for a window.
@@ -839,18 +832,17 @@ extern DECLSPEC int SDLCALL SDL_SetWindowGammaRamp(SDL_Window * window,
  *
  *  \sa SDL_SetWindowGammaRamp()
  */
-extern DECLSPEC int SDLCALL SDL_GetWindowGammaRamp(SDL_Window * window,
-                                                   Uint16 * red,
-                                                   Uint16 * green,
-                                                   Uint16 * blue);
+extern DECLSPEC int SDLCALL SDL_GetWindowGammaRamp(SDL_Window* window,
+                                                   Uint16* red,
+                                                   Uint16* green,
+                                                   Uint16* blue);
 
 /**
  *  \brief Possible return values from the SDL_HitTest callback.
  *
  *  \sa SDL_HitTest
  */
-typedef enum
-{
+typedef enum {
     SDL_HITTEST_NORMAL,  /**< Region is normal. No special properties. */
     SDL_HITTEST_DRAGGABLE,  /**< Region can drag entire window. */
     SDL_HITTEST_RESIZE_TOPLEFT,
@@ -868,9 +860,9 @@ typedef enum
  *
  *  \sa SDL_SetWindowHitTest
  */
-typedef SDL_HitTestResult (SDLCALL *SDL_HitTest)(SDL_Window *win,
-                                                 const SDL_Point *area,
-                                                 void *data);
+typedef SDL_HitTestResult (SDLCALL* SDL_HitTest)(SDL_Window* win,
+                                                 const SDL_Point* area,
+                                                 void* data);
 
 /**
  *  \brief Provide a callback that decides if a window region has special properties.
@@ -909,14 +901,14 @@ typedef SDL_HitTestResult (SDLCALL *SDL_HitTest)(SDL_Window *win,
  *  \param callback_data An app-defined void pointer passed to the callback.
  *  \return 0 on success, -1 on error (including unsupported).
  */
-extern DECLSPEC int SDLCALL SDL_SetWindowHitTest(SDL_Window * window,
+extern DECLSPEC int SDLCALL SDL_SetWindowHitTest(SDL_Window* window,
                                                  SDL_HitTest callback,
-                                                 void *callback_data);
+                                                 void* callback_data);
 
 /**
  *  \brief Destroy a window.
  */
-extern DECLSPEC void SDLCALL SDL_DestroyWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_DestroyWindow(SDL_Window* window);
 
 
 /**
@@ -967,12 +959,12 @@ extern DECLSPEC void SDLCALL SDL_DisableScreenSaver(void);
  *  \sa SDL_GL_GetProcAddress()
  *  \sa SDL_GL_UnloadLibrary()
  */
-extern DECLSPEC int SDLCALL SDL_GL_LoadLibrary(const char *path);
+extern DECLSPEC int SDLCALL SDL_GL_LoadLibrary(const char* path);
 
 /**
  *  \brief Get the address of an OpenGL function.
  */
-extern DECLSPEC void *SDLCALL SDL_GL_GetProcAddress(const char *proc);
+extern DECLSPEC void* SDLCALL SDL_GL_GetProcAddress(const char* proc);
 
 /**
  *  \brief Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().
@@ -1001,7 +993,7 @@ extern DECLSPEC int SDLCALL SDL_GL_SetAttribute(SDL_GLattr attr, int value);
 /**
  *  \brief Get the actual value for an attribute from the current context.
  */
-extern DECLSPEC int SDLCALL SDL_GL_GetAttribute(SDL_GLattr attr, int *value);
+extern DECLSPEC int SDLCALL SDL_GL_GetAttribute(SDL_GLattr attr, int* value);
 
 /**
  *  \brief Create an OpenGL context for use with an OpenGL window, and make it
@@ -1009,7 +1001,7 @@ extern DECLSPEC int SDLCALL SDL_GL_GetAttribute(SDL_GLattr attr, int *value);
  *
  *  \sa SDL_GL_DeleteContext()
  */
-extern DECLSPEC SDL_GLContext SDLCALL SDL_GL_CreateContext(SDL_Window *
+extern DECLSPEC SDL_GLContext SDLCALL SDL_GL_CreateContext(SDL_Window*
                                                            window);
 
 /**
@@ -1017,7 +1009,7 @@ extern DECLSPEC SDL_GLContext SDLCALL SDL_GL_CreateContext(SDL_Window *
  *
  *  \note The context must have been created with a compatible window.
  */
-extern DECLSPEC int SDLCALL SDL_GL_MakeCurrent(SDL_Window * window,
+extern DECLSPEC int SDLCALL SDL_GL_MakeCurrent(SDL_Window* window,
                                                SDL_GLContext context);
 
 /**
@@ -1046,8 +1038,8 @@ extern DECLSPEC SDL_GLContext SDLCALL SDL_GL_GetCurrentContext(void);
  *  \sa SDL_GetWindowSize()
  *  \sa SDL_CreateWindow()
  */
-extern DECLSPEC void SDLCALL SDL_GL_GetDrawableSize(SDL_Window * window, int *w,
-                                                    int *h);
+extern DECLSPEC void SDLCALL SDL_GL_GetDrawableSize(SDL_Window* window, int* w,
+                                                    int* h);
 
 /**
  *  \brief Set the swap interval for the current OpenGL context.
@@ -1080,7 +1072,7 @@ extern DECLSPEC int SDLCALL SDL_GL_GetSwapInterval(void);
  * \brief Swap the OpenGL buffers for a window, if double-buffering is
  *        supported.
  */
-extern DECLSPEC void SDLCALL SDL_GL_SwapWindow(SDL_Window * window);
+extern DECLSPEC void SDLCALL SDL_GL_SwapWindow(SDL_Window* window);
 
 /**
  *  \brief Delete an OpenGL context.

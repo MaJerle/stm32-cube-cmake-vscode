@@ -23,7 +23,7 @@
 #define __USBTYPECSWITCH_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -36,7 +36,7 @@
 /** @addtogroup Components
   * @{
   */
-    
+
 /** @addtogroup TYPECSWITCH
   * @{
   */
@@ -44,46 +44,45 @@
 /** @defgroup TYPECSWITCH_Exported_Types
   * @{
   */
- typedef enum {
-   USB_NORMAL = 0,
-   USB_FLIPPED,
-   DFP_D_PIN_ASSIGNMENT_A_NORMAL,
-   DFP_D_PIN_ASSIGNMENT_A_FLIPPED,
-   DFP_D_PIN_ASSIGNMENT_B_NORMAL,
-   DFP_D_PIN_ASSIGNMENT_B_FLIPPED,
-   DFP_D_PIN_ASSIGNMENT_C_NORMAL,
-   DFP_D_PIN_ASSIGNMENT_C_FLIPPED,
-   DFP_D_PIN_ASSIGNMENT_D_NORMAL,
-   DFP_D_PIN_ASSIGNMENT_D_FLIPPED,
-   DFP_D_PIN_ASSIGNMENT_E_NORMAL,
-   DFP_D_PIN_ASSIGNMENT_E_FLIPPED,
-   DFP_D_PIN_ASSIGNMENT_F_NORMAL,
-   DFP_D_PIN_ASSIGNMENT_F_FLIPPED,
-   UFP_D_PIN_ASSIGNMENT_A_NORMAL,
-   UFP_D_PIN_ASSIGNMENT_A_FLIPPED,
-   UFP_D_PIN_ASSIGNMENT_B_NORMAL,
-   UFP_D_PIN_ASSIGNMENT_B_FLIPPED,
-   UFP_D_PIN_ASSIGNMENT_C_NORMAL,
-   UFP_D_PIN_ASSIGNMENT_C_FLIPPED,
-   UFP_D_PIN_ASSIGNMENT_D_NORMAL,
-   UFP_D_PIN_ASSIGNMENT_D_FLIPPED,
-   UFP_D_PIN_ASSIGNMENT_E_NORMAL,
-   UFP_D_PIN_ASSIGNMENT_E_FLIPPED,
-   UFP_D_PIN_ASSIGNMENT_F_NORMAL,
-   UFP_D_PIN_ASSIGNMENT_F_FLIPPED
- } TYPECSWITCH_Mode_t;
+typedef enum {
+    USB_NORMAL = 0,
+    USB_FLIPPED,
+    DFP_D_PIN_ASSIGNMENT_A_NORMAL,
+    DFP_D_PIN_ASSIGNMENT_A_FLIPPED,
+    DFP_D_PIN_ASSIGNMENT_B_NORMAL,
+    DFP_D_PIN_ASSIGNMENT_B_FLIPPED,
+    DFP_D_PIN_ASSIGNMENT_C_NORMAL,
+    DFP_D_PIN_ASSIGNMENT_C_FLIPPED,
+    DFP_D_PIN_ASSIGNMENT_D_NORMAL,
+    DFP_D_PIN_ASSIGNMENT_D_FLIPPED,
+    DFP_D_PIN_ASSIGNMENT_E_NORMAL,
+    DFP_D_PIN_ASSIGNMENT_E_FLIPPED,
+    DFP_D_PIN_ASSIGNMENT_F_NORMAL,
+    DFP_D_PIN_ASSIGNMENT_F_FLIPPED,
+    UFP_D_PIN_ASSIGNMENT_A_NORMAL,
+    UFP_D_PIN_ASSIGNMENT_A_FLIPPED,
+    UFP_D_PIN_ASSIGNMENT_B_NORMAL,
+    UFP_D_PIN_ASSIGNMENT_B_FLIPPED,
+    UFP_D_PIN_ASSIGNMENT_C_NORMAL,
+    UFP_D_PIN_ASSIGNMENT_C_FLIPPED,
+    UFP_D_PIN_ASSIGNMENT_D_NORMAL,
+    UFP_D_PIN_ASSIGNMENT_D_FLIPPED,
+    UFP_D_PIN_ASSIGNMENT_E_NORMAL,
+    UFP_D_PIN_ASSIGNMENT_E_FLIPPED,
+    UFP_D_PIN_ASSIGNMENT_F_NORMAL,
+    UFP_D_PIN_ASSIGNMENT_F_FLIPPED
+} TYPECSWITCH_Mode_t;
 
 /** @defgroup TYPECSWITCH_Driver_structure  USB Type-C Crossbar Switch Driver structure
   * @{
   */
-typedef struct
-{  
-  uint32_t  (*Init)(uint16_t);
-  void      (*DeInit)(uint16_t); 
-  uint32_t  (*PowerOn)(uint16_t);
-  uint32_t  (*PowerOff)(uint16_t);
-  uint32_t  (*SetMode)(uint16_t, TYPECSWITCH_Mode_t);
-  uint32_t  (*IsSupportedMode)(TYPECSWITCH_Mode_t);
+typedef struct {
+    uint32_t  (*Init)(uint16_t);
+    void      (*DeInit)(uint16_t);
+    uint32_t  (*PowerOn)(uint16_t);
+    uint32_t  (*PowerOff)(uint16_t);
+    uint32_t  (*SetMode)(uint16_t, TYPECSWITCH_Mode_t);
+    uint32_t  (*IsSupportedMode)(TYPECSWITCH_Mode_t);
 } TYPECSWITCH_Drv_t;
 /**
   * @}

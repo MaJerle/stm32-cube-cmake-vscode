@@ -43,8 +43,7 @@
 #include <stddef.h>
 
 #ifdef  __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 
@@ -52,99 +51,99 @@ extern "C"
 
 /// Version information.
 typedef struct {
-  uint32_t                       api;   ///< API version (major.minor.rev: mmnnnrrrr dec).
-  uint32_t                    kernel;   ///< Kernel version (major.minor.rev: mmnnnrrrr dec).
+    uint32_t                       api;   ///< API version (major.minor.rev: mmnnnrrrr dec).
+    uint32_t                    kernel;   ///< Kernel version (major.minor.rev: mmnnnrrrr dec).
 } osVersion_t;
 
 /// Kernel state.
 typedef enum {
-  osKernelInactive        =  0,         ///< Inactive.
-  osKernelReady           =  1,         ///< Ready.
-  osKernelRunning         =  2,         ///< Running.
-  osKernelLocked          =  3,         ///< Locked.
-  osKernelSuspended       =  4,         ///< Suspended.
-  osKernelError           = -1,         ///< Error.
-  osKernelReserved        = 0x7FFFFFFFU ///< Prevents enum down-size compiler optimization.
+    osKernelInactive        =  0,         ///< Inactive.
+    osKernelReady           =  1,         ///< Ready.
+    osKernelRunning         =  2,         ///< Running.
+    osKernelLocked          =  3,         ///< Locked.
+    osKernelSuspended       =  4,         ///< Suspended.
+    osKernelError           = -1,         ///< Error.
+    osKernelReserved        = 0x7FFFFFFFU ///< Prevents enum down-size compiler optimization.
 } osKernelState_t;
 
 /// Thread state.
 typedef enum {
-  osThreadInactive        =  0,         ///< Inactive.
-  osThreadReady           =  1,         ///< Ready.
-  osThreadRunning         =  2,         ///< Running.
-  osThreadBlocked         =  3,         ///< Blocked.
-  osThreadTerminated      =  4,         ///< Terminated.
-  osThreadError           = -1,         ///< Error.
-  osThreadReserved        = 0x7FFFFFFF  ///< Prevents enum down-size compiler optimization.
+    osThreadInactive        =  0,         ///< Inactive.
+    osThreadReady           =  1,         ///< Ready.
+    osThreadRunning         =  2,         ///< Running.
+    osThreadBlocked         =  3,         ///< Blocked.
+    osThreadTerminated      =  4,         ///< Terminated.
+    osThreadError           = -1,         ///< Error.
+    osThreadReserved        = 0x7FFFFFFF  ///< Prevents enum down-size compiler optimization.
 } osThreadState_t;
 
 /// Priority values.
 typedef enum {
-  osPriorityNone          =  0,         ///< No priority (not initialized).
-  osPriorityIdle          =  1,         ///< Reserved for Idle thread.
-  osPriorityLow           =  8,         ///< Priority: low
-  osPriorityLow1          =  8+1,       ///< Priority: low + 1
-  osPriorityLow2          =  8+2,       ///< Priority: low + 2
-  osPriorityLow3          =  8+3,       ///< Priority: low + 3
-  osPriorityLow4          =  8+4,       ///< Priority: low + 4
-  osPriorityLow5          =  8+5,       ///< Priority: low + 5
-  osPriorityLow6          =  8+6,       ///< Priority: low + 6
-  osPriorityLow7          =  8+7,       ///< Priority: low + 7
-  osPriorityBelowNormal   = 16,         ///< Priority: below normal
-  osPriorityBelowNormal1  = 16+1,       ///< Priority: below normal + 1
-  osPriorityBelowNormal2  = 16+2,       ///< Priority: below normal + 2
-  osPriorityBelowNormal3  = 16+3,       ///< Priority: below normal + 3
-  osPriorityBelowNormal4  = 16+4,       ///< Priority: below normal + 4
-  osPriorityBelowNormal5  = 16+5,       ///< Priority: below normal + 5
-  osPriorityBelowNormal6  = 16+6,       ///< Priority: below normal + 6
-  osPriorityBelowNormal7  = 16+7,       ///< Priority: below normal + 7
-  osPriorityNormal        = 24,         ///< Priority: normal
-  osPriorityNormal1       = 24+1,       ///< Priority: normal + 1
-  osPriorityNormal2       = 24+2,       ///< Priority: normal + 2
-  osPriorityNormal3       = 24+3,       ///< Priority: normal + 3
-  osPriorityNormal4       = 24+4,       ///< Priority: normal + 4
-  osPriorityNormal5       = 24+5,       ///< Priority: normal + 5
-  osPriorityNormal6       = 24+6,       ///< Priority: normal + 6
-  osPriorityNormal7       = 24+7,       ///< Priority: normal + 7
-  osPriorityAboveNormal   = 32,         ///< Priority: above normal
-  osPriorityAboveNormal1  = 32+1,       ///< Priority: above normal + 1
-  osPriorityAboveNormal2  = 32+2,       ///< Priority: above normal + 2
-  osPriorityAboveNormal3  = 32+3,       ///< Priority: above normal + 3
-  osPriorityAboveNormal4  = 32+4,       ///< Priority: above normal + 4
-  osPriorityAboveNormal5  = 32+5,       ///< Priority: above normal + 5
-  osPriorityAboveNormal6  = 32+6,       ///< Priority: above normal + 6
-  osPriorityAboveNormal7  = 32+7,       ///< Priority: above normal + 7
-  osPriorityHigh          = 40,         ///< Priority: high
-  osPriorityHigh1         = 40+1,       ///< Priority: high + 1
-  osPriorityHigh2         = 40+2,       ///< Priority: high + 2
-  osPriorityHigh3         = 40+3,       ///< Priority: high + 3
-  osPriorityHigh4         = 40+4,       ///< Priority: high + 4
-  osPriorityHigh5         = 40+5,       ///< Priority: high + 5
-  osPriorityHigh6         = 40+6,       ///< Priority: high + 6
-  osPriorityHigh7         = 40+7,       ///< Priority: high + 7
-  osPriorityRealtime      = 48,         ///< Priority: realtime
-  osPriorityRealtime1     = 48+1,       ///< Priority: realtime + 1
-  osPriorityRealtime2     = 48+2,       ///< Priority: realtime + 2
-  osPriorityRealtime3     = 48+3,       ///< Priority: realtime + 3
-  osPriorityRealtime4     = 48+4,       ///< Priority: realtime + 4
-  osPriorityRealtime5     = 48+5,       ///< Priority: realtime + 5
-  osPriorityRealtime6     = 48+6,       ///< Priority: realtime + 6
-  osPriorityRealtime7     = 48+7,       ///< Priority: realtime + 7
-  osPriorityISR           = 56,         ///< Reserved for ISR deferred thread.
-  osPriorityError         = -1,         ///< System cannot determine priority or illegal priority.
-  osPriorityReserved      = 0x7FFFFFFF  ///< Prevents enum down-size compiler optimization.
+    osPriorityNone          =  0,         ///< No priority (not initialized).
+    osPriorityIdle          =  1,         ///< Reserved for Idle thread.
+    osPriorityLow           =  8,         ///< Priority: low
+    osPriorityLow1          =  8 + 1,     ///< Priority: low + 1
+    osPriorityLow2          =  8 + 2,     ///< Priority: low + 2
+    osPriorityLow3          =  8 + 3,     ///< Priority: low + 3
+    osPriorityLow4          =  8 + 4,     ///< Priority: low + 4
+    osPriorityLow5          =  8 + 5,     ///< Priority: low + 5
+    osPriorityLow6          =  8 + 6,     ///< Priority: low + 6
+    osPriorityLow7          =  8 + 7,     ///< Priority: low + 7
+    osPriorityBelowNormal   = 16,         ///< Priority: below normal
+    osPriorityBelowNormal1  = 16 + 1,     ///< Priority: below normal + 1
+    osPriorityBelowNormal2  = 16 + 2,     ///< Priority: below normal + 2
+    osPriorityBelowNormal3  = 16 + 3,     ///< Priority: below normal + 3
+    osPriorityBelowNormal4  = 16 + 4,     ///< Priority: below normal + 4
+    osPriorityBelowNormal5  = 16 + 5,     ///< Priority: below normal + 5
+    osPriorityBelowNormal6  = 16 + 6,     ///< Priority: below normal + 6
+    osPriorityBelowNormal7  = 16 + 7,     ///< Priority: below normal + 7
+    osPriorityNormal        = 24,         ///< Priority: normal
+    osPriorityNormal1       = 24 + 1,     ///< Priority: normal + 1
+    osPriorityNormal2       = 24 + 2,     ///< Priority: normal + 2
+    osPriorityNormal3       = 24 + 3,     ///< Priority: normal + 3
+    osPriorityNormal4       = 24 + 4,     ///< Priority: normal + 4
+    osPriorityNormal5       = 24 + 5,     ///< Priority: normal + 5
+    osPriorityNormal6       = 24 + 6,     ///< Priority: normal + 6
+    osPriorityNormal7       = 24 + 7,     ///< Priority: normal + 7
+    osPriorityAboveNormal   = 32,         ///< Priority: above normal
+    osPriorityAboveNormal1  = 32 + 1,     ///< Priority: above normal + 1
+    osPriorityAboveNormal2  = 32 + 2,     ///< Priority: above normal + 2
+    osPriorityAboveNormal3  = 32 + 3,     ///< Priority: above normal + 3
+    osPriorityAboveNormal4  = 32 + 4,     ///< Priority: above normal + 4
+    osPriorityAboveNormal5  = 32 + 5,     ///< Priority: above normal + 5
+    osPriorityAboveNormal6  = 32 + 6,     ///< Priority: above normal + 6
+    osPriorityAboveNormal7  = 32 + 7,     ///< Priority: above normal + 7
+    osPriorityHigh          = 40,         ///< Priority: high
+    osPriorityHigh1         = 40 + 1,     ///< Priority: high + 1
+    osPriorityHigh2         = 40 + 2,     ///< Priority: high + 2
+    osPriorityHigh3         = 40 + 3,     ///< Priority: high + 3
+    osPriorityHigh4         = 40 + 4,     ///< Priority: high + 4
+    osPriorityHigh5         = 40 + 5,     ///< Priority: high + 5
+    osPriorityHigh6         = 40 + 6,     ///< Priority: high + 6
+    osPriorityHigh7         = 40 + 7,     ///< Priority: high + 7
+    osPriorityRealtime      = 48,         ///< Priority: realtime
+    osPriorityRealtime1     = 48 + 1,     ///< Priority: realtime + 1
+    osPriorityRealtime2     = 48 + 2,     ///< Priority: realtime + 2
+    osPriorityRealtime3     = 48 + 3,     ///< Priority: realtime + 3
+    osPriorityRealtime4     = 48 + 4,     ///< Priority: realtime + 4
+    osPriorityRealtime5     = 48 + 5,     ///< Priority: realtime + 5
+    osPriorityRealtime6     = 48 + 6,     ///< Priority: realtime + 6
+    osPriorityRealtime7     = 48 + 7,     ///< Priority: realtime + 7
+    osPriorityISR           = 56,         ///< Reserved for ISR deferred thread.
+    osPriorityError         = -1,         ///< System cannot determine priority or illegal priority.
+    osPriorityReserved      = 0x7FFFFFFF  ///< Prevents enum down-size compiler optimization.
 } osPriority_t;
 
 /// Entry point of a thread.
-typedef void (*osThreadFunc_t) (void *argument);
+typedef void (*osThreadFunc_t) (void* argument);
 
 /// Timer callback function.
-typedef void (*osTimerFunc_t) (void *argument);
+typedef void (*osTimerFunc_t) (void* argument);
 
 /// Timer type.
 typedef enum {
-  osTimerOnce               = 0,          ///< One-shot timer.
-  osTimerPeriodic           = 1           ///< Repeating timer.
+    osTimerOnce               = 0,          ///< One-shot timer.
+    osTimerPeriodic           = 1           ///< Repeating timer.
 } osTimerType_t;
 
 // Timeout value.
@@ -174,37 +173,37 @@ typedef enum {
 
 /// Status code values returned by CMSIS-RTOS functions.
 typedef enum {
-  osOK                      =  0,         ///< Operation completed successfully.
-  osError                   = -1,         ///< Unspecified RTOS error: run-time error but no other error message fits.
-  osErrorTimeout            = -2,         ///< Operation not completed within the timeout period.
-  osErrorResource           = -3,         ///< Resource not available.
-  osErrorParameter          = -4,         ///< Parameter error.
-  osErrorNoMemory           = -5,         ///< System is out of memory: it was impossible to allocate or reserve memory for the operation.
-  osErrorISR                = -6,         ///< Not allowed in ISR context: the function cannot be called from interrupt service routines.
-  osStatusReserved          = 0x7FFFFFFF  ///< Prevents enum down-size compiler optimization.
+    osOK                      =  0,         ///< Operation completed successfully.
+    osError                   = -1,         ///< Unspecified RTOS error: run-time error but no other error message fits.
+    osErrorTimeout            = -2,         ///< Operation not completed within the timeout period.
+    osErrorResource           = -3,         ///< Resource not available.
+    osErrorParameter          = -4,         ///< Parameter error.
+    osErrorNoMemory           = -5,         ///< System is out of memory: it was impossible to allocate or reserve memory for the operation.
+    osErrorISR                = -6,         ///< Not allowed in ISR context: the function cannot be called from interrupt service routines.
+    osStatusReserved          = 0x7FFFFFFF  ///< Prevents enum down-size compiler optimization.
 } osStatus_t;
 
 
 /// \details Thread ID identifies the thread.
-typedef void *osThreadId_t;
+typedef void* osThreadId_t;
 
 /// \details Timer ID identifies the timer.
-typedef void *osTimerId_t;
+typedef void* osTimerId_t;
 
 /// \details Event Flags ID identifies the event flags.
-typedef void *osEventFlagsId_t;
+typedef void* osEventFlagsId_t;
 
 /// \details Mutex ID identifies the mutex.
-typedef void *osMutexId_t;
+typedef void* osMutexId_t;
 
 /// \details Semaphore ID identifies the semaphore.
-typedef void *osSemaphoreId_t;
+typedef void* osSemaphoreId_t;
 
 /// \details Memory Pool ID identifies the memory pool.
-typedef void *osMemoryPoolId_t;
+typedef void* osMemoryPoolId_t;
 
 /// \details Message Queue ID identifies the message queue.
-typedef void *osMessageQueueId_t;
+typedef void* osMessageQueueId_t;
 
 
 #ifndef TZ_MODULEID_T
@@ -216,67 +215,67 @@ typedef uint32_t TZ_ModuleId_t;
 
 /// Attributes structure for thread.
 typedef struct {
-  const char                   *name;   ///< name of the thread
-  uint32_t                 attr_bits;   ///< attribute bits
-  void                      *cb_mem;    ///< memory for control block
-  uint32_t                   cb_size;   ///< size of provided memory for control block
-  void                   *stack_mem;    ///< memory for stack
-  uint32_t                stack_size;   ///< size of stack
-  osPriority_t              priority;   ///< initial thread priority (default: osPriorityNormal)
-  TZ_ModuleId_t            tz_module;   ///< TrustZone module identifier
-  uint32_t                  reserved;   ///< reserved (must be 0)
+    const char*                   name;   ///< name of the thread
+    uint32_t                 attr_bits;   ///< attribute bits
+    void*                      cb_mem;    ///< memory for control block
+    uint32_t                   cb_size;   ///< size of provided memory for control block
+    void*                   stack_mem;    ///< memory for stack
+    uint32_t                stack_size;   ///< size of stack
+    osPriority_t              priority;   ///< initial thread priority (default: osPriorityNormal)
+    TZ_ModuleId_t            tz_module;   ///< TrustZone module identifier
+    uint32_t                  reserved;   ///< reserved (must be 0)
 } osThreadAttr_t;
 
 /// Attributes structure for timer.
 typedef struct {
-  const char                   *name;   ///< name of the timer
-  uint32_t                 attr_bits;   ///< attribute bits
-  void                      *cb_mem;    ///< memory for control block
-  uint32_t                   cb_size;   ///< size of provided memory for control block
+    const char*                   name;   ///< name of the timer
+    uint32_t                 attr_bits;   ///< attribute bits
+    void*                      cb_mem;    ///< memory for control block
+    uint32_t                   cb_size;   ///< size of provided memory for control block
 } osTimerAttr_t;
 
 /// Attributes structure for event flags.
 typedef struct {
-  const char                   *name;   ///< name of the event flags
-  uint32_t                 attr_bits;   ///< attribute bits
-  void                      *cb_mem;    ///< memory for control block
-  uint32_t                   cb_size;   ///< size of provided memory for control block
+    const char*                   name;   ///< name of the event flags
+    uint32_t                 attr_bits;   ///< attribute bits
+    void*                      cb_mem;    ///< memory for control block
+    uint32_t                   cb_size;   ///< size of provided memory for control block
 } osEventFlagsAttr_t;
 
 /// Attributes structure for mutex.
 typedef struct {
-  const char                   *name;   ///< name of the mutex
-  uint32_t                 attr_bits;   ///< attribute bits
-  void                      *cb_mem;    ///< memory for control block
-  uint32_t                   cb_size;   ///< size of provided memory for control block
+    const char*                   name;   ///< name of the mutex
+    uint32_t                 attr_bits;   ///< attribute bits
+    void*                      cb_mem;    ///< memory for control block
+    uint32_t                   cb_size;   ///< size of provided memory for control block
 } osMutexAttr_t;
 
 /// Attributes structure for semaphore.
 typedef struct {
-  const char                   *name;   ///< name of the semaphore
-  uint32_t                 attr_bits;   ///< attribute bits
-  void                      *cb_mem;    ///< memory for control block
-  uint32_t                   cb_size;   ///< size of provided memory for control block
+    const char*                   name;   ///< name of the semaphore
+    uint32_t                 attr_bits;   ///< attribute bits
+    void*                      cb_mem;    ///< memory for control block
+    uint32_t                   cb_size;   ///< size of provided memory for control block
 } osSemaphoreAttr_t;
 
 /// Attributes structure for memory pool.
 typedef struct {
-  const char                   *name;   ///< name of the memory pool
-  uint32_t                 attr_bits;   ///< attribute bits
-  void                      *cb_mem;    ///< memory for control block
-  uint32_t                   cb_size;   ///< size of provided memory for control block
-  void                      *mp_mem;    ///< memory for data storage
-  uint32_t                   mp_size;   ///< size of provided memory for data storage
+    const char*                   name;   ///< name of the memory pool
+    uint32_t                 attr_bits;   ///< attribute bits
+    void*                      cb_mem;    ///< memory for control block
+    uint32_t                   cb_size;   ///< size of provided memory for control block
+    void*                      mp_mem;    ///< memory for data storage
+    uint32_t                   mp_size;   ///< size of provided memory for data storage
 } osMemoryPoolAttr_t;
 
 /// Attributes structure for message queue.
 typedef struct {
-  const char                   *name;   ///< name of the message queue
-  uint32_t                 attr_bits;   ///< attribute bits
-  void                      *cb_mem;    ///< memory for control block
-  uint32_t                   cb_size;   ///< size of provided memory for control block
-  void                      *mq_mem;    ///< memory for data storage
-  uint32_t                   mq_size;   ///< size of provided memory for data storage
+    const char*                   name;   ///< name of the message queue
+    uint32_t                 attr_bits;   ///< attribute bits
+    void*                      cb_mem;    ///< memory for control block
+    uint32_t                   cb_size;   ///< size of provided memory for control block
+    void*                      mq_mem;    ///< memory for data storage
+    uint32_t                   mq_size;   ///< size of provided memory for data storage
 } osMessageQueueAttr_t;
 
 
@@ -291,7 +290,7 @@ osStatus_t osKernelInitialize (void);
 /// \param[out]    id_buf        pointer to buffer for retrieving kernel identification string.
 /// \param[in]     id_size       size of buffer for kernel identification string.
 /// \return status code that indicates the execution status of the function.
-osStatus_t osKernelGetInfo (osVersion_t *version, char *id_buf, uint32_t id_size);
+osStatus_t osKernelGetInfo (osVersion_t* version, char* id_buf, uint32_t id_size);
 
 /// Get the current RTOS Kernel state.
 /// \return current RTOS Kernel state.
@@ -346,12 +345,12 @@ uint32_t osKernelGetSysTimerFreq (void);
 /// \param[in]     argument      pointer that is passed to the thread function as start argument.
 /// \param[in]     attr          thread attributes; NULL: default values.
 /// \return thread ID for reference by other functions or NULL in case of error.
-osThreadId_t osThreadNew (osThreadFunc_t func, void *argument, const osThreadAttr_t *attr);
+osThreadId_t osThreadNew (osThreadFunc_t func, void* argument, const osThreadAttr_t* attr);
 
 /// Get name of a thread.
 /// \param[in]     thread_id     thread ID obtained by \ref osThreadNew or \ref osThreadGetId.
 /// \return name as NULL terminated string.
-const char *osThreadGetName (osThreadId_t thread_id);
+const char* osThreadGetName (osThreadId_t thread_id);
 
 /// Return the thread ID of the current running thread.
 /// \return thread ID for reference by other functions or NULL in case of error.
@@ -423,7 +422,7 @@ uint32_t osThreadGetCount (void);
 /// \param[out]    thread_array  pointer to array for retrieving thread IDs.
 /// \param[in]     array_items   maximum number of items in array for retrieving thread IDs.
 /// \return number of enumerated threads.
-uint32_t osThreadEnumerate (osThreadId_t *thread_array, uint32_t array_items);
+uint32_t osThreadEnumerate (osThreadId_t* thread_array, uint32_t array_items);
 
 
 //  ==== Thread Flags Functions ====
@@ -472,12 +471,12 @@ osStatus_t osDelayUntil (uint32_t ticks);
 /// \param[in]     argument      argument to the timer callback function.
 /// \param[in]     attr          timer attributes; NULL: default values.
 /// \return timer ID for reference by other functions or NULL in case of error.
-osTimerId_t osTimerNew (osTimerFunc_t func, osTimerType_t type, void *argument, const osTimerAttr_t *attr);
+osTimerId_t osTimerNew (osTimerFunc_t func, osTimerType_t type, void* argument, const osTimerAttr_t* attr);
 
 /// Get name of a timer.
 /// \param[in]     timer_id      timer ID obtained by \ref osTimerNew.
 /// \return name as NULL terminated string.
-const char *osTimerGetName (osTimerId_t timer_id);
+const char* osTimerGetName (osTimerId_t timer_id);
 
 /// Start or restart a timer.
 /// \param[in]     timer_id      timer ID obtained by \ref osTimerNew.
@@ -506,12 +505,12 @@ osStatus_t osTimerDelete (osTimerId_t timer_id);
 /// Create and Initialize an Event Flags object.
 /// \param[in]     attr          event flags attributes; NULL: default values.
 /// \return event flags ID for reference by other functions or NULL in case of error.
-osEventFlagsId_t osEventFlagsNew (const osEventFlagsAttr_t *attr);
+osEventFlagsId_t osEventFlagsNew (const osEventFlagsAttr_t* attr);
 
 /// Get name of an Event Flags object.
 /// \param[in]     ef_id         event flags ID obtained by \ref osEventFlagsNew.
 /// \return name as NULL terminated string.
-const char *osEventFlagsGetName (osEventFlagsId_t ef_id);
+const char* osEventFlagsGetName (osEventFlagsId_t ef_id);
 
 /// Set the specified Event Flags.
 /// \param[in]     ef_id         event flags ID obtained by \ref osEventFlagsNew.
@@ -549,12 +548,12 @@ osStatus_t osEventFlagsDelete (osEventFlagsId_t ef_id);
 /// Create and Initialize a Mutex object.
 /// \param[in]     attr          mutex attributes; NULL: default values.
 /// \return mutex ID for reference by other functions or NULL in case of error.
-osMutexId_t osMutexNew (const osMutexAttr_t *attr);
+osMutexId_t osMutexNew (const osMutexAttr_t* attr);
 
 /// Get name of a Mutex object.
 /// \param[in]     mutex_id      mutex ID obtained by \ref osMutexNew.
 /// \return name as NULL terminated string.
-const char *osMutexGetName (osMutexId_t mutex_id);
+const char* osMutexGetName (osMutexId_t mutex_id);
 
 /// Acquire a Mutex or timeout if it is locked.
 /// \param[in]     mutex_id      mutex ID obtained by \ref osMutexNew.
@@ -585,12 +584,12 @@ osStatus_t osMutexDelete (osMutexId_t mutex_id);
 /// \param[in]     initial_count initial number of available tokens.
 /// \param[in]     attr          semaphore attributes; NULL: default values.
 /// \return semaphore ID for reference by other functions or NULL in case of error.
-osSemaphoreId_t osSemaphoreNew (uint32_t max_count, uint32_t initial_count, const osSemaphoreAttr_t *attr);
+osSemaphoreId_t osSemaphoreNew (uint32_t max_count, uint32_t initial_count, const osSemaphoreAttr_t* attr);
 
 /// Get name of a Semaphore object.
 /// \param[in]     semaphore_id  semaphore ID obtained by \ref osSemaphoreNew.
 /// \return name as NULL terminated string.
-const char *osSemaphoreGetName (osSemaphoreId_t semaphore_id);
+const char* osSemaphoreGetName (osSemaphoreId_t semaphore_id);
 
 /// Acquire a Semaphore token or timeout if no tokens are available.
 /// \param[in]     semaphore_id  semaphore ID obtained by \ref osSemaphoreNew.
@@ -621,24 +620,24 @@ osStatus_t osSemaphoreDelete (osSemaphoreId_t semaphore_id);
 /// \param[in]     block_size    memory block size in bytes.
 /// \param[in]     attr          memory pool attributes; NULL: default values.
 /// \return memory pool ID for reference by other functions or NULL in case of error.
-osMemoryPoolId_t osMemoryPoolNew (uint32_t block_count, uint32_t block_size, const osMemoryPoolAttr_t *attr);
+osMemoryPoolId_t osMemoryPoolNew (uint32_t block_count, uint32_t block_size, const osMemoryPoolAttr_t* attr);
 
 /// Get name of a Memory Pool object.
 /// \param[in]     mp_id         memory pool ID obtained by \ref osMemoryPoolNew.
 /// \return name as NULL terminated string.
-const char *osMemoryPoolGetName (osMemoryPoolId_t mp_id);
+const char* osMemoryPoolGetName (osMemoryPoolId_t mp_id);
 
 /// Allocate a memory block from a Memory Pool.
 /// \param[in]     mp_id         memory pool ID obtained by \ref osMemoryPoolNew.
 /// \param[in]     timeout       \ref CMSIS_RTOS_TimeOutValue or 0 in case of no time-out.
 /// \return address of the allocated memory block or NULL in case of no memory is available.
-void *osMemoryPoolAlloc (osMemoryPoolId_t mp_id, uint32_t timeout);
+void* osMemoryPoolAlloc (osMemoryPoolId_t mp_id, uint32_t timeout);
 
 /// Return an allocated memory block back to a Memory Pool.
 /// \param[in]     mp_id         memory pool ID obtained by \ref osMemoryPoolNew.
 /// \param[in]     block         address of the allocated memory block to be returned to the memory pool.
 /// \return status code that indicates the execution status of the function.
-osStatus_t osMemoryPoolFree (osMemoryPoolId_t mp_id, void *block);
+osStatus_t osMemoryPoolFree (osMemoryPoolId_t mp_id, void* block);
 
 /// Get maximum number of memory blocks in a Memory Pool.
 /// \param[in]     mp_id         memory pool ID obtained by \ref osMemoryPoolNew.
@@ -673,12 +672,12 @@ osStatus_t osMemoryPoolDelete (osMemoryPoolId_t mp_id);
 /// \param[in]     msg_size      maximum message size in bytes.
 /// \param[in]     attr          message queue attributes; NULL: default values.
 /// \return message queue ID for reference by other functions or NULL in case of error.
-osMessageQueueId_t osMessageQueueNew (uint32_t msg_count, uint32_t msg_size, const osMessageQueueAttr_t *attr);
+osMessageQueueId_t osMessageQueueNew (uint32_t msg_count, uint32_t msg_size, const osMessageQueueAttr_t* attr);
 
 /// Get name of a Message Queue object.
 /// \param[in]     mq_id         message queue ID obtained by \ref osMessageQueueNew.
 /// \return name as NULL terminated string.
-const char *osMessageQueueGetName (osMessageQueueId_t mq_id);
+const char* osMessageQueueGetName (osMessageQueueId_t mq_id);
 
 /// Put a Message into a Queue or timeout if Queue is full.
 /// \param[in]     mq_id         message queue ID obtained by \ref osMessageQueueNew.
@@ -686,7 +685,7 @@ const char *osMessageQueueGetName (osMessageQueueId_t mq_id);
 /// \param[in]     msg_prio      message priority.
 /// \param[in]     timeout       \ref CMSIS_RTOS_TimeOutValue or 0 in case of no time-out.
 /// \return status code that indicates the execution status of the function.
-osStatus_t osMessageQueuePut (osMessageQueueId_t mq_id, const void *msg_ptr, uint8_t msg_prio, uint32_t timeout);
+osStatus_t osMessageQueuePut (osMessageQueueId_t mq_id, const void* msg_ptr, uint8_t msg_prio, uint32_t timeout);
 
 /// Get a Message from a Queue or timeout if Queue is empty.
 /// \param[in]     mq_id         message queue ID obtained by \ref osMessageQueueNew.
@@ -694,7 +693,7 @@ osStatus_t osMessageQueuePut (osMessageQueueId_t mq_id, const void *msg_ptr, uin
 /// \param[out]    msg_prio      pointer to buffer for message priority or NULL.
 /// \param[in]     timeout       \ref CMSIS_RTOS_TimeOutValue or 0 in case of no time-out.
 /// \return status code that indicates the execution status of the function.
-osStatus_t osMessageQueueGet (osMessageQueueId_t mq_id, void *msg_ptr, uint8_t *msg_prio, uint32_t timeout);
+osStatus_t osMessageQueueGet (osMessageQueueId_t mq_id, void* msg_ptr, uint8_t* msg_prio, uint32_t timeout);
 
 /// Get maximum number of messages in a Message Queue.
 /// \param[in]     mq_id         message queue ID obtained by \ref osMessageQueueNew.

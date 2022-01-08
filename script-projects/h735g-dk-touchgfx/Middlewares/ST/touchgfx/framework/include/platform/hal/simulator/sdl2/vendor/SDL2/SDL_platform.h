@@ -117,7 +117,7 @@
 #if defined(WIN32) || defined(_WIN32) || defined(__CYGWIN__) || defined(__MINGW32__)
 /* Try to find out if we're compiling for WinRT or non-WinRT */
 /* If _USING_V110_SDK71_ is defined it means we are using the v110_xp or v120_xp toolset. */
-#if (defined(_MSC_VER) && (_MSC_VER >= 1700) && !_USING_V110_SDK71_)	/* _MSC_VER==1700 for MSVC 2012 */
+#if (defined(_MSC_VER) && (_MSC_VER >= 1700) && !_USING_V110_SDK71_)    /* _MSC_VER==1700 for MSVC 2012 */
 #include <winapifamily.h>
 #if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 #undef __WINDOWS__
@@ -168,7 +168,7 @@ extern "C" {
 /**
  *  \brief Gets the name of the platform.
  */
-extern DECLSPEC const char * SDLCALL SDL_GetPlatform (void);
+extern DECLSPEC const char* SDLCALL SDL_GetPlatform (void);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

@@ -22,7 +22,7 @@
 #define STM32H735G_DK_CONF_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/

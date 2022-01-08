@@ -95,21 +95,21 @@ typedef int SDL_SpinLock;
  *
  * \return SDL_TRUE if the lock succeeded, SDL_FALSE if the lock is already held.
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_AtomicTryLock(SDL_SpinLock *lock);
+extern DECLSPEC SDL_bool SDLCALL SDL_AtomicTryLock(SDL_SpinLock* lock);
 
 /**
  * \brief Lock a spin lock by setting it to a non-zero value.
  *
  * \param lock Points to the lock.
  */
-extern DECLSPEC void SDLCALL SDL_AtomicLock(SDL_SpinLock *lock);
+extern DECLSPEC void SDLCALL SDL_AtomicLock(SDL_SpinLock* lock);
 
 /**
  * \brief Unlock a spin lock by setting it to 0. Always returns immediately
  *
  * \param lock Points to the lock.
  */
-extern DECLSPEC void SDLCALL SDL_AtomicUnlock(SDL_SpinLock *lock);
+extern DECLSPEC void SDLCALL SDL_AtomicUnlock(SDL_SpinLock* lock);
 
 /* @} *//* SDL AtomicLock */
 
@@ -127,7 +127,7 @@ void _ReadWriteBarrier(void);
 #define SDL_CompilerBarrier()   __asm__ __volatile__ ("" : : : "memory")
 #else
 #define SDL_CompilerBarrier()   \
-{ SDL_SpinLock _tmp = 0; SDL_AtomicLock(&_tmp); SDL_AtomicUnlock(&_tmp); }
+    { SDL_SpinLock _tmp = 0; SDL_AtomicLock(&_tmp); SDL_AtomicUnlock(&_tmp); }
 #endif
 
 /**
@@ -186,7 +186,9 @@ extern DECLSPEC void SDLCALL SDL_MemoryBarrierAcquire();
  * \brief A type representing an atomic integer value.  It is a struct
  *        so people don't accidentally use numeric operations on it.
  */
-typedef struct { int value; } SDL_atomic_t;
+typedef struct {
+    int value;
+} SDL_atomic_t;
 
 /**
  * \brief Set an atomic variable to a new value if it is currently an old value.
@@ -195,19 +197,19 @@ typedef struct { int value; } SDL_atomic_t;
  *
  * \note If you don't know what this function is for, you shouldn't use it!
 */
-extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCAS(SDL_atomic_t *a, int oldval, int newval);
+extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCAS(SDL_atomic_t* a, int oldval, int newval);
 
 /**
  * \brief Set an atomic variable to a value.
  *
  * \return The previous value of the atomic variable.
  */
-extern DECLSPEC int SDLCALL SDL_AtomicSet(SDL_atomic_t *a, int v);
+extern DECLSPEC int SDLCALL SDL_AtomicSet(SDL_atomic_t* a, int v);
 
 /**
  * \brief Get the value of an atomic variable
  */
-extern DECLSPEC int SDLCALL SDL_AtomicGet(SDL_atomic_t *a);
+extern DECLSPEC int SDLCALL SDL_AtomicGet(SDL_atomic_t* a);
 
 /**
  * \brief Add to an atomic variable.
@@ -216,7 +218,7 @@ extern DECLSPEC int SDLCALL SDL_AtomicGet(SDL_atomic_t *a);
  *
  * \note This same style can be used for any number operation
  */
-extern DECLSPEC int SDLCALL SDL_AtomicAdd(SDL_atomic_t *a, int v);
+extern DECLSPEC int SDLCALL SDL_AtomicAdd(SDL_atomic_t* a, int v);
 
 /**
  * \brief Increment an atomic variable used as a reference count.
@@ -242,19 +244,19 @@ extern DECLSPEC int SDLCALL SDL_AtomicAdd(SDL_atomic_t *a, int v);
  *
  * \note If you don't know what this function is for, you shouldn't use it!
 */
-extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCASPtr(void **a, void *oldval, void *newval);
+extern DECLSPEC SDL_bool SDLCALL SDL_AtomicCASPtr(void** a, void* oldval, void* newval);
 
 /**
  * \brief Set a pointer to a value atomically.
  *
  * \return The previous value of the pointer.
  */
-extern DECLSPEC void* SDLCALL SDL_AtomicSetPtr(void **a, void* v);
+extern DECLSPEC void* SDLCALL SDL_AtomicSetPtr(void** a, void* v);
 
 /**
  * \brief Get the value of a pointer atomically.
  */
-extern DECLSPEC void* SDLCALL SDL_AtomicGetPtr(void **a);
+extern DECLSPEC void* SDLCALL SDL_AtomicGetPtr(void** a);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

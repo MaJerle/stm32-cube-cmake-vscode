@@ -23,7 +23,7 @@
 #define MX25LM51245G_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -258,36 +258,36 @@
   * @{
   */
 typedef struct {
-  uint32_t FlashSize;                        /*!< Size of the flash                             */
-  uint32_t EraseSectorSize;                  /*!< Size of sectors for the erase operation       */
-  uint32_t EraseSectorsNumber;               /*!< Number of sectors for the erase operation     */
-  uint32_t EraseSubSectorSize;               /*!< Size of subsector for the erase operation     */
-  uint32_t EraseSubSectorNumber;             /*!< Number of subsector for the erase operation   */
-  uint32_t EraseSubSector1Size;              /*!< Size of subsector 1 for the erase operation   */
-  uint32_t EraseSubSector1Number;            /*!< Number of subsector 1 for the erase operation */
-  uint32_t ProgPageSize;                     /*!< Size of pages for the program operation       */
-  uint32_t ProgPagesNumber;                  /*!< Number of pages for the program operation     */
+    uint32_t FlashSize;                        /*!< Size of the flash                             */
+    uint32_t EraseSectorSize;                  /*!< Size of sectors for the erase operation       */
+    uint32_t EraseSectorsNumber;               /*!< Number of sectors for the erase operation     */
+    uint32_t EraseSubSectorSize;               /*!< Size of subsector for the erase operation     */
+    uint32_t EraseSubSectorNumber;             /*!< Number of subsector for the erase operation   */
+    uint32_t EraseSubSector1Size;              /*!< Size of subsector 1 for the erase operation   */
+    uint32_t EraseSubSector1Number;            /*!< Number of subsector 1 for the erase operation */
+    uint32_t ProgPageSize;                     /*!< Size of pages for the program operation       */
+    uint32_t ProgPagesNumber;                  /*!< Number of pages for the program operation     */
 } MX25LM51245G_Info_t;
 
 typedef enum {
-  MX25LM51245G_SPI_MODE = 0,                 /*!< 1-1-1 commands, Power on H/W default setting  */
-  MX25LM51245G_OPI_MODE                      /*!< 8-8-8 commands                                */
+    MX25LM51245G_SPI_MODE = 0,                 /*!< 1-1-1 commands, Power on H/W default setting  */
+    MX25LM51245G_OPI_MODE                      /*!< 8-8-8 commands                                */
 } MX25LM51245G_Interface_t;
 
 typedef enum {
-  MX25LM51245G_STR_TRANSFER = 0,             /*!< Single Transfer Rate                          */
-  MX25LM51245G_DTR_TRANSFER                  /*!< Double Transfer Rate                          */
+    MX25LM51245G_STR_TRANSFER = 0,             /*!< Single Transfer Rate                          */
+    MX25LM51245G_DTR_TRANSFER                  /*!< Double Transfer Rate                          */
 } MX25LM51245G_Transfer_t;
 
 typedef enum {
-  MX25LM51245G_ERASE_4K = 0,                 /*!< 4K size Sector erase                          */
-  MX25LM51245G_ERASE_64K,                    /*!< 64K size Block erase                          */
-  MX25LM51245G_ERASE_BULK                    /*!< Whole bulk erase                              */
+    MX25LM51245G_ERASE_4K = 0,                 /*!< 4K size Sector erase                          */
+    MX25LM51245G_ERASE_64K,                    /*!< 64K size Block erase                          */
+    MX25LM51245G_ERASE_BULK                    /*!< Whole bulk erase                              */
 } MX25LM51245G_Erase_t;
 
 typedef enum {
-  MX25LM51245G_3BYTES_SIZE = 0,              /*!< 3 Bytes address mode                           */
-  MX25LM51245G_4BYTES_SIZE                   /*!< 4 Bytes address mode                           */
+    MX25LM51245G_3BYTES_SIZE = 0,              /*!< 3 Bytes address mode                           */
+    MX25LM51245G_4BYTES_SIZE                   /*!< 4 Bytes address mode                           */
 } MX25LM51245G_AddressSize_t;
 
 /**
@@ -298,41 +298,42 @@ typedef enum {
   * @{
   */
 /* Function by commands combined */
-int32_t MX25LM51245G_GetFlashInfo(MX25LM51245G_Info_t *pInfo);
-int32_t MX25LM51245G_AutoPollingMemReady(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_GetFlashInfo(MX25LM51245G_Info_t* pInfo);
+int32_t MX25LM51245G_AutoPollingMemReady(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
 
 /* Read/Write Array Commands **************************************************/
-int32_t MX25LM51245G_ReadSTR(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_AddressSize_t AddressSize, uint8_t *pData, uint32_t ReadAddr, uint32_t Size);
-int32_t MX25LM51245G_ReadDTR(OSPI_HandleTypeDef *Ctx, uint8_t *pData, uint32_t ReadAddr, uint32_t Size);
-int32_t MX25LM51245G_PageProgram(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_AddressSize_t AddressSize, uint8_t *pData, uint32_t WriteAddr, uint32_t Size);
-int32_t MX25LM51245G_PageProgramDTR(OSPI_HandleTypeDef *Ctx, uint8_t *pData, uint32_t WriteAddr, uint32_t Size);
-int32_t MX25LM51245G_BlockErase(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, MX25LM51245G_AddressSize_t AddressSize, uint32_t BlockAddress, MX25LM51245G_Erase_t BlockSize);
-int32_t MX25LM51245G_ChipErase(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
-int32_t MX25LM51245G_EnableMemoryMappedModeSTR(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_AddressSize_t AddressSize);
-int32_t MX25LM51245G_EnableMemoryMappedModeDTR(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode);
-int32_t MX25LM51245G_Suspend(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
-int32_t MX25LM51245G_Resume(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_ReadSTR(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_AddressSize_t AddressSize, uint8_t* pData, uint32_t ReadAddr, uint32_t Size);
+int32_t MX25LM51245G_ReadDTR(OSPI_HandleTypeDef* Ctx, uint8_t* pData, uint32_t ReadAddr, uint32_t Size);
+int32_t MX25LM51245G_PageProgram(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_AddressSize_t AddressSize, uint8_t* pData, uint32_t WriteAddr, uint32_t Size);
+int32_t MX25LM51245G_PageProgramDTR(OSPI_HandleTypeDef* Ctx, uint8_t* pData, uint32_t WriteAddr, uint32_t Size);
+int32_t MX25LM51245G_BlockErase(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, MX25LM51245G_AddressSize_t AddressSize, uint32_t BlockAddress,
+                                MX25LM51245G_Erase_t BlockSize);
+int32_t MX25LM51245G_ChipErase(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_EnableMemoryMappedModeSTR(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_AddressSize_t AddressSize);
+int32_t MX25LM51245G_EnableMemoryMappedModeDTR(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode);
+int32_t MX25LM51245G_Suspend(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_Resume(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
 
 /* Register/Setting Commands **************************************************/
-int32_t MX25LM51245G_WriteEnable(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
-int32_t MX25LM51245G_WriteDisable(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
-int32_t MX25LM51245G_ReadStatusRegister(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t *Value);
-int32_t MX25LM51245G_WriteStatusRegister(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t Value);
-int32_t MX25LM51245G_WriteCfgRegister(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t Value);
-int32_t MX25LM51245G_ReadCfgRegister(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t *Value);
-int32_t MX25LM51245G_WriteCfg2Register(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint32_t WriteAddr, uint8_t Value);
-int32_t MX25LM51245G_ReadCfg2Register(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint32_t ReadAddr, uint8_t *Value);
-int32_t MX25LM51245G_WriteSecurityRegister(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t Value);
-int32_t MX25LM51245G_ReadSecurityRegister(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t *Value);
+int32_t MX25LM51245G_WriteEnable(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_WriteDisable(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_ReadStatusRegister(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t* Value);
+int32_t MX25LM51245G_WriteStatusRegister(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t Value);
+int32_t MX25LM51245G_WriteCfgRegister(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t Value);
+int32_t MX25LM51245G_ReadCfgRegister(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t* Value);
+int32_t MX25LM51245G_WriteCfg2Register(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint32_t WriteAddr, uint8_t Value);
+int32_t MX25LM51245G_ReadCfg2Register(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint32_t ReadAddr, uint8_t* Value);
+int32_t MX25LM51245G_WriteSecurityRegister(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t Value);
+int32_t MX25LM51245G_ReadSecurityRegister(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t* Value);
 
 /* ID/Security Commands *******************************************************/
-int32_t MX25LM51245G_ReadID(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t *ID);
+int32_t MX25LM51245G_ReadID(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate, uint8_t* ID);
 
 /* Reset Commands *************************************************************/
-int32_t MX25LM51245G_ResetEnable(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
-int32_t MX25LM51245G_ResetMemory(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
-int32_t MX25LM51245G_NoOperation(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
-int32_t MX25LM51245G_EnterPowerDown(OSPI_HandleTypeDef *Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_ResetEnable(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_ResetMemory(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_NoOperation(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
+int32_t MX25LM51245G_EnterPowerDown(OSPI_HandleTypeDef* Ctx, MX25LM51245G_Interface_t Mode, MX25LM51245G_Transfer_t Rate);
 
 /**
   * @}

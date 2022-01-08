@@ -22,7 +22,7 @@
 #define S70KL1281_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -126,10 +126,10 @@
   * @{
   */
 typedef enum {
-  S70KL1281_BURST_16_BYTES  = S70KL1281_CR0_BLENGTH_16,
-  S70KL1281_BURST_32_BYTES  = S70KL1281_CR0_BLENGTH_32,
-  S70KL1281_BURST_64_BYTES  = S70KL1281_CR0_BLENGTH_64,
-  S70KL1281_BURST_128_BYTES = S70KL1281_CR0_BLENGTH_128
+    S70KL1281_BURST_16_BYTES  = S70KL1281_CR0_BLENGTH_16,
+    S70KL1281_BURST_32_BYTES  = S70KL1281_CR0_BLENGTH_32,
+    S70KL1281_BURST_64_BYTES  = S70KL1281_CR0_BLENGTH_64,
+    S70KL1281_BURST_128_BYTES = S70KL1281_CR0_BLENGTH_128
 } S70KL1281_BurstLength_t;
 /**
   * @}
@@ -139,24 +139,24 @@ typedef enum {
   * @{
   */
 /* Read/Write Array Commands **************************************************/
-int32_t S70KL1281_Read(OSPI_HandleTypeDef *Ctx, uint8_t *pData, uint32_t ReadAddr, uint32_t Size);
-int32_t S70KL1281_Read_DMA(OSPI_HandleTypeDef *Ctx, uint8_t *pData, uint32_t ReadAddr, uint32_t Size);
-int32_t S70KL1281_Write(OSPI_HandleTypeDef *Ctx, uint8_t *pData, uint32_t WriteAddr, uint32_t Size);
-int32_t S70KL1281_Write_DMA(OSPI_HandleTypeDef *Ctx, uint8_t *pData, uint32_t WriteAddr, uint32_t Size);
-int32_t S70KL1281_EnableMemoryMappedMode(OSPI_HandleTypeDef *Ctx);
+int32_t S70KL1281_Read(OSPI_HandleTypeDef* Ctx, uint8_t* pData, uint32_t ReadAddr, uint32_t Size);
+int32_t S70KL1281_Read_DMA(OSPI_HandleTypeDef* Ctx, uint8_t* pData, uint32_t ReadAddr, uint32_t Size);
+int32_t S70KL1281_Write(OSPI_HandleTypeDef* Ctx, uint8_t* pData, uint32_t WriteAddr, uint32_t Size);
+int32_t S70KL1281_Write_DMA(OSPI_HandleTypeDef* Ctx, uint8_t* pData, uint32_t WriteAddr, uint32_t Size);
+int32_t S70KL1281_EnableMemoryMappedMode(OSPI_HandleTypeDef* Ctx);
 
 /* Register/Setting Commands **************************************************/
-int32_t S70KL1281_ReadCfgReg0(OSPI_HandleTypeDef *Ctx, uint16_t *Value);
-int32_t S70KL1281_WriteCfgReg0(OSPI_HandleTypeDef *Ctx, uint16_t Value, uint32_t LatencyMode, uint32_t InitialLatency);
-int32_t S70KL1281_ReadCfgReg1(OSPI_HandleTypeDef *Ctx, uint16_t *Value);
-int32_t S70KL1281_WriteCfgReg1(OSPI_HandleTypeDef *Ctx, uint16_t Value, uint32_t LatencyMode, uint32_t InitialLatency);
+int32_t S70KL1281_ReadCfgReg0(OSPI_HandleTypeDef* Ctx, uint16_t* Value);
+int32_t S70KL1281_WriteCfgReg0(OSPI_HandleTypeDef* Ctx, uint16_t Value, uint32_t LatencyMode, uint32_t InitialLatency);
+int32_t S70KL1281_ReadCfgReg1(OSPI_HandleTypeDef* Ctx, uint16_t* Value);
+int32_t S70KL1281_WriteCfgReg1(OSPI_HandleTypeDef* Ctx, uint16_t Value, uint32_t LatencyMode, uint32_t InitialLatency);
 
 /* ID Commands ****************************************************************/
-int32_t S70KL1281_ReadID(OSPI_HandleTypeDef *Ctx, uint16_t *ID);
+int32_t S70KL1281_ReadID(OSPI_HandleTypeDef* Ctx, uint16_t* ID);
 
 /* Power down Commands ********************************************************/
-int32_t S70KL1281_EnterPowerDown(OSPI_HandleTypeDef *Ctx, uint32_t LatencyMode, uint32_t InitialLatency);
-int32_t S70KL1281_LeavePowerDown(OSPI_HandleTypeDef *Ctx);
+int32_t S70KL1281_EnterPowerDown(OSPI_HandleTypeDef* Ctx, uint32_t LatencyMode, uint32_t InitialLatency);
+int32_t S70KL1281_LeavePowerDown(OSPI_HandleTypeDef* Ctx);
 
 /**
   * @}

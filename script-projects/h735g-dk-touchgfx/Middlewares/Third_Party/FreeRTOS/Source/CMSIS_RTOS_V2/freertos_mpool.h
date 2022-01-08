@@ -32,22 +32,22 @@
 
 /* Memory Block header */
 typedef struct {
-  void *next;                   /* Pointer to next block  */
+    void* next;                   /* Pointer to next block  */
 } MemPoolBlock_t;
 
 /* Memory Pool control block */
 typedef struct MemPoolDef_t {
-  MemPoolBlock_t    *head;      /* Pointer to head block   */
-  SemaphoreHandle_t  sem;       /* Pool semaphore handle   */
-  uint8_t           *mem_arr;   /* Pool memory array       */
-  uint32_t           mem_sz;    /* Pool memory array size  */
-  const char        *name;      /* Pointer to name string  */
-  uint32_t           bl_sz;     /* Size of a single block  */
-  uint32_t           bl_cnt;    /* Number of blocks        */
-  uint32_t           n;         /* Block allocation index  */
-  volatile uint32_t  status;    /* Object status flags     */
+    MemPoolBlock_t*    head;      /* Pointer to head block   */
+    SemaphoreHandle_t  sem;       /* Pool semaphore handle   */
+    uint8_t*           mem_arr;   /* Pool memory array       */
+    uint32_t           mem_sz;    /* Pool memory array size  */
+    const char*        name;      /* Pointer to name string  */
+    uint32_t           bl_sz;     /* Size of a single block  */
+    uint32_t           bl_cnt;    /* Number of blocks        */
+    uint32_t           n;         /* Block allocation index  */
+    volatile uint32_t  status;    /* Object status flags     */
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
-  StaticSemaphore_t  mem_sem;   /* Semaphore object memory */
+    StaticSemaphore_t  mem_sem;   /* Semaphore object memory */
 #endif
 } MemPool_t;
 

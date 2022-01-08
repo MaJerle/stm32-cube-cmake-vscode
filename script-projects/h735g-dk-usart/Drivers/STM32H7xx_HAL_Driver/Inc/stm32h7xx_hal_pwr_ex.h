@@ -21,7 +21,7 @@
 #define STM32H7xx_HAL_PWR_EX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
@@ -42,48 +42,45 @@
 /**
   * @brief  PWREx AVD configuration structure definition
   */
-typedef struct
-{
-  uint32_t AVDLevel; /*!< AVDLevel : Specifies the AVD detection level. This
+typedef struct {
+    uint32_t AVDLevel; /*!< AVDLevel : Specifies the AVD detection level. This
                                      parameter can be a value of @ref
                                      PWREx_AVD_detection_level
                      */
 
-  uint32_t Mode;     /*!< Mode : Specifies the EXTI operating mode for the AVD
+    uint32_t Mode;     /*!< Mode : Specifies the EXTI operating mode for the AVD
                                  event. This parameter can be a value of @ref
                                  PWREx_AVD_Mode.
                      */
-}PWREx_AVDTypeDef;
+} PWREx_AVDTypeDef;
 
 /**
   * @brief  PWREx Wakeup pin configuration structure definition
   */
-typedef struct
-{
-  uint32_t WakeUpPin;   /*!< WakeUpPin: Specifies the Wake-Up pin to be enabled.
+typedef struct {
+    uint32_t WakeUpPin;   /*!< WakeUpPin: Specifies the Wake-Up pin to be enabled.
                                         This parameter can be a value of @ref
                                         PWREx_WakeUp_Pins
                         */
 
-  uint32_t PinPolarity; /*!< PinPolarity: Specifies the Wake-Up pin polarity.
+    uint32_t PinPolarity; /*!< PinPolarity: Specifies the Wake-Up pin polarity.
                                           This parameter can be a value of @ref
                                           PWREx_PIN_Polarity
                         */
 
-  uint32_t PinPull;     /*!< PinPull: Specifies the Wake-Up pin pull. This
+    uint32_t PinPull;     /*!< PinPull: Specifies the Wake-Up pin pull. This
                                       parameter can be a value of @ref
                                       PWREx_PIN_Pull
                         */
-}PWREx_WakeupPinTypeDef;
+} PWREx_WakeupPinTypeDef;
 
 #if defined (PWR_CSR1_MMCVDO)
 /**
   * @brief  PWR VDDMMC voltage level enum definition
   */
-typedef enum
-{
-  PWR_MMC_VOLTAGE_BELOW_1V2,      /*!< VDDMMC is below 1V2          */
-  PWR_MMC_VOLTAGE_EQUAL_ABOVE_1V2 /*!< VDDMMC is above or equal 1V2 */
+typedef enum {
+    PWR_MMC_VOLTAGE_BELOW_1V2,      /*!< VDDMMC is below 1V2          */
+    PWR_MMC_VOLTAGE_EQUAL_ABOVE_1V2 /*!< VDDMMC is above or equal 1V2 */
 } PWREx_MMC_VoltageLevel;
 #endif /* defined (PWR_CSR1_MMCVDO) */
 
@@ -445,20 +442,20 @@ typedef enum
   * @retval None.
   */
 #define __HAL_PWR_AVD_EXTI_ENABLE_RISING_FALLING_EDGE() \
-do {                                                    \
-     __HAL_PWR_AVD_EXTI_ENABLE_RISING_EDGE();           \
-     __HAL_PWR_AVD_EXTI_ENABLE_FALLING_EDGE();          \
-} while(0);
+    do {                                                    \
+        __HAL_PWR_AVD_EXTI_ENABLE_RISING_EDGE();           \
+        __HAL_PWR_AVD_EXTI_ENABLE_FALLING_EDGE();          \
+    } while(0);
 
 /**
   * @brief Disable the AVD Extended Interrupt Rising & Falling Trigger.
   * @retval None.
   */
 #define __HAL_PWR_AVD_EXTI_DISABLE_RISING_FALLING_EDGE() \
-do {                                                     \
-     __HAL_PWR_AVD_EXTI_DISABLE_RISING_EDGE();           \
-     __HAL_PWR_AVD_EXTI_DISABLE_FALLING_EDGE();          \
-} while(0);
+    do {                                                     \
+        __HAL_PWR_AVD_EXTI_DISABLE_RISING_EDGE();           \
+        __HAL_PWR_AVD_EXTI_DISABLE_FALLING_EDGE();          \
+    } while(0);
 
 /**
   * @brief Check whether the specified AVD EXTI interrupt flag is set or not.
@@ -544,7 +541,7 @@ void HAL_PWREx_EnableMemoryShutOff  (uint32_t MemoryBlock);
 void HAL_PWREx_DisableMemoryShutOff (uint32_t MemoryBlock);
 #endif /* defined(PWR_CR1_SRDRAMSO) */
 /* Wakeup Pins control functions */
-void HAL_PWREx_EnableWakeUpPin              (PWREx_WakeupPinTypeDef *sPinParams);
+void HAL_PWREx_EnableWakeUpPin              (PWREx_WakeupPinTypeDef* sPinParams);
 void HAL_PWREx_DisableWakeUpPin             (uint32_t WakeUpPin);
 uint32_t HAL_PWREx_GetWakeupFlag            (uint32_t WakeUpFlag);
 HAL_StatusTypeDef HAL_PWREx_ClearWakeupFlag (uint32_t WakeUpFlag);
@@ -599,7 +596,7 @@ uint32_t HAL_PWREx_GetVBATLevel        (void);
 PWREx_MMC_VoltageLevel HAL_PWREx_GetMMCVoltage (void);
 #endif /* PWR_CSR1_MMCVDO */
 /* Power AVD configuration functions */
-void HAL_PWREx_ConfigAVD  (PWREx_AVDTypeDef *sConfigAVD);
+void HAL_PWREx_ConfigAVD  (PWREx_AVDTypeDef* sConfigAVD);
 void HAL_PWREx_EnableAVD  (void);
 void HAL_PWREx_DisableAVD (void);
 /* Power PVD/AVD IRQ Handler */

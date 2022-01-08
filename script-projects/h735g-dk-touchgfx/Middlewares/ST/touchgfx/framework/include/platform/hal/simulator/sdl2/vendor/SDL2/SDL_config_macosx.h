@@ -30,9 +30,9 @@
 /* This is a set of defines to configure the SDL features */
 
 #ifdef __LP64__
-    #define SIZEOF_VOIDP 8
+#define SIZEOF_VOIDP 8
 #else
-    #define SIZEOF_VOIDP 4
+#define SIZEOF_VOIDP 4
 #endif
 
 /* Useful headers */

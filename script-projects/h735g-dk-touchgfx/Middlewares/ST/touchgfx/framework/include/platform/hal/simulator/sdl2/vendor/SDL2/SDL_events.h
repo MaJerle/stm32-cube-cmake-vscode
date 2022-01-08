@@ -52,8 +52,7 @@ extern "C" {
 /**
  * \brief The types of events that can be delivered.
  */
-typedef enum
-{
+typedef enum {
     SDL_FIRSTEVENT     = 0,     /**< Unused (do not remove) */
 
     /* Application events */
@@ -159,8 +158,7 @@ typedef enum
 /**
  *  \brief Fields shared by every event
  */
-typedef struct SDL_CommonEvent
-{
+typedef struct SDL_CommonEvent {
     Uint32 type;
     Uint32 timestamp;
 } SDL_CommonEvent;
@@ -168,8 +166,7 @@ typedef struct SDL_CommonEvent
 /**
  *  \brief Window state change event data (event.window.*)
  */
-typedef struct SDL_WindowEvent
-{
+typedef struct SDL_WindowEvent {
     Uint32 type;        /**< ::SDL_WINDOWEVENT */
     Uint32 timestamp;
     Uint32 windowID;    /**< The associated window */
@@ -184,8 +181,7 @@ typedef struct SDL_WindowEvent
 /**
  *  \brief Keyboard button event structure (event.key.*)
  */
-typedef struct SDL_KeyboardEvent
-{
+typedef struct SDL_KeyboardEvent {
     Uint32 type;        /**< ::SDL_KEYDOWN or ::SDL_KEYUP */
     Uint32 timestamp;
     Uint32 windowID;    /**< The window with keyboard focus, if any */
@@ -200,8 +196,7 @@ typedef struct SDL_KeyboardEvent
 /**
  *  \brief Keyboard text editing event structure (event.edit.*)
  */
-typedef struct SDL_TextEditingEvent
-{
+typedef struct SDL_TextEditingEvent {
     Uint32 type;                                /**< ::SDL_TEXTEDITING */
     Uint32 timestamp;
     Uint32 windowID;                            /**< The window with keyboard focus, if any */
@@ -215,8 +210,7 @@ typedef struct SDL_TextEditingEvent
 /**
  *  \brief Keyboard text input event structure (event.text.*)
  */
-typedef struct SDL_TextInputEvent
-{
+typedef struct SDL_TextInputEvent {
     Uint32 type;                              /**< ::SDL_TEXTINPUT */
     Uint32 timestamp;
     Uint32 windowID;                          /**< The window with keyboard focus, if any */
@@ -226,8 +220,7 @@ typedef struct SDL_TextInputEvent
 /**
  *  \brief Mouse motion event structure (event.motion.*)
  */
-typedef struct SDL_MouseMotionEvent
-{
+typedef struct SDL_MouseMotionEvent {
     Uint32 type;        /**< ::SDL_MOUSEMOTION */
     Uint32 timestamp;
     Uint32 windowID;    /**< The window with mouse focus, if any */
@@ -242,8 +235,7 @@ typedef struct SDL_MouseMotionEvent
 /**
  *  \brief Mouse button event structure (event.button.*)
  */
-typedef struct SDL_MouseButtonEvent
-{
+typedef struct SDL_MouseButtonEvent {
     Uint32 type;        /**< ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP */
     Uint32 timestamp;
     Uint32 windowID;    /**< The window with mouse focus, if any */
@@ -259,8 +251,7 @@ typedef struct SDL_MouseButtonEvent
 /**
  *  \brief Mouse wheel event structure (event.wheel.*)
  */
-typedef struct SDL_MouseWheelEvent
-{
+typedef struct SDL_MouseWheelEvent {
     Uint32 type;        /**< ::SDL_MOUSEWHEEL */
     Uint32 timestamp;
     Uint32 windowID;    /**< The window with mouse focus, if any */
@@ -273,8 +264,7 @@ typedef struct SDL_MouseWheelEvent
 /**
  *  \brief Joystick axis motion event structure (event.jaxis.*)
  */
-typedef struct SDL_JoyAxisEvent
-{
+typedef struct SDL_JoyAxisEvent {
     Uint32 type;        /**< ::SDL_JOYAXISMOTION */
     Uint32 timestamp;
     SDL_JoystickID which; /**< The joystick instance id */
@@ -289,8 +279,7 @@ typedef struct SDL_JoyAxisEvent
 /**
  *  \brief Joystick trackball motion event structure (event.jball.*)
  */
-typedef struct SDL_JoyBallEvent
-{
+typedef struct SDL_JoyBallEvent {
     Uint32 type;        /**< ::SDL_JOYBALLMOTION */
     Uint32 timestamp;
     SDL_JoystickID which; /**< The joystick instance id */
@@ -305,8 +294,7 @@ typedef struct SDL_JoyBallEvent
 /**
  *  \brief Joystick hat position change event structure (event.jhat.*)
  */
-typedef struct SDL_JoyHatEvent
-{
+typedef struct SDL_JoyHatEvent {
     Uint32 type;        /**< ::SDL_JOYHATMOTION */
     Uint32 timestamp;
     SDL_JoystickID which; /**< The joystick instance id */
@@ -325,8 +313,7 @@ typedef struct SDL_JoyHatEvent
 /**
  *  \brief Joystick button event structure (event.jbutton.*)
  */
-typedef struct SDL_JoyButtonEvent
-{
+typedef struct SDL_JoyButtonEvent {
     Uint32 type;        /**< ::SDL_JOYBUTTONDOWN or ::SDL_JOYBUTTONUP */
     Uint32 timestamp;
     SDL_JoystickID which; /**< The joystick instance id */
@@ -339,8 +326,7 @@ typedef struct SDL_JoyButtonEvent
 /**
  *  \brief Joystick device event structure (event.jdevice.*)
  */
-typedef struct SDL_JoyDeviceEvent
-{
+typedef struct SDL_JoyDeviceEvent {
     Uint32 type;        /**< ::SDL_JOYDEVICEADDED or ::SDL_JOYDEVICEREMOVED */
     Uint32 timestamp;
     Sint32 which;       /**< The joystick device index for the ADDED event, instance id for the REMOVED event */
@@ -350,8 +336,7 @@ typedef struct SDL_JoyDeviceEvent
 /**
  *  \brief Game controller axis motion event structure (event.caxis.*)
  */
-typedef struct SDL_ControllerAxisEvent
-{
+typedef struct SDL_ControllerAxisEvent {
     Uint32 type;        /**< ::SDL_CONTROLLERAXISMOTION */
     Uint32 timestamp;
     SDL_JoystickID which; /**< The joystick instance id */
@@ -367,8 +352,7 @@ typedef struct SDL_ControllerAxisEvent
 /**
  *  \brief Game controller button event structure (event.cbutton.*)
  */
-typedef struct SDL_ControllerButtonEvent
-{
+typedef struct SDL_ControllerButtonEvent {
     Uint32 type;        /**< ::SDL_CONTROLLERBUTTONDOWN or ::SDL_CONTROLLERBUTTONUP */
     Uint32 timestamp;
     SDL_JoystickID which; /**< The joystick instance id */
@@ -382,8 +366,7 @@ typedef struct SDL_ControllerButtonEvent
 /**
  *  \brief Controller device event structure (event.cdevice.*)
  */
-typedef struct SDL_ControllerDeviceEvent
-{
+typedef struct SDL_ControllerDeviceEvent {
     Uint32 type;        /**< ::SDL_CONTROLLERDEVICEADDED, ::SDL_CONTROLLERDEVICEREMOVED, or ::SDL_CONTROLLERDEVICEREMAPPED */
     Uint32 timestamp;
     Sint32 which;       /**< The joystick device index for the ADDED event, instance id for the REMOVED or REMAPPED event */
@@ -392,8 +375,7 @@ typedef struct SDL_ControllerDeviceEvent
 /**
  *  \brief Audio device event structure (event.adevice.*)
  */
-typedef struct SDL_AudioDeviceEvent
-{
+typedef struct SDL_AudioDeviceEvent {
     Uint32 type;        /**< ::SDL_AUDIODEVICEADDED, or ::SDL_AUDIODEVICEREMOVED */
     Uint32 timestamp;
     Uint32 which;       /**< The audio device index for the ADDED event (valid until next SDL_GetNumAudioDevices() call), SDL_AudioDeviceID for the REMOVED event */
@@ -407,8 +389,7 @@ typedef struct SDL_AudioDeviceEvent
 /**
  *  \brief Touch finger event structure (event.tfinger.*)
  */
-typedef struct SDL_TouchFingerEvent
-{
+typedef struct SDL_TouchFingerEvent {
     Uint32 type;        /**< ::SDL_FINGERMOTION or ::SDL_FINGERDOWN or ::SDL_FINGERUP */
     Uint32 timestamp;
     SDL_TouchID touchId; /**< The touch device id */
@@ -424,8 +405,7 @@ typedef struct SDL_TouchFingerEvent
 /**
  *  \brief Multiple Finger Gesture Event (event.mgesture.*)
  */
-typedef struct SDL_MultiGestureEvent
-{
+typedef struct SDL_MultiGestureEvent {
     Uint32 type;        /**< ::SDL_MULTIGESTURE */
     Uint32 timestamp;
     SDL_TouchID touchId; /**< The touch device index */
@@ -441,8 +421,7 @@ typedef struct SDL_MultiGestureEvent
 /**
  * \brief Dollar Gesture Event (event.dgesture.*)
  */
-typedef struct SDL_DollarGestureEvent
-{
+typedef struct SDL_DollarGestureEvent {
     Uint32 type;        /**< ::SDL_DOLLARGESTURE or ::SDL_DOLLARRECORD */
     Uint32 timestamp;
     SDL_TouchID touchId; /**< The touch device id */
@@ -459,19 +438,17 @@ typedef struct SDL_DollarGestureEvent
  *         This event is enabled by default, you can disable it with SDL_EventState().
  *  \note If this event is enabled, you must free the filename in the event.
  */
-typedef struct SDL_DropEvent
-{
+typedef struct SDL_DropEvent {
     Uint32 type;        /**< ::SDL_DROPFILE */
     Uint32 timestamp;
-    char *file;         /**< The file name, which should be freed with SDL_free() */
+    char* file;         /**< The file name, which should be freed with SDL_free() */
 } SDL_DropEvent;
 
 
 /**
  *  \brief The "quit requested" event
  */
-typedef struct SDL_QuitEvent
-{
+typedef struct SDL_QuitEvent {
     Uint32 type;        /**< ::SDL_QUIT */
     Uint32 timestamp;
 } SDL_QuitEvent;
@@ -479,8 +456,7 @@ typedef struct SDL_QuitEvent
 /**
  *  \brief OS Specific event
  */
-typedef struct SDL_OSEvent
-{
+typedef struct SDL_OSEvent {
     Uint32 type;        /**< ::SDL_QUIT */
     Uint32 timestamp;
 } SDL_OSEvent;
@@ -488,14 +464,13 @@ typedef struct SDL_OSEvent
 /**
  *  \brief A user-defined event type (event.user.*)
  */
-typedef struct SDL_UserEvent
-{
+typedef struct SDL_UserEvent {
     Uint32 type;        /**< ::SDL_USEREVENT through ::SDL_LASTEVENT-1 */
     Uint32 timestamp;
     Uint32 windowID;    /**< The associated window if any */
     Sint32 code;        /**< User defined event code */
-    void *data1;        /**< User defined data pointer */
-    void *data2;        /**< User defined data pointer */
+    void* data1;        /**< User defined data pointer */
+    void* data2;        /**< User defined data pointer */
 } SDL_UserEvent;
 
 
@@ -508,18 +483,16 @@ typedef struct SDL_SysWMmsg SDL_SysWMmsg;
  *
  *  \note If you want to use this event, you should include SDL_syswm.h.
  */
-typedef struct SDL_SysWMEvent
-{
+typedef struct SDL_SysWMEvent {
     Uint32 type;        /**< ::SDL_SYSWMEVENT */
     Uint32 timestamp;
-    SDL_SysWMmsg *msg;  /**< driver dependent data, defined in SDL_syswm.h */
+    SDL_SysWMmsg* msg;  /**< driver dependent data, defined in SDL_syswm.h */
 } SDL_SysWMEvent;
 
 /**
  *  \brief General event structure
  */
-typedef union SDL_Event
-{
+typedef union SDL_Event {
     Uint32 type;                    /**< Event type, shared with all events */
     SDL_CommonEvent common;         /**< Common event data */
     SDL_WindowEvent window;         /**< Window event data */
@@ -569,8 +542,7 @@ typedef union SDL_Event
 extern DECLSPEC void SDLCALL SDL_PumpEvents(void);
 
 /* @{ */
-typedef enum
-{
+typedef enum {
     SDL_ADDEVENT,
     SDL_PEEKEVENT,
     SDL_GETEVENT
@@ -594,7 +566,7 @@ typedef enum
  *
  *  This function is thread-safe.
  */
-extern DECLSPEC int SDLCALL SDL_PeepEvents(SDL_Event * events, int numevents,
+extern DECLSPEC int SDLCALL SDL_PeepEvents(SDL_Event* events, int numevents,
                                            SDL_eventaction action,
                                            Uint32 minType, Uint32 maxType);
 /* @} */
@@ -622,7 +594,7 @@ extern DECLSPEC void SDLCALL SDL_FlushEvents(Uint32 minType, Uint32 maxType);
  *  \param event If not NULL, the next event is removed from the queue and
  *               stored in that area.
  */
-extern DECLSPEC int SDLCALL SDL_PollEvent(SDL_Event * event);
+extern DECLSPEC int SDLCALL SDL_PollEvent(SDL_Event* event);
 
 /**
  *  \brief Waits indefinitely for the next available event.
@@ -632,7 +604,7 @@ extern DECLSPEC int SDLCALL SDL_PollEvent(SDL_Event * event);
  *  \param event If not NULL, the next event is removed from the queue and
  *               stored in that area.
  */
-extern DECLSPEC int SDLCALL SDL_WaitEvent(SDL_Event * event);
+extern DECLSPEC int SDLCALL SDL_WaitEvent(SDL_Event* event);
 
 /**
  *  \brief Waits until the specified timeout (in milliseconds) for the next
@@ -644,7 +616,7 @@ extern DECLSPEC int SDLCALL SDL_WaitEvent(SDL_Event * event);
  *               stored in that area.
  *  \param timeout The timeout (in milliseconds) to wait for next event.
  */
-extern DECLSPEC int SDLCALL SDL_WaitEventTimeout(SDL_Event * event,
+extern DECLSPEC int SDLCALL SDL_WaitEventTimeout(SDL_Event* event,
                                                  int timeout);
 
 /**
@@ -653,9 +625,9 @@ extern DECLSPEC int SDLCALL SDL_WaitEventTimeout(SDL_Event * event,
  *  \return 1 on success, 0 if the event was filtered, or -1 if the event queue
  *          was full or there was some other error.
  */
-extern DECLSPEC int SDLCALL SDL_PushEvent(SDL_Event * event);
+extern DECLSPEC int SDLCALL SDL_PushEvent(SDL_Event* event);
 
-typedef int (SDLCALL * SDL_EventFilter) (void *userdata, SDL_Event * event);
+typedef int (SDLCALL* SDL_EventFilter) (void* userdata, SDL_Event* event);
 
 /**
  *  Sets up a filter to process all events before they change internal state and
@@ -683,33 +655,33 @@ typedef int (SDLCALL * SDL_EventFilter) (void *userdata, SDL_Event * event);
  *  internal queue and be delivered to the application at the next event poll.
  */
 extern DECLSPEC void SDLCALL SDL_SetEventFilter(SDL_EventFilter filter,
-                                                void *userdata);
+                                                void* userdata);
 
 /**
  *  Return the current event filter - can be used to "chain" filters.
  *  If there is no event filter set, this function returns SDL_FALSE.
  */
-extern DECLSPEC SDL_bool SDLCALL SDL_GetEventFilter(SDL_EventFilter * filter,
-                                                    void **userdata);
+extern DECLSPEC SDL_bool SDLCALL SDL_GetEventFilter(SDL_EventFilter* filter,
+                                                    void** userdata);
 
 /**
  *  Add a function which is called when an event is added to the queue.
  */
 extern DECLSPEC void SDLCALL SDL_AddEventWatch(SDL_EventFilter filter,
-                                               void *userdata);
+                                               void* userdata);
 
 /**
  *  Remove an event watch function added with SDL_AddEventWatch()
  */
 extern DECLSPEC void SDLCALL SDL_DelEventWatch(SDL_EventFilter filter,
-                                               void *userdata);
+                                               void* userdata);
 
 /**
  *  Run the filter function on the current event queue, removing any
  *  events for which the filter returns 0.
  */
 extern DECLSPEC void SDLCALL SDL_FilterEvents(SDL_EventFilter filter,
-                                              void *userdata);
+                                              void* userdata);
 
 /* @{ */
 #define SDL_QUERY   -1

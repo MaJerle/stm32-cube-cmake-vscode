@@ -22,7 +22,7 @@
 #define STM32H7xx_HAL_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -40,12 +40,11 @@
 /** @defgroup HAL_TICK_FREQ Tick Frequency
   * @{
   */
-typedef enum
-{
-  HAL_TICK_FREQ_10HZ         = 100U,
-  HAL_TICK_FREQ_100HZ        = 10U,
-  HAL_TICK_FREQ_1KHZ         = 1U,
-  HAL_TICK_FREQ_DEFAULT      = HAL_TICK_FREQ_1KHZ
+typedef enum {
+    HAL_TICK_FREQ_10HZ         = 100U,
+    HAL_TICK_FREQ_100HZ        = 10U,
+    HAL_TICK_FREQ_1KHZ         = 1U,
+    HAL_TICK_FREQ_DEFAULT      = HAL_TICK_FREQ_1KHZ
 } HAL_TickFreqTypeDef;
 /**
   * @}
@@ -152,7 +151,7 @@ typedef enum
 #define SYSCFG_ETH_RMII                     SYSCFG_PMCR_EPIS_SEL_2  /*!< Select the Reduced Media Independent Interface */
 
 #define IS_SYSCFG_ETHERNET_CONFIG(CONFIG) (((CONFIG) == SYSCFG_ETH_MII)        || \
-                                          ((CONFIG) == SYSCFG_ETH_RMII))
+                                           ((CONFIG) == SYSCFG_ETH_RMII))
 
 /**
   * @}
@@ -184,19 +183,19 @@ typedef enum
   */
 
 #define IS_SYSCFG_ANALOG_SWITCH(SWITCH)    ((((SWITCH) & SYSCFG_SWITCH_PA0) == SYSCFG_SWITCH_PA0)|| \
-                                           (((SWITCH) & SYSCFG_SWITCH_PA1) == SYSCFG_SWITCH_PA1) || \
-                                           (((SWITCH) & SYSCFG_SWITCH_PC2) == SYSCFG_SWITCH_PC2) || \
-                                           (((SWITCH) & SYSCFG_SWITCH_PC3) == SYSCFG_SWITCH_PC3))
+                                            (((SWITCH) & SYSCFG_SWITCH_PA1) == SYSCFG_SWITCH_PA1) || \
+                                            (((SWITCH) & SYSCFG_SWITCH_PC2) == SYSCFG_SWITCH_PC2) || \
+                                            (((SWITCH) & SYSCFG_SWITCH_PC3) == SYSCFG_SWITCH_PC3))
 
 
 #define IS_SYSCFG_SWITCH_STATE(STATE)      ((((STATE) & SYSCFG_SWITCH_PA0_OPEN) == SYSCFG_SWITCH_PA0_OPEN)    || \
-                                           (((STATE) & SYSCFG_SWITCH_PA0_CLOSE) == SYSCFG_SWITCH_PA0_CLOSE)   || \
-                                           (((STATE) & SYSCFG_SWITCH_PA1_OPEN) == SYSCFG_SWITCH_PA1_OPEN)     || \
-                                           (((STATE) & SYSCFG_SWITCH_PA1_CLOSE) == SYSCFG_SWITCH_PA1_CLOSE)   || \
-                                           (((STATE) & SYSCFG_SWITCH_PC2_OPEN) == SYSCFG_SWITCH_PC2_OPEN)     || \
-                                           (((STATE) & SYSCFG_SWITCH_PC2_CLOSE) == SYSCFG_SWITCH_PC2_CLOSE)   || \
-                                           (((STATE) & SYSCFG_SWITCH_PC3_OPEN) == SYSCFG_SWITCH_PC3_OPEN)     || \
-                                           (((STATE) & SYSCFG_SWITCH_PC3_CLOSE) == SYSCFG_SWITCH_PC3_CLOSE))
+                                            (((STATE) & SYSCFG_SWITCH_PA0_CLOSE) == SYSCFG_SWITCH_PA0_CLOSE)   || \
+                                            (((STATE) & SYSCFG_SWITCH_PA1_OPEN) == SYSCFG_SWITCH_PA1_OPEN)     || \
+                                            (((STATE) & SYSCFG_SWITCH_PA1_CLOSE) == SYSCFG_SWITCH_PA1_CLOSE)   || \
+                                            (((STATE) & SYSCFG_SWITCH_PC2_OPEN) == SYSCFG_SWITCH_PC2_OPEN)     || \
+                                            (((STATE) & SYSCFG_SWITCH_PC2_CLOSE) == SYSCFG_SWITCH_PC2_CLOSE)   || \
+                                            (((STATE) & SYSCFG_SWITCH_PC3_OPEN) == SYSCFG_SWITCH_PC3_OPEN)     || \
+                                            (((STATE) & SYSCFG_SWITCH_PC3_CLOSE) == SYSCFG_SWITCH_PC3_CLOSE))
 
 
 /** @defgroup SYSCFG_Boot_Config  Boot Config
@@ -206,7 +205,7 @@ typedef enum
 #define SYSCFG_BOOT_ADDR1                    ((uint32_t)0x00000001)  /*!< Select Boot address1 */
 
 #define IS_SYSCFG_BOOT_REGISTER(REGISTER) (((REGISTER) == SYSCFG_BOOT_ADDR0)|| \
-                                          ((REGISTER) == SYSCFG_BOOT_ADDR1))
+                                           ((REGISTER) == SYSCFG_BOOT_ADDR1))
 
 #define IS_SYSCFG_BOOT_ADDRESS(ADDRESS) ((ADDRESS) < PERIPH_BASE)
 
@@ -222,7 +221,7 @@ typedef enum
 #define SYSCFG_REGISTER_CODE                 SYSCFG_CCCSR_CS        /*!< Code from the SYSCFG compensation cell code register */
 
 #define IS_SYSCFG_CODE_SELECT(SELECT) (((SELECT) == SYSCFG_CELL_CODE)|| \
-                                        ((SELECT) == SYSCFG_REGISTER_CODE))
+                                       ((SELECT) == SYSCFG_REGISTER_CODE))
 
 #define IS_SYSCFG_CODE_CONFIG(CONFIG) ((CONFIG) < (0x10UL))
 
@@ -360,33 +359,33 @@ typedef enum
 
 #if defined(DUAL_CORE)
 #define IS_HAL_EXTI_CONFIG_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1) || \
-                                ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)   || \
-                                ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)   || \
-                                ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)   || \
-                                ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)   || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11)  || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13)  || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15)  || \
-                                ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17)  || \
-                                ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19)  || \
-                                ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21)  || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE51)  || \
-                                ((LINE) == EXTI_LINE82) || ((LINE) == EXTI_LINE84)  || \
-                                ((LINE) == EXTI_LINE85) || ((LINE) == EXTI_LINE86))
+                                       ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)   || \
+                                       ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)   || \
+                                       ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)   || \
+                                       ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)   || \
+                                       ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11)  || \
+                                       ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13)  || \
+                                       ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15)  || \
+                                       ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17)  || \
+                                       ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19)  || \
+                                       ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21)  || \
+                                       ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE51)  || \
+                                       ((LINE) == EXTI_LINE82) || ((LINE) == EXTI_LINE84)  || \
+                                       ((LINE) == EXTI_LINE85) || ((LINE) == EXTI_LINE86))
 #else
 #define IS_HAL_EXTI_CONFIG_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1)|| \
-                                ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)   || \
-                                ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)   || \
-                                ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)   || \
-                                ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)   || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11)  || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13)  || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15)  || \
-                                ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17)  || \
-                                ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19)  || \
-                                ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21)  || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE51)  || \
-                                ((LINE) == EXTI_LINE85) || ((LINE) == EXTI_LINE86))
+                                       ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)   || \
+                                       ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)   || \
+                                       ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)   || \
+                                       ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)   || \
+                                       ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11)  || \
+                                       ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13)  || \
+                                       ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15)  || \
+                                       ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17)  || \
+                                       ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19)  || \
+                                       ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21)  || \
+                                       ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE51)  || \
+                                       ((LINE) == EXTI_LINE85) || ((LINE) == EXTI_LINE86))
 #endif /* DUAL_CORE */
 
 #if defined(DUAL_CORE)
@@ -480,182 +479,182 @@ typedef enum
 
 #if defined(DUAL_CORE)
 #define IS_EXTI_D1_LINE(LINE) (((LINE) == EXTI_LINE0)  || ((LINE) == EXTI_LINE1)  || \
-                                ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)  || \
-                                ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)  || \
-                                ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)  || \
-                                ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)  || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
-                                ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17) || \
-                                ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19) || \
-                                ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21) || \
-                                ((LINE) == EXTI_LINE22) || ((LINE) == EXTI_LINE23) || \
-                                ((LINE) == EXTI_LINE24) || ((LINE) == EXTI_LINE25) || \
-                                ((LINE) == EXTI_LINE26) || ((LINE) == EXTI_LINE27) || \
-                                ((LINE) == EXTI_LINE28) || ((LINE) == EXTI_LINE29) || \
-                                ((LINE) == EXTI_LINE30) || ((LINE) == EXTI_LINE31) || \
-                                ((LINE) == EXTI_LINE32) || ((LINE) == EXTI_LINE33) || \
-                                ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
-                                ((LINE) == EXTI_LINE36) || ((LINE) == EXTI_LINE37) || \
-                                ((LINE) == EXTI_LINE38) || ((LINE) == EXTI_LINE39) || \
-                                ((LINE) == EXTI_LINE40) || ((LINE) == EXTI_LINE41) || \
-                                ((LINE) == EXTI_LINE42) || ((LINE) == EXTI_LINE43) || \
-                                ((LINE) == EXTI_LINE44) || ((LINE) == EXTI_LINE46) || \
-                                ((LINE) == EXTI_LINE47) || ((LINE) == EXTI_LINE48) || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
-                                ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
-                                ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE54) || \
-                                ((LINE) == EXTI_LINE55) || ((LINE) == EXTI_LINE56) || \
-                                ((LINE) == EXTI_LINE57) || ((LINE) == EXTI_LINE58) || \
-                                ((LINE) == EXTI_LINE59) || ((LINE) == EXTI_LINE60) || \
-                                ((LINE) == EXTI_LINE61) || ((LINE) == EXTI_LINE62) || \
-                                ((LINE) == EXTI_LINE63) || ((LINE) == EXTI_LINE64) || \
-                                ((LINE) == EXTI_LINE65) || ((LINE) == EXTI_LINE66) || \
-                                ((LINE) == EXTI_LINE67) || ((LINE) == EXTI_LINE68) || \
-                                ((LINE) == EXTI_LINE69) || ((LINE) == EXTI_LINE70) || \
-                                ((LINE) == EXTI_LINE71) || ((LINE) == EXTI_LINE72) || \
-                                ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
-                                ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
-                                ((LINE) == EXTI_LINE77) || ((LINE) == EXTI_LINE79) || \
-                                ((LINE) == EXTI_LINE84) || ((LINE) == EXTI_LINE85) || \
-                                ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87))
+                               ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)  || \
+                               ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)  || \
+                               ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)  || \
+                               ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)  || \
+                               ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
+                               ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
+                               ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
+                               ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17) || \
+                               ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19) || \
+                               ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21) || \
+                               ((LINE) == EXTI_LINE22) || ((LINE) == EXTI_LINE23) || \
+                               ((LINE) == EXTI_LINE24) || ((LINE) == EXTI_LINE25) || \
+                               ((LINE) == EXTI_LINE26) || ((LINE) == EXTI_LINE27) || \
+                               ((LINE) == EXTI_LINE28) || ((LINE) == EXTI_LINE29) || \
+                               ((LINE) == EXTI_LINE30) || ((LINE) == EXTI_LINE31) || \
+                               ((LINE) == EXTI_LINE32) || ((LINE) == EXTI_LINE33) || \
+                               ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
+                               ((LINE) == EXTI_LINE36) || ((LINE) == EXTI_LINE37) || \
+                               ((LINE) == EXTI_LINE38) || ((LINE) == EXTI_LINE39) || \
+                               ((LINE) == EXTI_LINE40) || ((LINE) == EXTI_LINE41) || \
+                               ((LINE) == EXTI_LINE42) || ((LINE) == EXTI_LINE43) || \
+                               ((LINE) == EXTI_LINE44) || ((LINE) == EXTI_LINE46) || \
+                               ((LINE) == EXTI_LINE47) || ((LINE) == EXTI_LINE48) || \
+                               ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
+                               ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
+                               ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE54) || \
+                               ((LINE) == EXTI_LINE55) || ((LINE) == EXTI_LINE56) || \
+                               ((LINE) == EXTI_LINE57) || ((LINE) == EXTI_LINE58) || \
+                               ((LINE) == EXTI_LINE59) || ((LINE) == EXTI_LINE60) || \
+                               ((LINE) == EXTI_LINE61) || ((LINE) == EXTI_LINE62) || \
+                               ((LINE) == EXTI_LINE63) || ((LINE) == EXTI_LINE64) || \
+                               ((LINE) == EXTI_LINE65) || ((LINE) == EXTI_LINE66) || \
+                               ((LINE) == EXTI_LINE67) || ((LINE) == EXTI_LINE68) || \
+                               ((LINE) == EXTI_LINE69) || ((LINE) == EXTI_LINE70) || \
+                               ((LINE) == EXTI_LINE71) || ((LINE) == EXTI_LINE72) || \
+                               ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
+                               ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
+                               ((LINE) == EXTI_LINE77) || ((LINE) == EXTI_LINE79) || \
+                               ((LINE) == EXTI_LINE84) || ((LINE) == EXTI_LINE85) || \
+                               ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87))
 #else
 #define IS_EXTI_D1_LINE(LINE) (((LINE) == EXTI_LINE0)  || ((LINE) == EXTI_LINE1)  || \
-                                ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)  || \
-                                ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)  || \
-                                ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)  || \
-                                ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)  || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
-                                ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17) || \
-                                ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19) || \
-                                ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21) || \
-                                ((LINE) == EXTI_LINE22) || ((LINE) == EXTI_LINE23) || \
-                                ((LINE) == EXTI_LINE24) || ((LINE) == EXTI_LINE25) || \
-                                ((LINE) == EXTI_LINE26) || ((LINE) == EXTI_LINE27) || \
-                                ((LINE) == EXTI_LINE28) || ((LINE) == EXTI_LINE29) || \
-                                ((LINE) == EXTI_LINE30) || ((LINE) == EXTI_LINE31) || \
-                                ((LINE) == EXTI_LINE32) || ((LINE) == EXTI_LINE33) || \
-                                ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
-                                ((LINE) == EXTI_LINE36) || ((LINE) == EXTI_LINE37) || \
-                                ((LINE) == EXTI_LINE38) || ((LINE) == EXTI_LINE39) || \
-                                ((LINE) == EXTI_LINE40) || ((LINE) == EXTI_LINE41) || \
-                                ((LINE) == EXTI_LINE42) || ((LINE) == EXTI_LINE43) || \
-                                ((LINE) == EXTI_LINE44) || \
-                                ((LINE) == EXTI_LINE47) || ((LINE) == EXTI_LINE48) || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
-                                ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
-                                ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE54) || \
-                                ((LINE) == EXTI_LINE55) || ((LINE) == EXTI_LINE56) || \
-                                ((LINE) == EXTI_LINE57) || ((LINE) == EXTI_LINE58) || \
-                                ((LINE) == EXTI_LINE59) || ((LINE) == EXTI_LINE60) || \
-                                ((LINE) == EXTI_LINE61) || ((LINE) == EXTI_LINE62) || \
-                                ((LINE) == EXTI_LINE63) || ((LINE) == EXTI_LINE64) || \
-                                ((LINE) == EXTI_LINE65) || ((LINE) == EXTI_LINE66) || \
-                                ((LINE) == EXTI_LINE67) || ((LINE) == EXTI_LINE68) || \
-                                ((LINE) == EXTI_LINE69) || ((LINE) == EXTI_LINE70) || \
-                                ((LINE) == EXTI_LINE71) || ((LINE) == EXTI_LINE72) || \
-                                ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
-                                ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
-                                ((LINE) == EXTI_LINE85) || \
-                                ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87) || \
-                                ((LINE) == EXTI_LINE88) || ((LINE) == EXTI_LINE89) || \
-                                ((LINE) == EXTI_LINE90) || ((LINE) == EXTI_LINE91))
+                               ((LINE) == EXTI_LINE2)  || ((LINE) == EXTI_LINE3)  || \
+                               ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)  || \
+                               ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)  || \
+                               ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)  || \
+                               ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
+                               ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
+                               ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
+                               ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17) || \
+                               ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19) || \
+                               ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21) || \
+                               ((LINE) == EXTI_LINE22) || ((LINE) == EXTI_LINE23) || \
+                               ((LINE) == EXTI_LINE24) || ((LINE) == EXTI_LINE25) || \
+                               ((LINE) == EXTI_LINE26) || ((LINE) == EXTI_LINE27) || \
+                               ((LINE) == EXTI_LINE28) || ((LINE) == EXTI_LINE29) || \
+                               ((LINE) == EXTI_LINE30) || ((LINE) == EXTI_LINE31) || \
+                               ((LINE) == EXTI_LINE32) || ((LINE) == EXTI_LINE33) || \
+                               ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
+                               ((LINE) == EXTI_LINE36) || ((LINE) == EXTI_LINE37) || \
+                               ((LINE) == EXTI_LINE38) || ((LINE) == EXTI_LINE39) || \
+                               ((LINE) == EXTI_LINE40) || ((LINE) == EXTI_LINE41) || \
+                               ((LINE) == EXTI_LINE42) || ((LINE) == EXTI_LINE43) || \
+                               ((LINE) == EXTI_LINE44) || \
+                               ((LINE) == EXTI_LINE47) || ((LINE) == EXTI_LINE48) || \
+                               ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
+                               ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
+                               ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE54) || \
+                               ((LINE) == EXTI_LINE55) || ((LINE) == EXTI_LINE56) || \
+                               ((LINE) == EXTI_LINE57) || ((LINE) == EXTI_LINE58) || \
+                               ((LINE) == EXTI_LINE59) || ((LINE) == EXTI_LINE60) || \
+                               ((LINE) == EXTI_LINE61) || ((LINE) == EXTI_LINE62) || \
+                               ((LINE) == EXTI_LINE63) || ((LINE) == EXTI_LINE64) || \
+                               ((LINE) == EXTI_LINE65) || ((LINE) == EXTI_LINE66) || \
+                               ((LINE) == EXTI_LINE67) || ((LINE) == EXTI_LINE68) || \
+                               ((LINE) == EXTI_LINE69) || ((LINE) == EXTI_LINE70) || \
+                               ((LINE) == EXTI_LINE71) || ((LINE) == EXTI_LINE72) || \
+                               ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
+                               ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
+                               ((LINE) == EXTI_LINE85) || \
+                               ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87) || \
+                               ((LINE) == EXTI_LINE88) || ((LINE) == EXTI_LINE89) || \
+                               ((LINE) == EXTI_LINE90) || ((LINE) == EXTI_LINE91))
 #endif /*DUAL_CORE*/
 
 #if defined(DUAL_CORE)
 #define IS_EXTI_D2_LINE(LINE) (((LINE) == EXTI_LINE0)  || ((LINE) == EXTI_LINE1)    || \
-                                ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
-                                ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
-                                ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
-                                ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
-                                ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17) || \
-                                ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19) || \
-                                ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21) || \
-                                ((LINE) == EXTI_LINE22) || ((LINE) == EXTI_LINE23) || \
-                                ((LINE) == EXTI_LINE24) || ((LINE) == EXTI_LINE25) || \
-                                ((LINE) == EXTI_LINE26) || ((LINE) == EXTI_LINE27) || \
-                                ((LINE) == EXTI_LINE28) || ((LINE) == EXTI_LINE29) || \
-                                ((LINE) == EXTI_LINE30) || ((LINE) == EXTI_LINE31) || \
-                                ((LINE) == EXTI_LINE32) || ((LINE) == EXTI_LINE33) || \
-                                ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
-                                ((LINE) == EXTI_LINE36) || ((LINE) == EXTI_LINE37) || \
-                                ((LINE) == EXTI_LINE38) || ((LINE) == EXTI_LINE39) || \
-                                ((LINE) == EXTI_LINE40) || ((LINE) == EXTI_LINE41) || \
-                                ((LINE) == EXTI_LINE42) || ((LINE) == EXTI_LINE43) || \
-                                ((LINE) == EXTI_LINE44) || ((LINE) == EXTI_LINE46) || \
-                                ((LINE) == EXTI_LINE47) || ((LINE) == EXTI_LINE48) || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
-                                ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
-                                ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE54) || \
-                                ((LINE) == EXTI_LINE55) || ((LINE) == EXTI_LINE56) || \
-                                ((LINE) == EXTI_LINE57) || ((LINE) == EXTI_LINE58) || \
-                                ((LINE) == EXTI_LINE59) || ((LINE) == EXTI_LINE60) || \
-                                ((LINE) == EXTI_LINE61) || ((LINE) == EXTI_LINE62) || \
-                                ((LINE) == EXTI_LINE63) || ((LINE) == EXTI_LINE64) || \
-                                ((LINE) == EXTI_LINE65) || ((LINE) == EXTI_LINE66) || \
-                                ((LINE) == EXTI_LINE67) || ((LINE) == EXTI_LINE68) || \
-                                ((LINE) == EXTI_LINE69) || ((LINE) == EXTI_LINE70) || \
-                                ((LINE) == EXTI_LINE71) || ((LINE) == EXTI_LINE72) || \
-                                ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
-                                ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
-                                ((LINE) == EXTI_LINE78) || ((LINE) == EXTI_LINE80) || \
-                                ((LINE) == EXTI_LINE82) || ((LINE) == EXTI_LINE85) || \
-                                ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87))
+                               ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
+                               ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
+                               ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
+                               ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
+                               ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
+                               ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
+                               ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
+                               ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17) || \
+                               ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19) || \
+                               ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21) || \
+                               ((LINE) == EXTI_LINE22) || ((LINE) == EXTI_LINE23) || \
+                               ((LINE) == EXTI_LINE24) || ((LINE) == EXTI_LINE25) || \
+                               ((LINE) == EXTI_LINE26) || ((LINE) == EXTI_LINE27) || \
+                               ((LINE) == EXTI_LINE28) || ((LINE) == EXTI_LINE29) || \
+                               ((LINE) == EXTI_LINE30) || ((LINE) == EXTI_LINE31) || \
+                               ((LINE) == EXTI_LINE32) || ((LINE) == EXTI_LINE33) || \
+                               ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
+                               ((LINE) == EXTI_LINE36) || ((LINE) == EXTI_LINE37) || \
+                               ((LINE) == EXTI_LINE38) || ((LINE) == EXTI_LINE39) || \
+                               ((LINE) == EXTI_LINE40) || ((LINE) == EXTI_LINE41) || \
+                               ((LINE) == EXTI_LINE42) || ((LINE) == EXTI_LINE43) || \
+                               ((LINE) == EXTI_LINE44) || ((LINE) == EXTI_LINE46) || \
+                               ((LINE) == EXTI_LINE47) || ((LINE) == EXTI_LINE48) || \
+                               ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
+                               ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
+                               ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE54) || \
+                               ((LINE) == EXTI_LINE55) || ((LINE) == EXTI_LINE56) || \
+                               ((LINE) == EXTI_LINE57) || ((LINE) == EXTI_LINE58) || \
+                               ((LINE) == EXTI_LINE59) || ((LINE) == EXTI_LINE60) || \
+                               ((LINE) == EXTI_LINE61) || ((LINE) == EXTI_LINE62) || \
+                               ((LINE) == EXTI_LINE63) || ((LINE) == EXTI_LINE64) || \
+                               ((LINE) == EXTI_LINE65) || ((LINE) == EXTI_LINE66) || \
+                               ((LINE) == EXTI_LINE67) || ((LINE) == EXTI_LINE68) || \
+                               ((LINE) == EXTI_LINE69) || ((LINE) == EXTI_LINE70) || \
+                               ((LINE) == EXTI_LINE71) || ((LINE) == EXTI_LINE72) || \
+                               ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
+                               ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
+                               ((LINE) == EXTI_LINE78) || ((LINE) == EXTI_LINE80) || \
+                               ((LINE) == EXTI_LINE82) || ((LINE) == EXTI_LINE85) || \
+                               ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87))
 #endif /*DUAL_CORE*/
 
 #if defined(DUAL_CORE)
 #define IS_EXTI_D3_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1)    || \
-                                ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
-                                ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
-                                ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
-                                ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
-                                ((LINE) == EXTI_LINE19) || ((LINE) == EXTI_LINE20) || \
-                                ((LINE) == EXTI_LINE21) || ((LINE) == EXTI_LINE25) || \
-                                ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
-                                ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
-                                ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
-                                ((LINE) == EXTI_LINE53))
+                               ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
+                               ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
+                               ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
+                               ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
+                               ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
+                               ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
+                               ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
+                               ((LINE) == EXTI_LINE19) || ((LINE) == EXTI_LINE20) || \
+                               ((LINE) == EXTI_LINE21) || ((LINE) == EXTI_LINE25) || \
+                               ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
+                               ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
+                               ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
+                               ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
+                               ((LINE) == EXTI_LINE53))
 #elif (POWER_DOMAINS_NUMBER == 3U)
 #define IS_EXTI_D3_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1)    || \
-                                ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
-                                ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
-                                ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
-                                ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
-                                ((LINE) == EXTI_LINE19) || ((LINE) == EXTI_LINE20) || \
-                                ((LINE) == EXTI_LINE21) || ((LINE) == EXTI_LINE25) || \
-                                ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
-                                ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
-                                ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
-                                ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE88))
+                               ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
+                               ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
+                               ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
+                               ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
+                               ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
+                               ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
+                               ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
+                               ((LINE) == EXTI_LINE19) || ((LINE) == EXTI_LINE20) || \
+                               ((LINE) == EXTI_LINE21) || ((LINE) == EXTI_LINE25) || \
+                               ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
+                               ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
+                               ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
+                               ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
+                               ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE88))
 #else
 #define IS_EXTI_D3_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1)    || \
-                                ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
-                                ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
-                                ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
-                                ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
-                                ((LINE) == EXTI_LINE19) || ((LINE) == EXTI_LINE20) || \
-                                ((LINE) == EXTI_LINE21) || ((LINE) == EXTI_LINE25) || \
-                                ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
-                                ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
-                                ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE88))
+                               ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
+                               ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
+                               ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
+                               ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
+                               ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
+                               ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
+                               ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
+                               ((LINE) == EXTI_LINE19) || ((LINE) == EXTI_LINE20) || \
+                               ((LINE) == EXTI_LINE21) || ((LINE) == EXTI_LINE25) || \
+                               ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
+                               ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
+                               ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
+                               ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE88))
 #endif /*DUAL_CORE*/
 
 
@@ -673,10 +672,10 @@ typedef enum
 #endif /* LPTIM5 */
 #if defined (LPTIM4) && defined (LPTIM5)
 #define IS_EXTI_D3_CLEAR(SOURCE) (((SOURCE) == BDMA_CH6_CLEAR) || ((SOURCE) == BDMA_CH7_CLEAR)    || \
-                                 ((SOURCE) == LPTIM4_OUT_CLEAR) || ((SOURCE) == LPTIM5_OUT_CLEAR))
+                                  ((SOURCE) == LPTIM4_OUT_CLEAR) || ((SOURCE) == LPTIM5_OUT_CLEAR))
 #else
 #define IS_EXTI_D3_CLEAR(SOURCE) (((SOURCE) == BDMA_CH6_CLEAR) || ((SOURCE) == BDMA_CH7_CLEAR)    || \
-                                 ((SOURCE) == LPTIM2_OUT_CLEAR) || ((SOURCE) == LPTIM3_OUT_CLEAR))
+                                  ((SOURCE) == LPTIM2_OUT_CLEAR) || ((SOURCE) == LPTIM3_OUT_CLEAR))
 #endif /* LPTIM4 LPTIM5 */
 /**
   * @}
@@ -823,12 +822,12 @@ typedef enum
   *     @arg @ref SYSCFG_FASTMODEPLUS_PB9 Fast-mode Plus driving capability activation on PB9
   */
 #define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)  do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
-                                                                SET_BIT(SYSCFG->PMCR, (__FASTMODEPLUS__));\
-                                                               }while(0)
+        SET_BIT(SYSCFG->PMCR, (__FASTMODEPLUS__));\
+    }while(0)
 
 #define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__) do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
-                                                                CLEAR_BIT(SYSCFG->PMCR, (__FASTMODEPLUS__));\
-                                                               }while(0)
+        CLEAR_BIT(SYSCFG->PMCR, (__FASTMODEPLUS__));\
+    }while(0)
 
 #endif /* !SYSCFG_PMCR_BOOSTEN */
 /**
@@ -1052,7 +1051,7 @@ uint32_t HAL_GetUIDw2(void);
 #if defined(SYSCFG_PMCR_EPIS_SEL)
 void HAL_SYSCFG_ETHInterfaceSelect(uint32_t SYSCFG_ETHInterface);
 #endif /* SYSCFG_PMCR_EPIS_SEL */
-void HAL_SYSCFG_AnalogSwitchConfig(uint32_t SYSCFG_AnalogSwitch , uint32_t SYSCFG_SwitchState );
+void HAL_SYSCFG_AnalogSwitchConfig(uint32_t SYSCFG_AnalogSwitch, uint32_t SYSCFG_SwitchState );
 #if defined(SYSCFG_PMCR_BOOSTEN)
 void HAL_SYSCFG_EnableBOOST(void);
 void HAL_SYSCFG_DisableBOOST(void);
@@ -1100,17 +1099,17 @@ void HAL_DisableDomain3DBGStopMode(void);
 void HAL_EnableDomain3DBGStandbyMode(void);
 void HAL_DisableDomain3DBGStandbyMode(void);
 #endif /*DBGMCU_CR_DBG_STANDBYD3*/
-void HAL_EXTI_EdgeConfig(uint32_t EXTI_Line , uint32_t EXTI_Edge );
+void HAL_EXTI_EdgeConfig(uint32_t EXTI_Line, uint32_t EXTI_Edge );
 void HAL_EXTI_GenerateSWInterrupt(uint32_t EXTI_Line);
 #if defined(DUAL_CORE)
 void HAL_EXTI_D2_ClearFlag(uint32_t EXTI_Line);
 #endif /*DUAL_CORE*/
 void HAL_EXTI_D1_ClearFlag(uint32_t EXTI_Line);
-void HAL_EXTI_D1_EventInputConfig(uint32_t EXTI_Line , uint32_t EXTI_Mode,  uint32_t EXTI_LineCmd);
+void HAL_EXTI_D1_EventInputConfig(uint32_t EXTI_Line, uint32_t EXTI_Mode,  uint32_t EXTI_LineCmd);
 #if defined(DUAL_CORE)
-void HAL_EXTI_D2_EventInputConfig(uint32_t EXTI_Line , uint32_t EXTI_Mode,  uint32_t EXTI_LineCmd);
+void HAL_EXTI_D2_EventInputConfig(uint32_t EXTI_Line, uint32_t EXTI_Mode,  uint32_t EXTI_LineCmd);
 #endif /*DUAL_CORE*/
-void HAL_EXTI_D3_EventInputConfig(uint32_t EXTI_Line, uint32_t EXTI_LineCmd , uint32_t EXTI_ClearSrc);
+void HAL_EXTI_D3_EventInputConfig(uint32_t EXTI_Line, uint32_t EXTI_LineCmd, uint32_t EXTI_ClearSrc);
 void HAL_SetFMCMemorySwappingConfig(uint32_t BankMapConfig);
 uint32_t HAL_GetFMCMemorySwappingConfig(void);
 void HAL_SYSCFG_VREFBUF_VoltageScalingConfig(uint32_t VoltageScaling);

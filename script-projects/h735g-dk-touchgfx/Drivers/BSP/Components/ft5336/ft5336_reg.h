@@ -3,7 +3,7 @@
  * @file    ft5336_reg.h
  * @author  MCD Application Team
  * @brief   Header of ft5336_reg.c
- *          
+ *
  ******************************************************************************
   * @attention
   *
@@ -50,8 +50,8 @@ extern "C" {
  */
 /************** Generic Function  *******************/
 
-typedef int32_t (*FT5336_Write_Func)(void *, uint8_t, uint8_t*, uint16_t);
-typedef int32_t (*FT5336_Read_Func) (void *, uint8_t, uint8_t*, uint16_t);
+typedef int32_t (*FT5336_Write_Func)(void*, uint8_t, uint8_t*, uint16_t);
+typedef int32_t (*FT5336_Read_Func) (void*, uint8_t, uint8_t*, uint16_t);
 
 /**
  * @}
@@ -60,11 +60,10 @@ typedef int32_t (*FT5336_Read_Func) (void *, uint8_t, uint8_t*, uint16_t);
 /** @defgroup FT5336_Imported_Globals FT5336 Imported Globals
  * @{
  */
-typedef struct
-{
-  FT5336_Write_Func   WriteReg;
-  FT5336_Read_Func    ReadReg;
-  void                *handle;
+typedef struct {
+    FT5336_Write_Func   WriteReg;
+    FT5336_Read_Func    ReadReg;
+    void*                handle;
 } ft5336_ctx_t;
 /**
  * @}
@@ -236,8 +235,8 @@ typedef struct
 * Bit Group Name: None
 * Permission    : W
 *******************************************************************************/
-int32_t ft5336_write_reg(ft5336_ctx_t *ctx, uint8_t reg, uint8_t *pbuf, uint16_t length);
-int32_t ft5336_read_reg(ft5336_ctx_t *ctx, uint8_t reg, uint8_t *pbuf, uint16_t length);
+int32_t ft5336_write_reg(ft5336_ctx_t* ctx, uint8_t reg, uint8_t* pbuf, uint16_t length);
+int32_t ft5336_read_reg(ft5336_ctx_t* ctx, uint8_t reg, uint8_t* pbuf, uint16_t length);
 
 /**************** Base Function  *******************/
 
@@ -249,8 +248,8 @@ int32_t ft5336_read_reg(ft5336_ctx_t *ctx, uint8_t reg, uint8_t *pbuf, uint16_t 
 *******************************************************************************/
 #define   FT5336_DEV_MODE_BIT_MASK        0x70U
 #define   FT5336_DEV_MODE_BIT_POSITION    4
-int32_t  ft5336_dev_mode_w(ft5336_ctx_t *ctx, uint8_t value);
-int32_t  ft5336_dev_mode_r(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t  ft5336_dev_mode_w(ft5336_ctx_t* ctx, uint8_t value);
+int32_t  ft5336_dev_mode_r(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : GEST_ID
@@ -260,17 +259,17 @@ int32_t  ft5336_dev_mode_r(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_GEST_ID_BIT_MASK        0xFFU
 #define   FT5336_GEST_ID_BIT_POSITION    0
-int32_t ft5336_gest_id(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_gest_id(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : TD_STATUS
 * Address       : 0X02
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : R
 *******************************************************************************/
 #define   FT5336_TD_STATUS_BIT_MASK        0x0FU
 #define   FT5336_TD_STATUS_BIT_POSITION    0
-int32_t ft5336_td_status(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_td_status(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_XH
@@ -281,7 +280,7 @@ int32_t ft5336_td_status(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_XH_EF_BIT_MASK        0xC0U
 #define   FT5336_P1_XH_EF_BIT_POSITION    6
-int32_t ft5336_p1_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_xh_ef(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_XH
@@ -292,7 +291,7 @@ int32_t ft5336_p1_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_XH_TP_BIT_MASK        0x0FU
 #define   FT5336_P1_XH_TP_BIT_POSITION    0
-int32_t ft5336_p1_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_xh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_XL
@@ -303,7 +302,7 @@ int32_t ft5336_p1_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_XL_TP_BIT_MASK        0xFFU
 #define   FT5336_P1_XL_TP_BIT_POSITION    0
-int32_t ft5336_p1_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_xl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_YH
@@ -314,7 +313,7 @@ int32_t ft5336_p1_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_YH_TID_BIT_MASK        0xF0U
 #define   FT5336_P1_YH_TID_BIT_POSITION    4
-int32_t ft5336_p1_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_yh_tid(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_YH
@@ -325,7 +324,7 @@ int32_t ft5336_p1_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_YH_TP_BIT_MASK        0x0FU
 #define   FT5336_P1_YH_TP_BIT_POSITION    0
-int32_t ft5336_p1_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_yh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_YL
@@ -336,7 +335,7 @@ int32_t ft5336_p1_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_YL_TP_BIT_MASK        0xFFU
 #define   FT5336_P1_YL_TP_BIT_POSITION    0
-int32_t ft5336_p1_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_yl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_WEIGHT
@@ -347,7 +346,7 @@ int32_t ft5336_p1_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_WEIGHT_BIT_MASK        0xFFU
 #define   FT5336_P1_WEIGHT_BIT_POSITION    0
-int32_t ft5336_p1_weight(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_weight(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P1_MISC
@@ -358,7 +357,7 @@ int32_t ft5336_p1_weight(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P1_MISC_BIT_MASK        0xF0U
 #define   FT5336_P1_MISC_BIT_POSITION    4
-int32_t ft5336_p1_misc(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p1_misc(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_XH
@@ -369,7 +368,7 @@ int32_t ft5336_p1_misc(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_XH_EF_BIT_MASK        0xC0U
 #define   FT5336_P2_XH_EF_BIT_POSITION    6
-int32_t ft5336_p2_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_xh_ef(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_XH
@@ -380,7 +379,7 @@ int32_t ft5336_p2_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_XH_TP_BIT_MASK        0x0FU
 #define   FT5336_P2_XH_TP_BIT_POSITION    0
-int32_t ft5336_p2_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_xh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_XL
@@ -391,7 +390,7 @@ int32_t ft5336_p2_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_XL_TP_BIT_MASK        0xFFU
 #define   FT5336_P2_XL_TP_BIT_POSITION    0
-int32_t ft5336_p2_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_xl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_YH
@@ -402,7 +401,7 @@ int32_t ft5336_p2_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_YH_TID_BIT_MASK        0xF0U
 #define   FT5336_P2_YH_TID_BIT_POSITION    4
-int32_t ft5336_p2_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_yh_tid(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_YH
@@ -413,7 +412,7 @@ int32_t ft5336_p2_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_YH_TP_BIT_MASK        0x0FU
 #define   FT5336_P2_YH_TP_BIT_POSITION    0
-int32_t ft5336_p2_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_yh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_YL
@@ -424,7 +423,7 @@ int32_t ft5336_p2_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_YL_TP_BIT_MASK        0xFFU
 #define   FT5336_P2_YL_TP_BIT_POSITION    0
-int32_t ft5336_p2_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_yl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_WEIGHT
@@ -435,7 +434,7 @@ int32_t ft5336_p2_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_WEIGHT_BIT_MASK        0xFFU
 #define   FT5336_P2_WEIGHT_BIT_POSITION    0
-int32_t ft5336_p2_weight(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_weight(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P2_MISC
@@ -446,7 +445,7 @@ int32_t ft5336_p2_weight(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P2_MISC_BIT_MASK        0xF0U
 #define   FT5336_P2_MISC_BIT_POSITION    4
-int32_t ft5336_p2_misc(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p2_misc(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_XH
@@ -457,7 +456,7 @@ int32_t ft5336_p2_misc(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_XH_EF_BIT_MASK        0xC0U
 #define   FT5336_P3_XH_EF_BIT_POSITION    6
-int32_t ft5336_p3_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_xh_ef(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_XH
@@ -468,7 +467,7 @@ int32_t ft5336_p3_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_XH_TP_BIT_MASK        0x0FU
 #define   FT5336_P3_XH_TP_BIT_POSITION    0
-int32_t ft5336_p3_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_xh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_XL
@@ -479,7 +478,7 @@ int32_t ft5336_p3_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_XL_TP_BIT_MASK        0xFFU
 #define   FT5336_P3_XL_TP_BIT_POSITION    0
-int32_t ft5336_p3_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_xl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_YH
@@ -490,7 +489,7 @@ int32_t ft5336_p3_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_YH_TID_BIT_MASK        0xF0U
 #define   FT5336_P3_YH_TID_BIT_POSITION    4
-int32_t ft5336_p3_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_yh_tid(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_YH
@@ -501,7 +500,7 @@ int32_t ft5336_p3_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_YH_TP_BIT_MASK        0x0FU
 #define   FT5336_P3_YH_TP_BIT_POSITION    0
-int32_t ft5336_p3_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_yh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_YL
@@ -512,7 +511,7 @@ int32_t ft5336_p3_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_YL_TP_BIT_MASK        0xFFU
 #define   FT5336_P3_YL_TP_BIT_POSITION    0
-int32_t ft5336_p3_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_yl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_WEIGHT
@@ -523,7 +522,7 @@ int32_t ft5336_p3_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_WEIGHT_BIT_MASK        0xFFU
 #define   FT5336_P3_WEIGHT_BIT_POSITION    0
-int32_t ft5336_p3_weight(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_weight(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P3_MISC
@@ -534,7 +533,7 @@ int32_t ft5336_p3_weight(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P3_MISC_BIT_MASK        0xF0U
 #define   FT5336_P3_MISC_BIT_POSITION    4
-int32_t ft5336_p3_misc(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p3_misc(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_XH
@@ -545,7 +544,7 @@ int32_t ft5336_p3_misc(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_XH_EF_BIT_MASK        0xC0U
 #define   FT5336_P4_XH_EF_BIT_POSITION    6
-int32_t ft5336_p4_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_xh_ef(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_XH
@@ -556,7 +555,7 @@ int32_t ft5336_p4_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_XH_TP_BIT_MASK        0x0FU
 #define   FT5336_P4_XH_TP_BIT_POSITION    0
-int32_t ft5336_p4_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_xh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_XL
@@ -567,7 +566,7 @@ int32_t ft5336_p4_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_XL_TP_BIT_MASK        0xFFU
 #define   FT5336_P4_XL_TP_BIT_POSITION    0
-int32_t ft5336_p4_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_xl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_YH
@@ -578,7 +577,7 @@ int32_t ft5336_p4_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_YH_TID_BIT_MASK        0xF0U
 #define   FT5336_P4_YH_TID_BIT_POSITION    4
-int32_t ft5336_p4_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_yh_tid(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_YH
@@ -589,7 +588,7 @@ int32_t ft5336_p4_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_YH_TP_BIT_MASK        0x0FU
 #define   FT5336_P4_YH_TP_BIT_POSITION    0
-int32_t ft5336_p4_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_yh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_YL
@@ -600,7 +599,7 @@ int32_t ft5336_p4_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_YL_TP_BIT_MASK        0xFFU
 #define   FT5336_P4_YL_TP_BIT_POSITION    0
-int32_t ft5336_p4_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_yl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_WEIGHT
@@ -611,7 +610,7 @@ int32_t ft5336_p4_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_WEIGHT_BIT_MASK        0xFFU
 #define   FT5336_P4_WEIGHT_BIT_POSITION    0
-int32_t ft5336_p4_weight(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_weight(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P4_MISC
@@ -622,7 +621,7 @@ int32_t ft5336_p4_weight(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P4_MISC_BIT_MASK        0xF0U
 #define   FT5336_P4_MISC_BIT_POSITION    4
-int32_t ft5336_p4_misc(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p4_misc(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_XH
@@ -633,7 +632,7 @@ int32_t ft5336_p4_misc(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_XH_EF_BIT_MASK        0xC0U
 #define   FT5336_P5_XH_EF_BIT_POSITION    6
-int32_t ft5336_p5_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_xh_ef(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_XH
@@ -644,7 +643,7 @@ int32_t ft5336_p5_xh_ef(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_XH_TP_BIT_MASK        0x0FU
 #define   FT5336_P5_XH_TP_BIT_POSITION    0
-int32_t ft5336_p5_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_xh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_XL
@@ -655,7 +654,7 @@ int32_t ft5336_p5_xh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_XL_TP_BIT_MASK        0xFFU
 #define   FT5336_P5_XL_TP_BIT_POSITION    0
-int32_t ft5336_p5_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_xl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_YH
@@ -666,7 +665,7 @@ int32_t ft5336_p5_xl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_YH_TID_BIT_MASK        0xF0U
 #define   FT5336_P5_YH_TID_BIT_POSITION    4
-int32_t ft5336_p5_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_yh_tid(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_YH
@@ -677,7 +676,7 @@ int32_t ft5336_p5_yh_tid(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_YH_TP_BIT_MASK        0x0FU
 #define   FT5336_P5_YH_TP_BIT_POSITION    0
-int32_t ft5336_p5_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_yh_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_YL
@@ -688,7 +687,7 @@ int32_t ft5336_p5_yh_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_YL_TP_BIT_MASK        0xFFU
 #define   FT5336_P5_YL_TP_BIT_POSITION    0
-int32_t ft5336_p5_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_yl_tp(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_WEIGHT
@@ -699,7 +698,7 @@ int32_t ft5336_p5_yl_tp(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_WEIGHT_BIT_MASK        0xFFU
 #define   FT5336_P5_WEIGHT_BIT_POSITION    0
-int32_t ft5336_p5_weight(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_weight(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : P5_MISC
@@ -710,7 +709,7 @@ int32_t ft5336_p5_weight(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_P5_MISC_BIT_MASK        0xF0U
 #define   FT5336_P5_MISC_BIT_POSITION    4
-int32_t ft5336_p5_misc(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_p5_misc(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : TH_GROUP
@@ -721,7 +720,7 @@ int32_t ft5336_p5_misc(ft5336_ctx_t *ctx, uint8_t *value);
 *******************************************************************************/
 #define   FT5336_TH_GROUP_BIT_MASK        0xFFU
 #define   FT5336_TH_GROUP_BIT_POSITION    0
-int32_t ft5336_th_group(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_th_group(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : TH_DIFF
@@ -732,220 +731,220 @@ int32_t ft5336_th_group(ft5336_ctx_t *ctx, uint8_t value);
 *******************************************************************************/
 #define   FT5336_TH_DIFF_BIT_MASK        0xFFU
 #define   FT5336_TH_DIFF_BIT_POSITION    0
-int32_t ft5336_th_diff(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_th_diff(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : CTRL
 * Address       : 0X86
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x01
 *******************************************************************************/
 #define   FT5336_CTRL_BIT_MASK           0xFFU
 #define   FT5336_CTRL_BIT_POSITION       0
-int32_t ft5336_ctrl(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_ctrl(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : TIMEENTERMONITOR
 * Address       : 0X87
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x0A
 *******************************************************************************/
 #define   FT5336_TIMEENTERMONITOR_BIT_MASK           0xFFU
 #define   FT5336_TIMEENTERMONITOR_BIT_POSITION       0
-int32_t ft5336_time_enter_monitor(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_time_enter_monitor(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : PERIODACTIVE
 * Address       : 0X88
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : None
 *******************************************************************************/
 #define   FT5336_PERIODACTIVE_BIT_MASK           0xFFU
 #define   FT5336_PERIODACTIVE_BIT_POSITION       0
-int32_t ft5336_period_active(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_period_active(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : PERIODMONITOR
 * Address       : 0X89
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x28
 *******************************************************************************/
 #define   FT5336_PERIODMONITOR_BIT_MASK           0xFFU
 #define   FT5336_PERIODMONITOR_BIT_POSITION       0
-int32_t ft5336_period_monitor(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_period_monitor(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : RADIAN_VALUE
 * Address       : 0X91
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x0A
 *******************************************************************************/
 #define   FT5336_RADIAN_VALUE_BIT_MASK           0xFFU
 #define   FT5336_RADIAN_VALUE_BIT_POSITION       0
-int32_t ft5336_radian_value(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_radian_value(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : OFFSET_LEFT_RIGHT
 * Address       : 0X92
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x19
 *******************************************************************************/
 #define   FT5336_OFFSET_LR_BIT_MASK           0xFFU
 #define   FT5336_OFFSET_LR_BIT_POSITION       0
-int32_t ft5336_offset_left_right(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_offset_left_right(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : OFFSET_UP_DOWN
 * Address       : 0X93
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x19
 *******************************************************************************/
 #define   FT5336_OFFSET_UD_BIT_MASK           0xFFU
 #define   FT5336_OFFSET_UD_BIT_POSITION       0
-int32_t ft5336_offset_up_down(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_offset_up_down(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : DISTANCE_LEFT_RIGHT
 * Address       : 0X94
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x19
 *******************************************************************************/
 #define   FT5336_DISTANCE_LR_BIT_MASK           0xFFU
 #define   FT5336_DISTANCE_LR_BIT_POSITION       0
-int32_t  ft5336_disatnce_left_right(ft5336_ctx_t *ctx, uint8_t value);
-        
+int32_t  ft5336_disatnce_left_right(ft5336_ctx_t* ctx, uint8_t value);
+
 /*******************************************************************************
 * Register      : DISTANCE_UP_DOWN
 * Address       : 0X95
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x19
 *******************************************************************************/
 #define   FT5336_DISTANCE_UD_BIT_MASK           0xFFU
 #define   FT5336_DISTANCE_UD_BIT_POSITION       0
-int32_t ft5336_distance_up_down(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_distance_up_down(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : DISTANCE_ZOOM
 * Address       : 0X96
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x32
 *******************************************************************************/
 #define   FT5336_DISTANCE_ZOOM_BIT_MASK           0xFFU
 #define   FT5336_DISTANCE_ZOOM_BIT_POSITION       0
-int32_t ft5336_distance_zoom(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_distance_zoom(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : LIB_VER_H
 * Address       : 0XA1
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : R
 * Default value : None
 *******************************************************************************/
 #define   FT5336_LIB_VER_H_BIT_MASK           0xFFU
 #define   FT5336_LIB_VER_H_BIT_POSITION       0
-int32_t ft5336_lib_ver_high(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_lib_ver_high(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : LIB_VER_L
 * Address       : 0XA2
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : R
 * Default value : None
 *******************************************************************************/
 #define   FT5336_LIB_VER_L_BIT_MASK           0xFFU
 #define   FT5336_LIB_VER_L_BIT_POSITION       0
-int32_t ft5336_lib_ver_low(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_lib_ver_low(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : CIPHER
 * Address       : 0XA3
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : R
 * Default value : 0x06
 *******************************************************************************/
 #define   FT5336_CIPHER_BIT_MASK           0xFFU
 #define   FT5336_CIPHER_BIT_POSITION       0
-int32_t ft5336_cipher(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_cipher(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : G_MODE
 * Address       : 0XA4
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x01
 *******************************************************************************/
 #define   FT5336_G_MODE_BIT_MASK           0xFFU
 #define   FT5336_G_MODE_BIT_POSITION       0
-int32_t ft5336_g_mode(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_g_mode(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : PWR_MODE
 * Address       : 0XA5
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x00
 *******************************************************************************/
 #define   FT5336_PWR_MODE_BIT_MASK           0xFFU
 #define   FT5336_PWR_MODE_BIT_POSITION       0
-int32_t ft5336_pwr_mode(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_pwr_mode(ft5336_ctx_t* ctx, uint8_t value);
 
 /*******************************************************************************
 * Register      : FIRMID
 * Address       : 0XA6
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : R
 * Default value : None
 *******************************************************************************/
 #define   FT5336_FIRMID_BIT_MASK           0xFFU
 #define   FT5336_FIRMID_BIT_POSITION       0
-int32_t ft5336_firm_id(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_firm_id(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : FOCALTECH_ID
 * Address       : 0XA8
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : R
 * Default value : 0x11
 *******************************************************************************/
 #define   FT5336_CHIP_ID_BIT_MASK           0xFFU
 #define   FT5336_CHIP_ID_BIT_POSITION       0
-int32_t ft5336_chip_id(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_chip_id(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : RELEASE_CODE_ID
 * Address       : 0XAF
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : R
 * Default value : 0x001
 *******************************************************************************/
 #define   FT5336_RC_ID_BIT_MASK           0xFFU
 #define   FT5336_RC_ID_BIT_POSITION       0
-int32_t ft5336_release_code_id(ft5336_ctx_t *ctx, uint8_t *value);
+int32_t ft5336_release_code_id(ft5336_ctx_t* ctx, uint8_t* value);
 
 /*******************************************************************************
 * Register      : STATE
 * Address       : 0XBC
-* Bit Group Name: 
+* Bit Group Name:
 * Permission    : RW
 * Default value : 0x01
 *******************************************************************************/
 #define   FT5336_STATE_BIT_MASK           0xFFU
 #define   FT5336_STATE_BIT_POSITION       0
-int32_t ft5336_state(ft5336_ctx_t *ctx, uint8_t value);
+int32_t ft5336_state(ft5336_ctx_t* ctx, uint8_t value);
 
-  /**
-   * @}
-   */
+/**
+ * @}
+ */
 
 #ifdef __cplusplus
 }

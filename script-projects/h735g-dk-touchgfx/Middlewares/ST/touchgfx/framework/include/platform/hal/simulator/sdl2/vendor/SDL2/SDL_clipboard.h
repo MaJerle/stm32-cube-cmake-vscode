@@ -43,14 +43,14 @@ extern "C" {
  *
  * \sa SDL_GetClipboardText()
  */
-extern DECLSPEC int SDLCALL SDL_SetClipboardText(const char *text);
+extern DECLSPEC int SDLCALL SDL_SetClipboardText(const char* text);
 
 /**
  * \brief Get UTF-8 text from the clipboard, which must be freed with SDL_free()
  *
  * \sa SDL_SetClipboardText()
  */
-extern DECLSPEC char * SDLCALL SDL_GetClipboardText(void);
+extern DECLSPEC char* SDLCALL SDL_GetClipboardText(void);
 
 /**
  * \brief Returns a flag indicating whether the clipboard exists and contains a text string that is non-empty

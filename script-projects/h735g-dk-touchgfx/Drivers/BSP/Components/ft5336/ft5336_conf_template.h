@@ -33,7 +33,7 @@ extern "C" {
 #define FT5336_AUTO_CALIBRATION_ENABLED      0U
 #define FT5336_MAX_X_LENGTH                  800U
 #define FT5336_MAX_Y_LENGTH                  480U
-  
+
 #ifdef __cplusplus
 }
 #endif

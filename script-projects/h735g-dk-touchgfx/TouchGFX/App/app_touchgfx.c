@@ -25,28 +25,28 @@ void touchgfx_taskEntry(void);
 /**
  * Initialize TouchGFX application
  */
-void MX_TouchGFX_Init(void)
-{
-  // Calling forward to touchgfx_init in C++ domain
-  touchgfx_init();
+void
+MX_TouchGFX_Init(void) {
+    // Calling forward to touchgfx_init in C++ domain
+    touchgfx_init();
 }
 
 /**
  * TouchGFX application entry function
  */
-void MX_TouchGFX_Process(void)
-{
-  // Calling forward to touchgfx_taskEntry in C++ domain
-  touchgfx_taskEntry();
+void
+MX_TouchGFX_Process(void) {
+    // Calling forward to touchgfx_taskEntry in C++ domain
+    touchgfx_taskEntry();
 }
 
 /**
  * TouchGFX application thread
  */
-void TouchGFX_Task(void *argument)
-{
-  // Calling forward to touchgfx_taskEntry in C++ domain
-  touchgfx_taskEntry();
+void
+TouchGFX_Task(void* argument) {
+    // Calling forward to touchgfx_taskEntry in C++ domain
+    touchgfx_taskEntry();
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -5,7 +5,9 @@
         "lwmem.h": "c",
         "main.h": "c",
         "lwmem_opts.h": "c",
-        "fatfs.h": "c"
+        "fatfs.h": "c",
+        "user_diskio.h": "c",
+        "ff_gen_drv.h": "c"
     },
     "cortex-debug.registerUseNaturalFormat": false
 }

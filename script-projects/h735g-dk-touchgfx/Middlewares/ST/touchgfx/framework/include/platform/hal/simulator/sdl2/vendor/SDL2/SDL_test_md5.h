@@ -65,15 +65,15 @@ extern "C" {
 /* ------------ Definitions --------- */
 
 /* typedef a 32-bit type */
-  typedef unsigned long int MD5UINT4;
+typedef unsigned long int MD5UINT4;
 
 /* Data structure for MD5 (Message-Digest) computation */
-  typedef struct {
+typedef struct {
     MD5UINT4  i[2];     /* number of _bits_ handled mod 2^64 */
     MD5UINT4  buf[4];       /* scratch buffer */
     unsigned char in[64];   /* input buffer */
     unsigned char digest[16];   /* actual digest after Md5Final call */
-  } SDLTest_Md5Context;
+} SDLTest_Md5Context;
 
 /* ---------- Function Prototypes ------------- */
 
@@ -86,7 +86,7 @@ extern "C" {
  *       mdContext. Call before each new use of the context -
  *       all fields are set to zero.
  */
- void SDLTest_Md5Init(SDLTest_Md5Context * mdContext);
+void SDLTest_Md5Init(SDLTest_Md5Context* mdContext);
 
 
 /**
@@ -101,8 +101,8 @@ extern "C" {
  *       in the message whose digest is being computed.
 */
 
- void SDLTest_Md5Update(SDLTest_Md5Context * mdContext, unsigned char *inBuf,
-                 unsigned int inLen);
+void SDLTest_Md5Update(SDLTest_Md5Context* mdContext, unsigned char* inBuf,
+                       unsigned int inLen);
 
 
 /**
@@ -115,7 +115,7 @@ extern "C" {
  *       Always call before using the digest[] variable.
 */
 
- void SDLTest_Md5Final(SDLTest_Md5Context * mdContext);
+void SDLTest_Md5Final(SDLTest_Md5Context* mdContext);
 
 
 /* Ends C function definitions when using C++ */

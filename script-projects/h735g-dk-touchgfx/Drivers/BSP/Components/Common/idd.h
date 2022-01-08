@@ -22,7 +22,7 @@
 #define IDD_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -47,28 +47,27 @@
 /** @defgroup IDD_Driver_structure  IDD Driver structure
   * @{
   */
-typedef struct
-{
-  int32_t    (*Init             )(void*);
-  int32_t    (*DeInit           )(void*);
-  int32_t    (*ReadID           )(void*, uint32_t*);
-  int32_t    (*Reset            )(void*);
-  int32_t    (*LowPower         )(void*);
-  int32_t    (*WakeUp           )(void*);
-  int32_t    (*Start            )(void*);
-  int32_t    (*Config           )(void*, void*);
-  int32_t    (*GetValue         )(void*, uint32_t*);
-  int32_t    (*EnableIT         )(void*);
-  int32_t    (*DisableIT        )(void*); 
-  int32_t    (*ITStatus         )(void*);   
-  int32_t    (*ClearIT          )(void*);
-  int32_t    (*ErrorEnableIT    )(void*);
-  int32_t    (*ErrorClearIT     )(void*);
-  int32_t    (*ErrorGetITStatus)(void*);
-  int32_t    (*ErrorDisableIT   )(void*);
-  int32_t    (*ErrorGetSrc      )(void*);
-  int32_t    (*ErrorGetCode     )(void*);
-}IDD_Drv_t;
+typedef struct {
+    int32_t    (*Init             )(void*);
+    int32_t    (*DeInit           )(void*);
+    int32_t    (*ReadID           )(void*, uint32_t*);
+    int32_t    (*Reset            )(void*);
+    int32_t    (*LowPower         )(void*);
+    int32_t    (*WakeUp           )(void*);
+    int32_t    (*Start            )(void*);
+    int32_t    (*Config           )(void*, void*);
+    int32_t    (*GetValue         )(void*, uint32_t*);
+    int32_t    (*EnableIT         )(void*);
+    int32_t    (*DisableIT        )(void*);
+    int32_t    (*ITStatus         )(void*);
+    int32_t    (*ClearIT          )(void*);
+    int32_t    (*ErrorEnableIT    )(void*);
+    int32_t    (*ErrorClearIT     )(void*);
+    int32_t    (*ErrorGetITStatus)(void*);
+    int32_t    (*ErrorDisableIT   )(void*);
+    int32_t    (*ErrorGetSrc      )(void*);
+    int32_t    (*ErrorGetCode     )(void*);
+} IDD_Drv_t;
 /**
   * @}
   */

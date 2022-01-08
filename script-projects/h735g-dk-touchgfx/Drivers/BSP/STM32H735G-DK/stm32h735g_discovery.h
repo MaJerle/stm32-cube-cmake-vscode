@@ -26,7 +26,7 @@
 #define STM32H735G_DK_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -49,78 +49,68 @@
   * @{
   */
 
-typedef enum
-{
-  LED1 = 0U,
-  LED_GREEN = LED1,
-  LED2 = 1U,
-  LED_RED = LED2,
-  LEDn
-}Led_TypeDef;
+typedef enum {
+    LED1 = 0U,
+    LED_GREEN = LED1,
+    LED2 = 1U,
+    LED_RED = LED2,
+    LEDn
+} Led_TypeDef;
 
 
-typedef enum
-{
-  BUTTON_USER = 0U,
-  BUTTONn
-}Button_TypeDef;
+typedef enum {
+    BUTTON_USER = 0U,
+    BUTTONn
+} Button_TypeDef;
 
-typedef enum
-{
-  BUTTON_MODE_GPIO = 0U,
-  BUTTON_MODE_EXTI = 1U
-}ButtonMode_TypeDef;
+typedef enum {
+    BUTTON_MODE_GPIO = 0U,
+    BUTTON_MODE_EXTI = 1U
+} ButtonMode_TypeDef;
 
 #if (USE_BSP_COM_FEATURE > 0)
-typedef enum
-{
-  COM1 = 0U,
-  COMn
-}COM_TypeDef;
+typedef enum {
+    COM1 = 0U,
+    COMn
+} COM_TypeDef;
 
-typedef enum
-{
-  COM_STOPBITS_1     =   UART_STOPBITS_1,
-  COM_STOPBITS_2     =   UART_STOPBITS_2,
-}COM_StopBitsTypeDef;
+typedef enum {
+    COM_STOPBITS_1     =   UART_STOPBITS_1,
+    COM_STOPBITS_2     =   UART_STOPBITS_2,
+} COM_StopBitsTypeDef;
 
-typedef enum
-{
-  COM_PARITY_NONE     =  UART_PARITY_NONE,
-  COM_PARITY_EVEN     =  UART_PARITY_EVEN,
-  COM_PARITY_ODD      =  UART_PARITY_ODD,
-}COM_ParityTypeDef;
+typedef enum {
+    COM_PARITY_NONE     =  UART_PARITY_NONE,
+    COM_PARITY_EVEN     =  UART_PARITY_EVEN,
+    COM_PARITY_ODD      =  UART_PARITY_ODD,
+} COM_ParityTypeDef;
 
-typedef enum
-{
-  COM_HWCONTROL_NONE    =  UART_HWCONTROL_NONE,
-  COM_HWCONTROL_RTS     =  UART_HWCONTROL_RTS,
-  COM_HWCONTROL_CTS     =  UART_HWCONTROL_CTS,
-  COM_HWCONTROL_RTS_CTS =  UART_HWCONTROL_RTS_CTS,
-}COM_HwFlowCtlTypeDef;
+typedef enum {
+    COM_HWCONTROL_NONE    =  UART_HWCONTROL_NONE,
+    COM_HWCONTROL_RTS     =  UART_HWCONTROL_RTS,
+    COM_HWCONTROL_CTS     =  UART_HWCONTROL_CTS,
+    COM_HWCONTROL_RTS_CTS =  UART_HWCONTROL_RTS_CTS,
+} COM_HwFlowCtlTypeDef;
 
-typedef enum
-{
-  COM_WORDLENGTH_7B = UART_WORDLENGTH_7B,
-  COM_WORDLENGTH_8B = UART_WORDLENGTH_8B,
-  COM_WORDLENGTH_9B = UART_WORDLENGTH_9B,
-}COM_WordLengthTypeDef;
+typedef enum {
+    COM_WORDLENGTH_7B = UART_WORDLENGTH_7B,
+    COM_WORDLENGTH_8B = UART_WORDLENGTH_8B,
+    COM_WORDLENGTH_9B = UART_WORDLENGTH_9B,
+} COM_WordLengthTypeDef;
 
-typedef struct
-{
-  uint32_t              BaudRate;
-  COM_WordLengthTypeDef WordLength;
-  COM_StopBitsTypeDef   StopBits;
-  COM_ParityTypeDef     Parity;
-  COM_HwFlowCtlTypeDef  HwFlowCtl;
-}COM_InitTypeDef;
+typedef struct {
+    uint32_t              BaudRate;
+    COM_WordLengthTypeDef WordLength;
+    COM_StopBitsTypeDef   StopBits;
+    COM_ParityTypeDef     Parity;
+    COM_HwFlowCtlTypeDef  HwFlowCtl;
+} COM_InitTypeDef;
 
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
-typedef struct
-{
-  void (* pMspInitCb)(UART_HandleTypeDef *);
-  void (* pMspDeInitCb)(UART_HandleTypeDef *);
-}BSP_COM_Cb_t;
+typedef struct {
+    void (* pMspInitCb)(UART_HandleTypeDef*);
+    void (* pMspDeInitCb)(UART_HandleTypeDef*);
+} BSP_COM_Cb_t;
 #endif /* (USE_HAL_UART_REGISTER_CALLBACKS == 1) */
 #endif
 
@@ -136,20 +126,20 @@ typedef struct
   * @brief  Define for STM32H735G_DK board
   */
 #if !defined (USE_STM32H735G_DK)
- #define USE_STM32H735G_DK
+#define USE_STM32H735G_DK
 #endif
 
 /**
  * @brief STM32H735G_DK BSP Driver version number V1.0.0
    */
-#define	STM32H735G_DK_BSP_VERSION_MAIN   (uint32_t)(0x01) /*!< [31:24] main version */
-#define	STM32H735G_DK_BSP_VERSION_SUB1   (uint32_t)(0x00) /*!< [23:16] sub1 version */
-#define	STM32H735G_DK_BSP_VERSION_SUB2   (uint32_t)(0x00) /*!< [15:8]  sub2 version */
-#define	STM32H735G_DK_BSP_VERSION_RC     (uint32_t)(0x00) /*!< [7:0]  release candidate */
-#define	STM32H735G_DK_BSP_VERSION        ((STM32H735G_DK_BSP_VERSION_MAIN << 24)\
-                                                |(STM32H735G_DK_BSP_VERSION_SUB1 << 16)\
-                                                |(STM32H735G_DK_BSP_VERSION_SUB2 << 8 )\
-                                                |(STM32H735G_DK_BSP_VERSION_RC))
+#define STM32H735G_DK_BSP_VERSION_MAIN   (uint32_t)(0x01) /*!< [31:24] main version */
+#define STM32H735G_DK_BSP_VERSION_SUB1   (uint32_t)(0x00) /*!< [23:16] sub1 version */
+#define STM32H735G_DK_BSP_VERSION_SUB2   (uint32_t)(0x00) /*!< [15:8]  sub2 version */
+#define STM32H735G_DK_BSP_VERSION_RC     (uint32_t)(0x00) /*!< [7:0]  release candidate */
+#define STM32H735G_DK_BSP_VERSION        ((STM32H735G_DK_BSP_VERSION_MAIN << 24)\
+                                          |(STM32H735G_DK_BSP_VERSION_SUB1 << 16)\
+                                          |(STM32H735G_DK_BSP_VERSION_SUB2 << 8 )\
+                                          |(STM32H735G_DK_BSP_VERSION_RC))
 
 
 /** @defgroup STM32H735G_DK_LOW_LEVEL_LED EVAL LOW LEVEL LED
@@ -250,7 +240,7 @@ int32_t  BSP_PB_DeInit(Button_TypeDef Button);
 int32_t  BSP_PB_GetState(Button_TypeDef Button);
 void     BSP_PB_Callback(Button_TypeDef Button);
 #if (USE_BSP_COM_FEATURE > 0)
-int32_t  BSP_COM_Init(COM_TypeDef COM, COM_InitTypeDef *COM_Init);
+int32_t  BSP_COM_Init(COM_TypeDef COM, COM_InitTypeDef* COM_Init);
 int32_t  BSP_COM_DeInit(COM_TypeDef COM);
 #if( USE_COM_LOG == 1)
 int32_t  BSP_COM_SelectLogPort (COM_TypeDef COM);
@@ -258,9 +248,9 @@ int32_t  BSP_COM_SelectLogPort (COM_TypeDef COM);
 
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
 int32_t BSP_COM_RegisterDefaultMspCallbacks(COM_TypeDef COM);
-int32_t BSP_COM_RegisterMspCallbacks(COM_TypeDef COM, BSP_COM_Cb_t *Callback);
+int32_t BSP_COM_RegisterMspCallbacks(COM_TypeDef COM, BSP_COM_Cb_t* Callback);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
-HAL_StatusTypeDef MX_USART3_Init(UART_HandleTypeDef *huart, MX_UART_InitTypeDef *COM_Init);
+HAL_StatusTypeDef MX_USART3_Init(UART_HandleTypeDef* huart, MX_UART_InitTypeDef* COM_Init);
 #endif
 void BSP_PB_IRQHandler(Button_TypeDef Button);
 

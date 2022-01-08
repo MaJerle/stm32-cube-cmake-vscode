@@ -22,7 +22,7 @@
 #define STM32H7xx_HAL_FLASH_EX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -44,21 +44,20 @@
 /**
   * @brief  FLASH Erase structure definition
   */
-typedef struct
-{
-  uint32_t TypeErase;   /*!< Mass erase or sector Erase.
+typedef struct {
+    uint32_t TypeErase;   /*!< Mass erase or sector Erase.
                              This parameter can be a value of @ref FLASHEx_Type_Erase */
 
-  uint32_t Banks;       /*!< Select banks to erase when Mass erase is enabled.
+    uint32_t Banks;       /*!< Select banks to erase when Mass erase is enabled.
                              This parameter must be a value of @ref FLASHEx_Banks */
 
-  uint32_t Sector;      /*!< Initial FLASH sector to erase when Mass erase is disabled
+    uint32_t Sector;      /*!< Initial FLASH sector to erase when Mass erase is disabled
                              This parameter must be a value of @ref FLASH_Sectors */
 
-  uint32_t NbSectors;   /*!< Number of sectors to be erased.
+    uint32_t NbSectors;   /*!< Number of sectors to be erased.
                              This parameter must be a value between 1 and (max number of sectors - value of Initial sector)*/
 
-  uint32_t VoltageRange;/*!< The device voltage range which defines the erase parallelism
+    uint32_t VoltageRange;/*!< The device voltage range which defines the erase parallelism
                              This parameter must be a value of @ref FLASHEx_Voltage_Range */
 
 } FLASH_EraseInitTypeDef;
@@ -67,84 +66,83 @@ typedef struct
 /**
   * @brief  FLASH Option Bytes Program structure definition
   */
-typedef struct
-{
-  uint32_t OptionType;     /*!< Option byte to be configured.
+typedef struct {
+    uint32_t OptionType;     /*!< Option byte to be configured.
                                 This parameter can be a value of @ref FLASHEx_Option_Type */
 
-  uint32_t WRPState;       /*!< Write protection activation or deactivation.
+    uint32_t WRPState;       /*!< Write protection activation or deactivation.
                                 This parameter can be a value of @ref FLASHEx_WRP_State */
 
-  uint32_t WRPSector;      /*!< Specifies the sector(s) to be write protected.
+    uint32_t WRPSector;      /*!< Specifies the sector(s) to be write protected.
                                 The value of this parameter depend on device used within the same series */
 
-  uint32_t RDPLevel;       /*!< Set the read protection level.
+    uint32_t RDPLevel;       /*!< Set the read protection level.
                                 This parameter can be a value of @ref FLASHEx_Option_Bytes_Read_Protection */
 
-  uint32_t BORLevel;       /*!< Set the BOR Level.
+    uint32_t BORLevel;       /*!< Set the BOR Level.
                                 This parameter can be a value of @ref FLASHEx_BOR_Reset_Level */
 
-  uint32_t USERType;       /*!< User option byte(s) to be configured (used for OPTIONBYTE_USER).
+    uint32_t USERType;       /*!< User option byte(s) to be configured (used for OPTIONBYTE_USER).
                                 This parameter can be a combination of @ref FLASHEx_OB_USER_Type */
 
-  uint32_t USERConfig;     /*!< Program the FLASH User Option Byte: IWDG_SW / RST_STOP / RST_STDBY /
+    uint32_t USERConfig;     /*!< Program the FLASH User Option Byte: IWDG_SW / RST_STOP / RST_STDBY /
                                 IWDG_FREEZE_STOP / IWDG_FREEZE_SANDBY / IO_HSLV / SWAP_BANK_OPT */
 
-  uint32_t Banks;          /*!< Select banks for WRP , PCROP and secure area config .
+    uint32_t Banks;          /*!< Select banks for WRP , PCROP and secure area config .
                                 This parameter must be a value of @ref FLASHEx_Banks */
 
-  uint32_t PCROPConfig;    /*!< specifies if the PCROP area shall be erased or not
+    uint32_t PCROPConfig;    /*!< specifies if the PCROP area shall be erased or not
                                 when RDP level decreased from Level 1 to Level 0 or during a mass erase.
                                 This parameter must be a value of @ref FLASHEx_OB_PCROP_RDP enumeration */
 
-  uint32_t PCROPStartAddr; /*!< PCROP Start address (used for OPTIONBYTE_PCROP).
+    uint32_t PCROPStartAddr; /*!< PCROP Start address (used for OPTIONBYTE_PCROP).
                                 This parameter must be a value between begin and end of a bank */
 
-  uint32_t PCROPEndAddr;   /*!< PCROP End address (used for OPTIONBYTE_PCROP).
+    uint32_t PCROPEndAddr;   /*!< PCROP End address (used for OPTIONBYTE_PCROP).
                                 This parameter must be a value between PCROP Start address and end of a bank */
 
-  uint32_t BootConfig;     /*!< Specifies if the Boot Address to be configured BOOT_ADD0, BOOT_ADD1
+    uint32_t BootConfig;     /*!< Specifies if the Boot Address to be configured BOOT_ADD0, BOOT_ADD1
                                 or both. This parameter must be a value of @ref FLASHEx_OB_BOOT_OPTION enumeration */
 
-  uint32_t BootAddr0;      /*!< Boot Address 0.
+    uint32_t BootAddr0;      /*!< Boot Address 0.
                                 This parameter must be a value between begin and end of a bank */
 
-  uint32_t BootAddr1;      /*!< Boot Address 1.
+    uint32_t BootAddr1;      /*!< Boot Address 1.
                                 This parameter must be a value between begin and end of a bank */
 #if defined(DUAL_CORE)
-  uint32_t CM4BootConfig;  /*!< specifies if the CM4 boot Address to be configured BOOT_ADD0, BOOT_ADD1
+    uint32_t CM4BootConfig;  /*!< specifies if the CM4 boot Address to be configured BOOT_ADD0, BOOT_ADD1
                                 or both.
                                 This parameter must be a value of @ref FLASHEx_OB_BOOT_OPTION enumeration */
 
-  uint32_t CM4BootAddr0;   /*!< CM4 Boot Address 0.
+    uint32_t CM4BootAddr0;   /*!< CM4 Boot Address 0.
                                 This parameter must be a value between begin and end of a bank */
 
-  uint32_t CM4BootAddr1;   /*!< CM4 Boot Address 1.
+    uint32_t CM4BootAddr1;   /*!< CM4 Boot Address 1.
                                 This parameter must be a value between begin and end of a bank */
 #endif /*DUAL_CORE*/
 
-  uint32_t SecureAreaConfig;    /*!< specifies if the bank secured area shall be erased or not
+    uint32_t SecureAreaConfig;    /*!< specifies if the bank secured area shall be erased or not
                                      when RDP level decreased from Level 1 to Level 0 or during a mass erase.
                                      This parameter must be a value of @ref FLASHEx_OB_SECURE_RDP enumeration */
 
-  uint32_t SecureAreaStartAddr; /*!< Bank Secure area Start address.
+    uint32_t SecureAreaStartAddr; /*!< Bank Secure area Start address.
                                      This parameter must be a value between begin address and end address of bank1 */
 
-  uint32_t SecureAreaEndAddr;   /*!< Bank Secure area End address.
+    uint32_t SecureAreaEndAddr;   /*!< Bank Secure area End address.
                                      This parameter must be a value between Secure Area Start address and end address of a bank1 */
 
 #if defined (FLASH_OTPBL_LOCKBL)
-  uint32_t OTPBlockLock;   /*!< Specifies the OTP block(s) to be locked.
+    uint32_t OTPBlockLock;   /*!< Specifies the OTP block(s) to be locked.
                                 This parameter must be a value of @ref FLASHEx_OTP_Blocks */
 #endif /* FLASH_OTPBL_LOCKBL */
 
 #if defined (FLASH_OPTSR2_TCM_AXI_SHARED)
-  uint32_t SharedRamConfig; /*!< Specifies the configuration of TCM / AXI shared RAM.
+    uint32_t SharedRamConfig; /*!< Specifies the configuration of TCM / AXI shared RAM.
                                  This parameter must be a value of @ref FLASHEx_OB_TCM_AXI_SHARED */
 #endif /* FLASH_OPTSR2_TCM_AXI_SHARED */
 
 #if defined (FLASH_OPTSR2_CPUFREQ_BOOST)
-  uint32_t FreqBoostState;  /*!< Specifies the state of CPU Frequency Boost.
+    uint32_t FreqBoostState;  /*!< Specifies the state of CPU Frequency Boost.
                                  This parameter must be a value of @ref FLASHEx_OB_CPUFREQ_BOOST */
 #endif /* FLASH_OPTSR2_CPUFREQ_BOOST */
 
@@ -153,27 +151,26 @@ typedef struct
 /**
   * @brief  FLASH Erase structure definition
   */
-typedef struct
-{
-  uint32_t TypeCRC;      /*!< CRC Selection Type.
+typedef struct {
+    uint32_t TypeCRC;      /*!< CRC Selection Type.
                               This parameter can be a value of @ref FLASHEx_CRC_Selection_Type */
 
-  uint32_t BurstSize;    /*!< CRC Burst Size.
+    uint32_t BurstSize;    /*!< CRC Burst Size.
                               This parameter can be a value of @ref FLASHEx_CRC_Burst_Size */
 
-  uint32_t Bank;         /*!< Select bank where CRC computation is enabled.
+    uint32_t Bank;         /*!< Select bank where CRC computation is enabled.
                               This parameter must be FLASH_BANK_1 or FLASH_BANK_2 */
 
-  uint32_t Sector;       /*!< Initial FLASH sector from which starts the CRC computation
+    uint32_t Sector;       /*!< Initial FLASH sector from which starts the CRC computation
                               This parameter must be a value of @ref FLASH_Sectors */
 
-  uint32_t NbSectors;    /*!< Number of sectors to be computed.
+    uint32_t NbSectors;    /*!< Number of sectors to be computed.
                               This parameter must be a value between 1 and (max number of sectors - value of Initial sector)*/
 
-  uint32_t CRCStartAddr; /*!< CRC Start address.
+    uint32_t CRCStartAddr; /*!< CRC Start address.
                               This parameter must be a value between begin address and end address of a bank */
 
-  uint32_t CRCEndAddr;   /*!< CRC End address.
+    uint32_t CRCEndAddr;   /*!< CRC End address.
                               This parameter must be a value between CRC Start address and end address of a bank */
 
 } FLASH_CRCInitTypeDef;
@@ -601,9 +598,9 @@ typedef struct
   */
 #endif /* FLASH_OPTSR2_TCM_AXI_SHARED */
 
- /** @defgroup FLASHEx_OB_USER_Type  FLASHEx OB USER Type
-  * @{
-  */
+/** @defgroup FLASHEx_OB_USER_Type  FLASHEx OB USER Type
+ * @{
+ */
 #define OB_USER_IWDG1_SW          0x0001U /*!< Independent watchdog selection */
 #define OB_USER_NRST_STOP_D1      0x0002U /*!< Reset when entering Stop mode selection*/
 #define OB_USER_NRST_STDBY_D1     0x0004U /*!< Reset when entering standby mode selection*/
@@ -756,9 +753,9 @@ typedef struct
   * @retval The FLASH Boot Base Address
   */
 #define __HAL_FLASH_CALC_BOOT_BASE_ADR(__ADDRESS__) ((__ADDRESS__) >> 14U)
- /**
-  * @}
-  */
+/**
+ * @}
+ */
 
 #if defined (FLASH_CR_PSIZE)
 /**
@@ -770,8 +767,8 @@ typedef struct
   */
 #if defined (DUAL_BANK)
 #define __HAL_FLASH_SET_PSIZE(__PSIZE__, __BANK__) (((__BANK__) == FLASH_BANK_1)  ? \
-                              MODIFY_REG(FLASH->CR1, FLASH_CR_PSIZE, (__PSIZE__)) : \
-                              MODIFY_REG(FLASH->CR2, FLASH_CR_PSIZE, (__PSIZE__)))
+                                                    MODIFY_REG(FLASH->CR1, FLASH_CR_PSIZE, (__PSIZE__)) : \
+                                                    MODIFY_REG(FLASH->CR2, FLASH_CR_PSIZE, (__PSIZE__)))
 #else
 #define __HAL_FLASH_SET_PSIZE(__PSIZE__, __BANK__)  MODIFY_REG(FLASH->CR1, FLASH_CR_PSIZE, (__PSIZE__))
 #endif /* DUAL_BANK */
@@ -784,8 +781,8 @@ typedef struct
   */
 #if defined (DUAL_BANK)
 #define __HAL_FLASH_GET_PSIZE(__BANK__) (((__BANK__) == FLASH_BANK_1) ? \
-                              READ_BIT((FLASH->CR1), FLASH_CR_PSIZE)  : \
-                              READ_BIT((FLASH->CR2), FLASH_CR_PSIZE))
+                                         READ_BIT((FLASH->CR1), FLASH_CR_PSIZE)  : \
+                                         READ_BIT((FLASH->CR2), FLASH_CR_PSIZE))
 #else
 #define __HAL_FLASH_GET_PSIZE(__BANK__)  READ_BIT((FLASH->CR1), FLASH_CR_PSIZE)
 #endif /* DUAL_BANK */
@@ -816,10 +813,10 @@ typedef struct
   * @{
   */
 /* Extension Program operation functions  *************************************/
-HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *SectorError);
-HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
-HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit);
-void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
+HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef* pEraseInit, uint32_t* SectorError);
+HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef* pEraseInit);
+HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef* pOBInit);
+void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef* pOBInit);
 
 HAL_StatusTypeDef HAL_FLASHEx_Unlock_Bank1(void);
 HAL_StatusTypeDef HAL_FLASHEx_Lock_Bank1(void);
@@ -828,7 +825,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Unlock_Bank2(void);
 HAL_StatusTypeDef HAL_FLASHEx_Lock_Bank2(void);
 #endif /* DUAL_BANK */
 
-HAL_StatusTypeDef HAL_FLASHEx_ComputeCRC(FLASH_CRCInitTypeDef *pCRCInit, uint32_t *CRC_Result);
+HAL_StatusTypeDef HAL_FLASHEx_ComputeCRC(FLASH_CRCInitTypeDef* pCRCInit, uint32_t* CRC_Result);
 
 /**
   * @}

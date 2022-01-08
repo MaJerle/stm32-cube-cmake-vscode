@@ -15,7 +15,7 @@
             "device": "STM32H735IG",
             "interface": "swd",
             "serialNumber": "",
-            "runToMain": true,
+            "runToEntryPoint": "main",
             "svdFile": "STM32H73x.svd",
             "v1": false,
             "showDevDebugOutput": true,

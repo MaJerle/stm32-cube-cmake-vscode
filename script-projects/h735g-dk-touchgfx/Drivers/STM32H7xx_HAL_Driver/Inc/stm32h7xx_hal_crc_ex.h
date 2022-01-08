@@ -124,9 +124,9 @@ extern "C" {
   * @{
   */
 /* Initialization and de-initialization functions  ****************************/
-HAL_StatusTypeDef HAL_CRCEx_Polynomial_Set(CRC_HandleTypeDef *hcrc, uint32_t Pol, uint32_t PolyLength);
-HAL_StatusTypeDef HAL_CRCEx_Input_Data_Reverse(CRC_HandleTypeDef *hcrc, uint32_t InputReverseMode);
-HAL_StatusTypeDef HAL_CRCEx_Output_Data_Reverse(CRC_HandleTypeDef *hcrc, uint32_t OutputReverseMode);
+HAL_StatusTypeDef HAL_CRCEx_Polynomial_Set(CRC_HandleTypeDef* hcrc, uint32_t Pol, uint32_t PolyLength);
+HAL_StatusTypeDef HAL_CRCEx_Input_Data_Reverse(CRC_HandleTypeDef* hcrc, uint32_t InputReverseMode);
+HAL_StatusTypeDef HAL_CRCEx_Output_Data_Reverse(CRC_HandleTypeDef* hcrc, uint32_t OutputReverseMode);
 
 /**
   * @}

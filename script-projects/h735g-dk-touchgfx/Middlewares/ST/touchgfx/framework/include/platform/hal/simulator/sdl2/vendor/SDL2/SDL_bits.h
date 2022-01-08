@@ -48,8 +48,7 @@ extern "C" {
  *  \return Index of the most significant bit, or -1 if the value is 0.
  */
 SDL_FORCE_INLINE int
-SDL_MostSignificantBitIndex32(Uint32 x)
-{
+SDL_MostSignificantBitIndex32(Uint32 x) {
 #if defined(__GNUC__) && __GNUC__ >= 4
     /* Count Leading Zeroes builtin in GCC.
      * http://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Other-Builtins.html
@@ -73,10 +72,8 @@ SDL_MostSignificantBitIndex32(Uint32 x)
         return -1;
     }
 
-    for (i = 4; i >= 0; i--)
-    {
-        if (x & b[i])
-        {
+    for (i = 4; i >= 0; i--) {
+        if (x & b[i]) {
             x >>= S[i];
             msbIndex |= S[i];
         }

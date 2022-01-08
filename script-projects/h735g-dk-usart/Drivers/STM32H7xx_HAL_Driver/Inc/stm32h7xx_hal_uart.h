@@ -43,9 +43,8 @@ extern "C" {
 /**
   * @brief UART Init Structure definition
   */
-typedef struct
-{
-  uint32_t BaudRate;                /*!< This member configures the UART communication baud rate.
+typedef struct {
+    uint32_t BaudRate;                /*!< This member configures the UART communication baud rate.
                                          The baud rate register is computed using the following formula:
                                          LPUART:
                                          =======
@@ -63,35 +62,35 @@ typedef struct
                                             ((huart->Init.BaudRate)))[3:0]) >> 1
                                          where uart_ker_ck_pres is the UART input clock divided by a prescaler */
 
-  uint32_t WordLength;              /*!< Specifies the number of data bits transmitted or received in a frame.
+    uint32_t WordLength;              /*!< Specifies the number of data bits transmitted or received in a frame.
                                          This parameter can be a value of @ref UARTEx_Word_Length. */
 
-  uint32_t StopBits;                /*!< Specifies the number of stop bits transmitted.
+    uint32_t StopBits;                /*!< Specifies the number of stop bits transmitted.
                                          This parameter can be a value of @ref UART_Stop_Bits. */
 
-  uint32_t Parity;                  /*!< Specifies the parity mode.
+    uint32_t Parity;                  /*!< Specifies the parity mode.
                                          This parameter can be a value of @ref UART_Parity
                                          @note When parity is enabled, the computed parity is inserted
                                                at the MSB position of the transmitted data (9th bit when
                                                the word length is set to 9 data bits; 8th bit when the
                                                word length is set to 8 data bits). */
 
-  uint32_t Mode;                    /*!< Specifies whether the Receive or Transmit mode is enabled or disabled.
+    uint32_t Mode;                    /*!< Specifies whether the Receive or Transmit mode is enabled or disabled.
                                          This parameter can be a value of @ref UART_Mode. */
 
-  uint32_t HwFlowCtl;               /*!< Specifies whether the hardware flow control mode is enabled
+    uint32_t HwFlowCtl;               /*!< Specifies whether the hardware flow control mode is enabled
                                          or disabled.
                                          This parameter can be a value of @ref UART_Hardware_Flow_Control. */
 
-  uint32_t OverSampling;            /*!< Specifies whether the Over sampling 8 is enabled or disabled,
+    uint32_t OverSampling;            /*!< Specifies whether the Over sampling 8 is enabled or disabled,
                                          to achieve higher speed (up to f_PCLK/8).
                                          This parameter can be a value of @ref UART_Over_Sampling. */
 
-  uint32_t OneBitSampling;          /*!< Specifies whether a single sample or three samples' majority vote is selected.
+    uint32_t OneBitSampling;          /*!< Specifies whether a single sample or three samples' majority vote is selected.
                                          Selecting the single sample method increases the receiver tolerance to clock
                                          deviations. This parameter can be a value of @ref UART_OneBit_Sampling. */
 
-  uint32_t ClockPrescaler;          /*!< Specifies the prescaler value used to divide the UART clock source.
+    uint32_t ClockPrescaler;          /*!< Specifies the prescaler value used to divide the UART clock source.
                                          This parameter can be a value of @ref UART_ClockPrescaler. */
 
 } UART_InitTypeDef;
@@ -99,40 +98,39 @@ typedef struct
 /**
   * @brief  UART Advanced Features initialization structure definition
   */
-typedef struct
-{
-  uint32_t AdvFeatureInit;        /*!< Specifies which advanced UART features is initialized. Several
+typedef struct {
+    uint32_t AdvFeatureInit;        /*!< Specifies which advanced UART features is initialized. Several
                                        Advanced Features may be initialized at the same time .
                                        This parameter can be a value of
                                        @ref UART_Advanced_Features_Initialization_Type. */
 
-  uint32_t TxPinLevelInvert;      /*!< Specifies whether the TX pin active level is inverted.
+    uint32_t TxPinLevelInvert;      /*!< Specifies whether the TX pin active level is inverted.
                                        This parameter can be a value of @ref UART_Tx_Inv. */
 
-  uint32_t RxPinLevelInvert;      /*!< Specifies whether the RX pin active level is inverted.
+    uint32_t RxPinLevelInvert;      /*!< Specifies whether the RX pin active level is inverted.
                                        This parameter can be a value of @ref UART_Rx_Inv. */
 
-  uint32_t DataInvert;            /*!< Specifies whether data are inverted (positive/direct logic
+    uint32_t DataInvert;            /*!< Specifies whether data are inverted (positive/direct logic
                                        vs negative/inverted logic).
                                        This parameter can be a value of @ref UART_Data_Inv. */
 
-  uint32_t Swap;                  /*!< Specifies whether TX and RX pins are swapped.
+    uint32_t Swap;                  /*!< Specifies whether TX and RX pins are swapped.
                                        This parameter can be a value of @ref UART_Rx_Tx_Swap. */
 
-  uint32_t OverrunDisable;        /*!< Specifies whether the reception overrun detection is disabled.
+    uint32_t OverrunDisable;        /*!< Specifies whether the reception overrun detection is disabled.
                                        This parameter can be a value of @ref UART_Overrun_Disable. */
 
-  uint32_t DMADisableonRxError;   /*!< Specifies whether the DMA is disabled in case of reception error.
+    uint32_t DMADisableonRxError;   /*!< Specifies whether the DMA is disabled in case of reception error.
                                        This parameter can be a value of @ref UART_DMA_Disable_on_Rx_Error. */
 
-  uint32_t AutoBaudRateEnable;    /*!< Specifies whether auto Baud rate detection is enabled.
+    uint32_t AutoBaudRateEnable;    /*!< Specifies whether auto Baud rate detection is enabled.
                                        This parameter can be a value of @ref UART_AutoBaudRate_Enable. */
 
-  uint32_t AutoBaudRateMode;      /*!< If auto Baud rate detection is enabled, specifies how the rate
+    uint32_t AutoBaudRateMode;      /*!< If auto Baud rate detection is enabled, specifies how the rate
                                        detection is carried out.
                                        This parameter can be a value of @ref UART_AutoBaud_Rate_Mode. */
 
-  uint32_t MSBFirst;              /*!< Specifies whether MSB is sent first on UART line.
+    uint32_t MSBFirst;              /*!< Specifies whether MSB is sent first on UART line.
                                        This parameter can be a value of @ref UART_MSB_First. */
 } UART_AdvFeatureInitTypeDef;
 
@@ -181,17 +179,16 @@ typedef uint32_t HAL_UART_StateTypeDef;
 /**
   * @brief UART clock sources definition
   */
-typedef enum
-{
-  UART_CLOCKSOURCE_D2PCLK1    = 0x00U,    /*!< Domain2 PCLK1 clock source */
-  UART_CLOCKSOURCE_D2PCLK2    = 0x01U,    /*!< Domain2 PCLK2 clock source */
-  UART_CLOCKSOURCE_D3PCLK1    = 0x02U,    /*!< Domain3 PCLK1 clock source */
-  UART_CLOCKSOURCE_PLL2       = 0x04U,    /*!< PLL2Q clock source         */
-  UART_CLOCKSOURCE_PLL3       = 0x08U,    /*!< PLL3Q clock source         */
-  UART_CLOCKSOURCE_HSI        = 0x10U,    /*!< HSI clock source           */
-  UART_CLOCKSOURCE_CSI        = 0x20U,    /*!< CSI clock source           */
-  UART_CLOCKSOURCE_LSE        = 0x40U,    /*!< LSE clock source           */
-  UART_CLOCKSOURCE_UNDEFINED  = 0x80U     /*!< Undefined clock source     */
+typedef enum {
+    UART_CLOCKSOURCE_D2PCLK1    = 0x00U,    /*!< Domain2 PCLK1 clock source */
+    UART_CLOCKSOURCE_D2PCLK2    = 0x01U,    /*!< Domain2 PCLK2 clock source */
+    UART_CLOCKSOURCE_D3PCLK1    = 0x02U,    /*!< Domain3 PCLK1 clock source */
+    UART_CLOCKSOURCE_PLL2       = 0x04U,    /*!< PLL2Q clock source         */
+    UART_CLOCKSOURCE_PLL3       = 0x08U,    /*!< PLL3Q clock source         */
+    UART_CLOCKSOURCE_HSI        = 0x10U,    /*!< HSI clock source           */
+    UART_CLOCKSOURCE_CSI        = 0x20U,    /*!< CSI clock source           */
+    UART_CLOCKSOURCE_LSE        = 0x40U,    /*!< LSE clock source           */
+    UART_CLOCKSOURCE_UNDEFINED  = 0x80U     /*!< Undefined clock source     */
 } UART_ClockSourceTypeDef;
 
 /**
@@ -208,72 +205,71 @@ typedef uint32_t HAL_UART_RxTypeTypeDef;
 /**
   * @brief  UART handle Structure definition
   */
-typedef struct __UART_HandleTypeDef
-{
-  USART_TypeDef            *Instance;                /*!< UART registers base address        */
+typedef struct __UART_HandleTypeDef {
+    USART_TypeDef*            Instance;                /*!< UART registers base address        */
 
-  UART_InitTypeDef         Init;                     /*!< UART communication parameters      */
+    UART_InitTypeDef         Init;                     /*!< UART communication parameters      */
 
-  UART_AdvFeatureInitTypeDef AdvancedInit;           /*!< UART Advanced Features initialization parameters */
+    UART_AdvFeatureInitTypeDef AdvancedInit;           /*!< UART Advanced Features initialization parameters */
 
-  const uint8_t            *pTxBuffPtr;              /*!< Pointer to UART Tx transfer Buffer */
+    const uint8_t*            pTxBuffPtr;              /*!< Pointer to UART Tx transfer Buffer */
 
-  uint16_t                 TxXferSize;               /*!< UART Tx Transfer size              */
+    uint16_t                 TxXferSize;               /*!< UART Tx Transfer size              */
 
-  __IO uint16_t            TxXferCount;              /*!< UART Tx Transfer Counter           */
+    __IO uint16_t            TxXferCount;              /*!< UART Tx Transfer Counter           */
 
-  uint8_t                  *pRxBuffPtr;              /*!< Pointer to UART Rx transfer Buffer */
+    uint8_t*                  pRxBuffPtr;              /*!< Pointer to UART Rx transfer Buffer */
 
-  uint16_t                 RxXferSize;               /*!< UART Rx Transfer size              */
+    uint16_t                 RxXferSize;               /*!< UART Rx Transfer size              */
 
-  __IO uint16_t            RxXferCount;              /*!< UART Rx Transfer Counter           */
+    __IO uint16_t            RxXferCount;              /*!< UART Rx Transfer Counter           */
 
-  uint16_t                 Mask;                     /*!< UART Rx RDR register mask          */
+    uint16_t                 Mask;                     /*!< UART Rx RDR register mask          */
 
-  uint32_t                 FifoMode;                 /*!< Specifies if the FIFO mode is being used.
+    uint32_t                 FifoMode;                 /*!< Specifies if the FIFO mode is being used.
                                                           This parameter can be a value of @ref UARTEx_FIFO_mode. */
 
-  uint16_t                 NbRxDataToProcess;        /*!< Number of data to process during RX ISR execution */
+    uint16_t                 NbRxDataToProcess;        /*!< Number of data to process during RX ISR execution */
 
-  uint16_t                 NbTxDataToProcess;        /*!< Number of data to process during TX ISR execution */
+    uint16_t                 NbTxDataToProcess;        /*!< Number of data to process during TX ISR execution */
 
-  __IO HAL_UART_RxTypeTypeDef ReceptionType;         /*!< Type of ongoing reception          */
+    __IO HAL_UART_RxTypeTypeDef ReceptionType;         /*!< Type of ongoing reception          */
 
-  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+    void (*RxISR)(struct __UART_HandleTypeDef* huart); /*!< Function pointer on Rx IRQ handler */
 
-  void (*TxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Tx IRQ handler */
+    void (*TxISR)(struct __UART_HandleTypeDef* huart); /*!< Function pointer on Tx IRQ handler */
 
-  DMA_HandleTypeDef        *hdmatx;                  /*!< UART Tx DMA Handle parameters      */
+    DMA_HandleTypeDef*        hdmatx;                  /*!< UART Tx DMA Handle parameters      */
 
-  DMA_HandleTypeDef        *hdmarx;                  /*!< UART Rx DMA Handle parameters      */
+    DMA_HandleTypeDef*        hdmarx;                  /*!< UART Rx DMA Handle parameters      */
 
-  HAL_LockTypeDef           Lock;                    /*!< Locking object                     */
+    HAL_LockTypeDef           Lock;                    /*!< Locking object                     */
 
-  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+    __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
                                                           and also related to Tx operations. This parameter
                                                           can be a value of @ref HAL_UART_StateTypeDef */
 
-  __IO HAL_UART_StateTypeDef    RxState;             /*!< UART state information related to Rx operations. This
+    __IO HAL_UART_StateTypeDef    RxState;             /*!< UART state information related to Rx operations. This
                                                           parameter can be a value of @ref HAL_UART_StateTypeDef */
 
-  __IO uint32_t                 ErrorCode;           /*!< UART Error code                    */
+    __IO uint32_t                 ErrorCode;           /*!< UART Error code                    */
 
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
-  void (* TxHalfCpltCallback)(struct __UART_HandleTypeDef *huart);        /*!< UART Tx Half Complete Callback        */
-  void (* TxCpltCallback)(struct __UART_HandleTypeDef *huart);            /*!< UART Tx Complete Callback             */
-  void (* RxHalfCpltCallback)(struct __UART_HandleTypeDef *huart);        /*!< UART Rx Half Complete Callback        */
-  void (* RxCpltCallback)(struct __UART_HandleTypeDef *huart);            /*!< UART Rx Complete Callback             */
-  void (* ErrorCallback)(struct __UART_HandleTypeDef *huart);             /*!< UART Error Callback                   */
-  void (* AbortCpltCallback)(struct __UART_HandleTypeDef *huart);         /*!< UART Abort Complete Callback          */
-  void (* AbortTransmitCpltCallback)(struct __UART_HandleTypeDef *huart); /*!< UART Abort Transmit Complete Callback */
-  void (* AbortReceiveCpltCallback)(struct __UART_HandleTypeDef *huart);  /*!< UART Abort Receive Complete Callback  */
-  void (* WakeupCallback)(struct __UART_HandleTypeDef *huart);            /*!< UART Wakeup Callback                  */
-  void (* RxFifoFullCallback)(struct __UART_HandleTypeDef *huart);        /*!< UART Rx Fifo Full Callback            */
-  void (* TxFifoEmptyCallback)(struct __UART_HandleTypeDef *huart);       /*!< UART Tx Fifo Empty Callback           */
-  void (* RxEventCallback)(struct __UART_HandleTypeDef *huart, uint16_t Pos); /*!< UART Reception Event Callback     */
+    void (* TxHalfCpltCallback)(struct __UART_HandleTypeDef* huart);        /*!< UART Tx Half Complete Callback        */
+    void (* TxCpltCallback)(struct __UART_HandleTypeDef* huart);            /*!< UART Tx Complete Callback             */
+    void (* RxHalfCpltCallback)(struct __UART_HandleTypeDef* huart);        /*!< UART Rx Half Complete Callback        */
+    void (* RxCpltCallback)(struct __UART_HandleTypeDef* huart);            /*!< UART Rx Complete Callback             */
+    void (* ErrorCallback)(struct __UART_HandleTypeDef* huart);             /*!< UART Error Callback                   */
+    void (* AbortCpltCallback)(struct __UART_HandleTypeDef* huart);         /*!< UART Abort Complete Callback          */
+    void (* AbortTransmitCpltCallback)(struct __UART_HandleTypeDef* huart); /*!< UART Abort Transmit Complete Callback */
+    void (* AbortReceiveCpltCallback)(struct __UART_HandleTypeDef* huart);  /*!< UART Abort Receive Complete Callback  */
+    void (* WakeupCallback)(struct __UART_HandleTypeDef* huart);            /*!< UART Wakeup Callback                  */
+    void (* RxFifoFullCallback)(struct __UART_HandleTypeDef* huart);        /*!< UART Rx Fifo Full Callback            */
+    void (* TxFifoEmptyCallback)(struct __UART_HandleTypeDef* huart);       /*!< UART Tx Fifo Empty Callback           */
+    void (* RxEventCallback)(struct __UART_HandleTypeDef* huart, uint16_t Pos); /*!< UART Reception Event Callback     */
 
-  void (* MspInitCallback)(struct __UART_HandleTypeDef *huart);           /*!< UART Msp Init callback                */
-  void (* MspDeInitCallback)(struct __UART_HandleTypeDef *huart);         /*!< UART Msp DeInit callback              */
+    void (* MspInitCallback)(struct __UART_HandleTypeDef* huart);           /*!< UART Msp Init callback                */
+    void (* MspDeInitCallback)(struct __UART_HandleTypeDef* huart);         /*!< UART Msp DeInit callback              */
 #endif  /* USE_HAL_UART_REGISTER_CALLBACKS */
 
 } UART_HandleTypeDef;
@@ -282,31 +278,30 @@ typedef struct __UART_HandleTypeDef
 /**
   * @brief  HAL UART Callback ID enumeration definition
   */
-typedef enum
-{
-  HAL_UART_TX_HALFCOMPLETE_CB_ID         = 0x00U,    /*!< UART Tx Half Complete Callback ID        */
-  HAL_UART_TX_COMPLETE_CB_ID             = 0x01U,    /*!< UART Tx Complete Callback ID             */
-  HAL_UART_RX_HALFCOMPLETE_CB_ID         = 0x02U,    /*!< UART Rx Half Complete Callback ID        */
-  HAL_UART_RX_COMPLETE_CB_ID             = 0x03U,    /*!< UART Rx Complete Callback ID             */
-  HAL_UART_ERROR_CB_ID                   = 0x04U,    /*!< UART Error Callback ID                   */
-  HAL_UART_ABORT_COMPLETE_CB_ID          = 0x05U,    /*!< UART Abort Complete Callback ID          */
-  HAL_UART_ABORT_TRANSMIT_COMPLETE_CB_ID = 0x06U,    /*!< UART Abort Transmit Complete Callback ID */
-  HAL_UART_ABORT_RECEIVE_COMPLETE_CB_ID  = 0x07U,    /*!< UART Abort Receive Complete Callback ID  */
-  HAL_UART_WAKEUP_CB_ID                  = 0x08U,    /*!< UART Wakeup Callback ID                  */
-  HAL_UART_RX_FIFO_FULL_CB_ID            = 0x09U,    /*!< UART Rx Fifo Full Callback ID            */
-  HAL_UART_TX_FIFO_EMPTY_CB_ID           = 0x0AU,    /*!< UART Tx Fifo Empty Callback ID           */
+typedef enum {
+    HAL_UART_TX_HALFCOMPLETE_CB_ID         = 0x00U,    /*!< UART Tx Half Complete Callback ID        */
+    HAL_UART_TX_COMPLETE_CB_ID             = 0x01U,    /*!< UART Tx Complete Callback ID             */
+    HAL_UART_RX_HALFCOMPLETE_CB_ID         = 0x02U,    /*!< UART Rx Half Complete Callback ID        */
+    HAL_UART_RX_COMPLETE_CB_ID             = 0x03U,    /*!< UART Rx Complete Callback ID             */
+    HAL_UART_ERROR_CB_ID                   = 0x04U,    /*!< UART Error Callback ID                   */
+    HAL_UART_ABORT_COMPLETE_CB_ID          = 0x05U,    /*!< UART Abort Complete Callback ID          */
+    HAL_UART_ABORT_TRANSMIT_COMPLETE_CB_ID = 0x06U,    /*!< UART Abort Transmit Complete Callback ID */
+    HAL_UART_ABORT_RECEIVE_COMPLETE_CB_ID  = 0x07U,    /*!< UART Abort Receive Complete Callback ID  */
+    HAL_UART_WAKEUP_CB_ID                  = 0x08U,    /*!< UART Wakeup Callback ID                  */
+    HAL_UART_RX_FIFO_FULL_CB_ID            = 0x09U,    /*!< UART Rx Fifo Full Callback ID            */
+    HAL_UART_TX_FIFO_EMPTY_CB_ID           = 0x0AU,    /*!< UART Tx Fifo Empty Callback ID           */
 
-  HAL_UART_MSPINIT_CB_ID                 = 0x0BU,    /*!< UART MspInit callback ID                 */
-  HAL_UART_MSPDEINIT_CB_ID               = 0x0CU     /*!< UART MspDeInit callback ID               */
+    HAL_UART_MSPINIT_CB_ID                 = 0x0BU,    /*!< UART MspInit callback ID                 */
+    HAL_UART_MSPDEINIT_CB_ID               = 0x0CU     /*!< UART MspDeInit callback ID               */
 
 } HAL_UART_CallbackIDTypeDef;
 
 /**
   * @brief  HAL UART Callback pointer definition
   */
-typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef *huart); /*!< pointer to an UART callback function */
+typedef  void (*pUART_CallbackTypeDef)(UART_HandleTypeDef* huart); /*!< pointer to an UART callback function */
 typedef  void (*pUART_RxEventCallbackTypeDef)
-(struct __UART_HandleTypeDef *huart, uint16_t Pos); /*!< pointer to a UART Rx Event specific callback function */
+(struct __UART_HandleTypeDef* huart, uint16_t Pos); /*!< pointer to a UART Rx Event specific callback function */
 
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
 
@@ -834,16 +829,16 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   */
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
 #define __HAL_UART_RESET_HANDLE_STATE(__HANDLE__)  do{                                                   \
-                                                       (__HANDLE__)->gState = HAL_UART_STATE_RESET;      \
-                                                       (__HANDLE__)->RxState = HAL_UART_STATE_RESET;     \
-                                                       (__HANDLE__)->MspInitCallback = NULL;             \
-                                                       (__HANDLE__)->MspDeInitCallback = NULL;           \
-                                                     } while(0U)
+        (__HANDLE__)->gState = HAL_UART_STATE_RESET;      \
+        (__HANDLE__)->RxState = HAL_UART_STATE_RESET;     \
+        (__HANDLE__)->MspInitCallback = NULL;             \
+        (__HANDLE__)->MspDeInitCallback = NULL;           \
+    } while(0U)
 #else
 #define __HAL_UART_RESET_HANDLE_STATE(__HANDLE__)  do{                                                   \
-                                                       (__HANDLE__)->gState = HAL_UART_STATE_RESET;      \
-                                                       (__HANDLE__)->RxState = HAL_UART_STATE_RESET;     \
-                                                     } while(0U)
+        (__HANDLE__)->gState = HAL_UART_STATE_RESET;      \
+        (__HANDLE__)->RxState = HAL_UART_STATE_RESET;     \
+    } while(0U)
 #endif /*USE_HAL_UART_REGISTER_CALLBACKS */
 
 /** @brief  Flush the UART Data registers.
@@ -851,10 +846,10 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval None
   */
 #define __HAL_UART_FLUSH_DRREGISTER(__HANDLE__)  \
-  do{                \
-    SET_BIT((__HANDLE__)->Instance->RQR, UART_RXDATA_FLUSH_REQUEST); \
-    SET_BIT((__HANDLE__)->Instance->RQR, UART_TXDATA_FLUSH_REQUEST); \
-  }  while(0U)
+    do{                \
+        SET_BIT((__HANDLE__)->Instance->RQR, UART_RXDATA_FLUSH_REQUEST); \
+        SET_BIT((__HANDLE__)->Instance->RQR, UART_TXDATA_FLUSH_REQUEST); \
+    }  while(0U)
 
 /** @brief  Clear the specified UART pending flag.
   * @param  __HANDLE__ specifies the UART Handle.
@@ -972,12 +967,12 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
 #define __HAL_UART_ENABLE_IT(__HANDLE__, __INTERRUPT__)   (\
                                                            ((((uint8_t)(__INTERRUPT__)) >> 5U) == 1U)?\
                                                            ((__HANDLE__)->Instance->CR1 |= (1U <<\
-                                                               ((__INTERRUPT__) & UART_IT_MASK))): \
+                                                                                            ((__INTERRUPT__) & UART_IT_MASK))): \
                                                            ((((uint8_t)(__INTERRUPT__)) >> 5U) == 2U)?\
                                                            ((__HANDLE__)->Instance->CR2 |= (1U <<\
-                                                               ((__INTERRUPT__) & UART_IT_MASK))): \
+                                                                                            ((__INTERRUPT__) & UART_IT_MASK))): \
                                                            ((__HANDLE__)->Instance->CR3 |= (1U <<\
-                                                               ((__INTERRUPT__) & UART_IT_MASK))))
+                                                                                            ((__INTERRUPT__) & UART_IT_MASK))))
 
 /** @brief  Disable the specified UART interrupt.
   * @param  __HANDLE__ specifies the UART Handle.
@@ -1005,12 +1000,12 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
 #define __HAL_UART_DISABLE_IT(__HANDLE__, __INTERRUPT__)  (\
                                                            ((((uint8_t)(__INTERRUPT__)) >> 5U) == 1U)?\
                                                            ((__HANDLE__)->Instance->CR1 &= ~ (1U <<\
-                                                               ((__INTERRUPT__) & UART_IT_MASK))): \
+                                                                                              ((__INTERRUPT__) & UART_IT_MASK))): \
                                                            ((((uint8_t)(__INTERRUPT__)) >> 5U) == 2U)?\
                                                            ((__HANDLE__)->Instance->CR2 &= ~ (1U <<\
-                                                               ((__INTERRUPT__) & UART_IT_MASK))): \
+                                                                                              ((__INTERRUPT__) & UART_IT_MASK))): \
                                                            ((__HANDLE__)->Instance->CR3 &= ~ (1U <<\
-                                                               ((__INTERRUPT__) & UART_IT_MASK))))
+                                                                                              ((__INTERRUPT__) & UART_IT_MASK))))
 
 /** @brief  Check whether the specified UART interrupt has occurred or not.
   * @param  __HANDLE__ specifies the UART Handle.
@@ -1066,8 +1061,8 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
                                                                 (((((uint8_t)(__INTERRUPT__)) >> 5U) == 2U) ?\
                                                                  (__HANDLE__)->Instance->CR2 : \
                                                                  (__HANDLE__)->Instance->CR3)) & (1U <<\
-                                                                     (((uint16_t)(__INTERRUPT__)) &\
-                                                                      UART_IT_MASK)))  != RESET) ? SET : RESET)
+                                                                                                  (((uint16_t)(__INTERRUPT__)) &\
+                                                                                                   UART_IT_MASK)))  != RESET) ? SET : RESET)
 
 /** @brief  Clear the specified UART ISR flag, in setting the proper ICR register flag.
   * @param  __HANDLE__ specifies the UART Handle.
@@ -1141,10 +1136,10 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval None
   */
 #define __HAL_UART_HWCONTROL_CTS_ENABLE(__HANDLE__)               \
-  do{                                                             \
-    ATOMIC_SET_BIT((__HANDLE__)->Instance->CR3, USART_CR3_CTSE);  \
-    (__HANDLE__)->Init.HwFlowCtl |= USART_CR3_CTSE;               \
-  } while(0U)
+    do{                                                             \
+        ATOMIC_SET_BIT((__HANDLE__)->Instance->CR3, USART_CR3_CTSE);  \
+        (__HANDLE__)->Init.HwFlowCtl |= USART_CR3_CTSE;               \
+    } while(0U)
 
 /** @brief  Disable CTS flow control.
   * @note   This macro allows to disable CTS hardware flow control for a given UART instance,
@@ -1160,10 +1155,10 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval None
   */
 #define __HAL_UART_HWCONTROL_CTS_DISABLE(__HANDLE__)               \
-  do{                                                              \
-    ATOMIC_CLEAR_BIT((__HANDLE__)->Instance->CR3, USART_CR3_CTSE); \
-    (__HANDLE__)->Init.HwFlowCtl &= ~(USART_CR3_CTSE);             \
-  } while(0U)
+    do{                                                              \
+        ATOMIC_CLEAR_BIT((__HANDLE__)->Instance->CR3, USART_CR3_CTSE); \
+        (__HANDLE__)->Init.HwFlowCtl &= ~(USART_CR3_CTSE);             \
+    } while(0U)
 
 /** @brief  Enable RTS flow control.
   * @note   This macro allows to enable RTS hardware flow control for a given UART instance,
@@ -1179,10 +1174,10 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval None
   */
 #define __HAL_UART_HWCONTROL_RTS_ENABLE(__HANDLE__)              \
-  do{                                                            \
-    ATOMIC_SET_BIT((__HANDLE__)->Instance->CR3, USART_CR3_RTSE); \
-    (__HANDLE__)->Init.HwFlowCtl |= USART_CR3_RTSE;              \
-  } while(0U)
+    do{                                                            \
+        ATOMIC_SET_BIT((__HANDLE__)->Instance->CR3, USART_CR3_RTSE); \
+        (__HANDLE__)->Init.HwFlowCtl |= USART_CR3_RTSE;              \
+    } while(0U)
 
 /** @brief  Disable RTS flow control.
   * @note   This macro allows to disable RTS hardware flow control for a given UART instance,
@@ -1198,10 +1193,10 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval None
   */
 #define __HAL_UART_HWCONTROL_RTS_DISABLE(__HANDLE__)              \
-  do{                                                             \
-    ATOMIC_CLEAR_BIT((__HANDLE__)->Instance->CR3, USART_CR3_RTSE);\
-    (__HANDLE__)->Init.HwFlowCtl &= ~(USART_CR3_RTSE);            \
-  } while(0U)
+    do{                                                             \
+        ATOMIC_CLEAR_BIT((__HANDLE__)->Instance->CR3, USART_CR3_RTSE);\
+        (__HANDLE__)->Init.HwFlowCtl &= ~(USART_CR3_RTSE);            \
+    } while(0U)
 /**
   * @}
   */
@@ -1215,18 +1210,18 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval UART clock division factor
   */
 #define UART_GET_DIV_FACTOR(__CLOCKPRESCALER__) \
-  (((__CLOCKPRESCALER__) == UART_PRESCALER_DIV1)   ? 1U :       \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV2)   ? 2U :       \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV4)   ? 4U :       \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV6)   ? 6U :       \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV8)   ? 8U :       \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV10)  ? 10U :      \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV12)  ? 12U :      \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV16)  ? 16U :      \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV32)  ? 32U :      \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV64)  ? 64U :      \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV128) ? 128U :     \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV256) ? 256U : 1U)
+    (((__CLOCKPRESCALER__) == UART_PRESCALER_DIV1)   ? 1U :       \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV2)   ? 2U :       \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV4)   ? 4U :       \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV6)   ? 6U :       \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV8)   ? 8U :       \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV10)  ? 10U :      \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV12)  ? 12U :      \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV16)  ? 16U :      \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV32)  ? 32U :      \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV64)  ? 64U :      \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV128) ? 128U :     \
+     ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV256) ? 256U : 1U)
 
 /** @brief  BRR division operation to set BRR register with LPUART.
   * @param  __PCLK__ LPUART clock.
@@ -1235,9 +1230,9 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval Division result
   */
 #define UART_DIV_LPUART(__PCLK__, __BAUD__, __CLOCKPRESCALER__)                        \
-  ((uint32_t)((((((uint64_t)(__PCLK__))/(UARTPrescTable[(__CLOCKPRESCALER__)]))*256U)+ \
-               (uint32_t)((__BAUD__)/2U)) / (__BAUD__))                                \
-  )
+    ((uint32_t)((((((uint64_t)(__PCLK__))/(UARTPrescTable[(__CLOCKPRESCALER__)]))*256U)+ \
+                 (uint32_t)((__BAUD__)/2U)) / (__BAUD__))                                \
+    )
 
 /** @brief  BRR division operation to set BRR register in 8-bit oversampling mode.
   * @param  __PCLK__ UART clock.
@@ -1246,7 +1241,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval Division result
   */
 #define UART_DIV_SAMPLING8(__PCLK__, __BAUD__, __CLOCKPRESCALER__)                        \
-  (((((__PCLK__)/UARTPrescTable[(__CLOCKPRESCALER__)])*2U) + ((__BAUD__)/2U)) / (__BAUD__))
+    (((((__PCLK__)/UARTPrescTable[(__CLOCKPRESCALER__)])*2U) + ((__BAUD__)/2U)) / (__BAUD__))
 
 /** @brief  BRR division operation to set BRR register in 16-bit oversampling mode.
   * @param  __PCLK__ UART clock.
@@ -1255,7 +1250,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval Division result
   */
 #define UART_DIV_SAMPLING16(__PCLK__, __BAUD__, __CLOCKPRESCALER__)                       \
-  ((((__PCLK__)/UARTPrescTable[(__CLOCKPRESCALER__)]) + ((__BAUD__)/2U)) / (__BAUD__))
+    ((((__PCLK__)/UARTPrescTable[(__CLOCKPRESCALER__)]) + ((__BAUD__)/2U)) / (__BAUD__))
 
 /** @brief  Check whether or not UART instance is Low Power UART.
   * @param  __HANDLE__ specifies the UART Handle.
@@ -1316,10 +1311,10 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @retval SET (__CONTROL__ is valid) or RESET (__CONTROL__ is invalid)
   */
 #define IS_UART_HARDWARE_FLOW_CONTROL(__CONTROL__)\
-  (((__CONTROL__) == UART_HWCONTROL_NONE) || \
-   ((__CONTROL__) == UART_HWCONTROL_RTS)  || \
-   ((__CONTROL__) == UART_HWCONTROL_CTS)  || \
-   ((__CONTROL__) == UART_HWCONTROL_RTS_CTS))
+    (((__CONTROL__) == UART_HWCONTROL_NONE) || \
+     ((__CONTROL__) == UART_HWCONTROL_RTS)  || \
+     ((__CONTROL__) == UART_HWCONTROL_CTS)  || \
+     ((__CONTROL__) == UART_HWCONTROL_RTS_CTS))
 
 /**
   * @brief Ensure that UART communication mode is valid.
@@ -1584,22 +1579,22 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   */
 
 /* Initialization and de-initialization functions  ****************************/
-HAL_StatusTypeDef HAL_UART_Init(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_HalfDuplex_Init(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_LIN_Init(UART_HandleTypeDef *huart, uint32_t BreakDetectLength);
-HAL_StatusTypeDef HAL_MultiProcessor_Init(UART_HandleTypeDef *huart, uint8_t Address, uint32_t WakeUpMethod);
-HAL_StatusTypeDef HAL_UART_DeInit(UART_HandleTypeDef *huart);
-void HAL_UART_MspInit(UART_HandleTypeDef *huart);
-void HAL_UART_MspDeInit(UART_HandleTypeDef *huart);
+HAL_StatusTypeDef HAL_UART_Init(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_HalfDuplex_Init(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_LIN_Init(UART_HandleTypeDef* huart, uint32_t BreakDetectLength);
+HAL_StatusTypeDef HAL_MultiProcessor_Init(UART_HandleTypeDef* huart, uint8_t Address, uint32_t WakeUpMethod);
+HAL_StatusTypeDef HAL_UART_DeInit(UART_HandleTypeDef* huart);
+void HAL_UART_MspInit(UART_HandleTypeDef* huart);
+void HAL_UART_MspDeInit(UART_HandleTypeDef* huart);
 
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
-HAL_StatusTypeDef HAL_UART_RegisterCallback(UART_HandleTypeDef *huart, HAL_UART_CallbackIDTypeDef CallbackID,
+HAL_StatusTypeDef HAL_UART_RegisterCallback(UART_HandleTypeDef* huart, HAL_UART_CallbackIDTypeDef CallbackID,
                                             pUART_CallbackTypeDef pCallback);
-HAL_StatusTypeDef HAL_UART_UnRegisterCallback(UART_HandleTypeDef *huart, HAL_UART_CallbackIDTypeDef CallbackID);
+HAL_StatusTypeDef HAL_UART_UnRegisterCallback(UART_HandleTypeDef* huart, HAL_UART_CallbackIDTypeDef CallbackID);
 
-HAL_StatusTypeDef HAL_UART_RegisterRxEventCallback(UART_HandleTypeDef *huart, pUART_RxEventCallbackTypeDef pCallback);
-HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart);
+HAL_StatusTypeDef HAL_UART_RegisterRxEventCallback(UART_HandleTypeDef* huart, pUART_RxEventCallbackTypeDef pCallback);
+HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef* huart);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
 
 /**
@@ -1611,34 +1606,34 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart);
   */
 
 /* IO operation functions *****************************************************/
-HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_DMAPause(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_DMAResume(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_DMAStop(UART_HandleTypeDef *huart);
+HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef* huart, const uint8_t* pData, uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef* huart, uint8_t* pData, uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef* huart, const uint8_t* pData, uint16_t Size);
+HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef* huart, uint8_t* pData, uint16_t Size);
+HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef* huart, const uint8_t* pData, uint16_t Size);
+HAL_StatusTypeDef HAL_UART_Receive_DMA(UART_HandleTypeDef* huart, uint8_t* pData, uint16_t Size);
+HAL_StatusTypeDef HAL_UART_DMAPause(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_DMAResume(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_DMAStop(UART_HandleTypeDef* huart);
 /* Transfer Abort functions */
-HAL_StatusTypeDef HAL_UART_Abort(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_AbortTransmit(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_AbortReceive(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_Abort_IT(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_AbortTransmit_IT(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_AbortReceive_IT(UART_HandleTypeDef *huart);
+HAL_StatusTypeDef HAL_UART_Abort(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_AbortTransmit(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_AbortReceive(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_Abort_IT(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_AbortTransmit_IT(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_AbortReceive_IT(UART_HandleTypeDef* huart);
 
-void HAL_UART_IRQHandler(UART_HandleTypeDef *huart);
-void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef *huart);
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart);
-void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart);
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
-void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart);
-void HAL_UART_AbortCpltCallback(UART_HandleTypeDef *huart);
-void HAL_UART_AbortTransmitCpltCallback(UART_HandleTypeDef *huart);
-void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart);
+void HAL_UART_IRQHandler(UART_HandleTypeDef* huart);
+void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef* huart);
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef* huart);
+void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef* huart);
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart);
+void HAL_UART_ErrorCallback(UART_HandleTypeDef* huart);
+void HAL_UART_AbortCpltCallback(UART_HandleTypeDef* huart);
+void HAL_UART_AbortTransmitCpltCallback(UART_HandleTypeDef* huart);
+void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef* huart);
 
-void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size);
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart, uint16_t Size);
 
 /**
   * @}
@@ -1649,16 +1644,16 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size);
   */
 
 /* Peripheral Control functions  ************************************************/
-void HAL_UART_ReceiverTimeout_Config(UART_HandleTypeDef *huart, uint32_t TimeoutValue);
-HAL_StatusTypeDef HAL_UART_EnableReceiverTimeout(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_DisableReceiverTimeout(UART_HandleTypeDef *huart);
+void HAL_UART_ReceiverTimeout_Config(UART_HandleTypeDef* huart, uint32_t TimeoutValue);
+HAL_StatusTypeDef HAL_UART_EnableReceiverTimeout(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_UART_DisableReceiverTimeout(UART_HandleTypeDef* huart);
 
-HAL_StatusTypeDef HAL_LIN_SendBreak(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_MultiProcessor_EnableMuteMode(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_MultiProcessor_DisableMuteMode(UART_HandleTypeDef *huart);
-void HAL_MultiProcessor_EnterMuteMode(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_HalfDuplex_EnableTransmitter(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_HalfDuplex_EnableReceiver(UART_HandleTypeDef *huart);
+HAL_StatusTypeDef HAL_LIN_SendBreak(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_MultiProcessor_EnableMuteMode(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_MultiProcessor_DisableMuteMode(UART_HandleTypeDef* huart);
+void HAL_MultiProcessor_EnterMuteMode(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_HalfDuplex_EnableTransmitter(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef HAL_HalfDuplex_EnableReceiver(UART_HandleTypeDef* huart);
 
 /**
   * @}
@@ -1669,8 +1664,8 @@ HAL_StatusTypeDef HAL_HalfDuplex_EnableReceiver(UART_HandleTypeDef *huart);
   */
 
 /* Peripheral State and Errors functions  **************************************************/
-HAL_UART_StateTypeDef HAL_UART_GetState(UART_HandleTypeDef *huart);
-uint32_t              HAL_UART_GetError(UART_HandleTypeDef *huart);
+HAL_UART_StateTypeDef HAL_UART_GetState(UART_HandleTypeDef* huart);
+uint32_t              HAL_UART_GetError(UART_HandleTypeDef* huart);
 
 /**
   * @}
@@ -1685,15 +1680,15 @@ uint32_t              HAL_UART_GetError(UART_HandleTypeDef *huart);
   * @{
   */
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
-void              UART_InitCallbacksToDefault(UART_HandleTypeDef *huart);
+void              UART_InitCallbacksToDefault(UART_HandleTypeDef* huart);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
-HAL_StatusTypeDef UART_SetConfig(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef UART_CheckIdleState(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_t Flag, FlagStatus Status,
+HAL_StatusTypeDef UART_SetConfig(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef UART_CheckIdleState(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef* huart, uint32_t Flag, FlagStatus Status,
                                               uint32_t Tickstart, uint32_t Timeout);
-void              UART_AdvFeatureConfig(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef UART_Start_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef UART_Start_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+void              UART_AdvFeatureConfig(UART_HandleTypeDef* huart);
+HAL_StatusTypeDef UART_Start_Receive_IT(UART_HandleTypeDef* huart, uint8_t* pData, uint16_t Size);
+HAL_StatusTypeDef UART_Start_Receive_DMA(UART_HandleTypeDef* huart, uint8_t* pData, uint16_t Size);
 
 /**
   * @}
