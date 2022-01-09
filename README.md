@@ -348,26 +348,26 @@ set(CPU_PARAMETERS
 
 General rule for settings would be as per table below
 
-|STM32 Family | -mcpu                 | -mfpu         | -mfloat-abi |
-|-------------|-----------------------|---------------|-------------|
-| STM32F0     | `-mcpu=cortex-m0`     | `None`        | `soft`      |
-| STM32F1     | `-mcpu=cortex-m3`     | `None`        | `soft`      |
-| STM32F2     | `-mcpu=cortex-m3`     | `None`        | `soft`      |
-| STM32F3     | `-mcpu=cortex-m4`     | `fpv4-sp-d16` | `hard`      |
-| STM32F4     | `-mcpu=cortex-m4`     | `fpv4-sp-d16` | `hard`      |
-| STM32F7 SP  | `-mcpu=cortex-m7`     | `fpv4-sp-d16` | `hard`      |
-| STM32F7 DP  | `-mcpu=cortex-m7`     | `fpv5-d16`    | `hard`      |
-| STM32G0     | `-mcpu=cortex-m0plus` | `None`        | `soft`      |
-| STM32G4     | `-mcpu=cortex-m4`     | `fpv4-sp-d16` | `hard`      |
-| STM32H7     | `-mcpu=cortex-m7`     | `fpv5-d16`    | `hard`      |
-| STM32L0     | `-mcpu=cortex-m0plus` | `None`        | `soft`      |
-| STM32L1     | `-mcpu=cortex-m3`     | `None`        | `soft`      |
-| STM32L4     | `-mcpu=cortex-m4`     | `fpv4-sp-d16` | `hard`      |
-| STM32L5     | `-mcpu=cortex-m33`    | `fpv5-d16`    | `hard`      |
-| STM32U5     | `-mcpu=cortex-m33`    | `fpv5-d16`    | `hard`      |
-| STM32WB     | `-mcpu=cortex-m4`     | `fpv4-sp-d16` | `hard`      |
-| STM32WL CM4 | `-mcpu=cortex-m4`     | `None`        | `soft`      |
-| STM32WL CM0 | `-mcpu=cortex-m0`     | `None`        | `soft`      |
+|STM32 Family | -mcpu           | -mfpu         | -mfloat-abi |
+|-------------|-----------------|---------------|-------------|
+| STM32F0     | `cortex-m0`     | `None`        | `soft`      |
+| STM32F1     | `cortex-m3`     | `None`        | `soft`      |
+| STM32F2     | `cortex-m3`     | `None`        | `soft`      |
+| STM32F3     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
+| STM32F4     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
+| STM32F7 SP  | `cortex-m7`     | `fpv4-sp-d16` | `hard`      |
+| STM32F7 DP  | `cortex-m7`     | `fpv5-d16`    | `hard`      |
+| STM32G0     | `cortex-m0plus` | `None`        | `soft`      |
+| STM32G4     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
+| STM32H7     | `cortex-m7`     | `fpv5-d16`    | `hard`      |
+| STM32L0     | `cortex-m0plus` | `None`        | `soft`      |
+| STM32L1     | `cortex-m3`     | `None`        | `soft`      |
+| STM32L4     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
+| STM32L5     | `cortex-m33`    | `fpv5-d16`    | `hard`      |
+| STM32U5     | `cortex-m33`    | `fpv5-d16`    | `hard`      |
+| STM32WB     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
+| STM32WL CM4 | `cortex-m4`     | `None`        | `soft`      |
+| STM32WL CM0 | `cortex-m0plus` | `None`        | `soft`      |
 
 > This table is a subject of potential mistakes, not tested with GCC compiler
 
