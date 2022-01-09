@@ -511,7 +511,7 @@ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOL
 It should well complete the execution with similar output as on picture below, plus a new `build` folder should be added to the project. If CMake cannot generate build instructions for Ninja, you will get list of errors in the same terminal window.
 ![VSCode - final CMakeLists.txt](docs/images/vscode-3-cmake-run.png)
 
-> Every time you modify CMakeLists.txt file, you have run above command to re-generated build system instructions, otherwise your file changes are not affected for build system.
+> Every time you modify CMakeLists.txt file, you have to run above command to re-generate build system instructions, otherwise your file changes are not affected for build system.
 
 ### Run CMake command automatically
 
@@ -539,8 +539,8 @@ Start by creating a new `.vscode/cmake-kits.json` file and copy below text to it
 When you are back, hit `CTRL + SHIFT + P` to open command palette and type `CMake: Quick start`
 ![VSCode - CMake setup - quick start](docs/images/vscode-5-cmake-quick-start.png)
 
-*CMake-Tools* extension will now get notified that there is `CMakeLists.txt` file and it must take care of it. It will ask yo to *CMake kit* (compiler setup to use with *CMakeLists.txt* file).
-Previously we created `cmake-kits.json` file where we added custom config named `GCC arm-none-eabi - custom toolchain setup`. Extension will use our file to final custom kits.
+*CMake-Tools* extension will now get notified that there is `CMakeLists.txt` file and that it must take care of it. It will ask you to pick *CMake kit* (compiler setup to use with *CMakeLists.txt* file).
+Previously we created `cmake-kits.json` file with added custom config named `GCC arm-none-eabi - custom toolchain setup`. Extension will use our file to find custom kits.
 
 If you do not see it on the list, force re-scan and try to select kit again.
 At the bottom of your VSCode window is *No active kit* that is clickable to change the kit.
