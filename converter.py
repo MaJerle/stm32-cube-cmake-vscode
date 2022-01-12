@@ -493,7 +493,7 @@ def parse_and_generate(projectFolderBasePath):
       cmake_set_arr = []               # List of "set" commands
       cmake_source_vars_arr = []       # List of "set" variable names
       for sourceGroup in data_obj['configurations'][conf]['source_folders']:
-         srcGroupFilesVarName = 'source_folder_' + sourceGroup['name'] + '_SRCS'
+         srcGroupFilesVarName = 'source_folder_' + sourceGroup['name'].replace('/', '_').replace('\\', '_') + '_SRCS'
          srcGroupFilesText = '\n\t' + '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, f) for f in sourceGroup['files']])
          cmake_set_arr.append('set(' + srcGroupFilesVarName + ' ' + srcGroupFilesText + ')')
          cmake_source_vars_arr.append('${' + srcGroupFilesVarName + '}')
