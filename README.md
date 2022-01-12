@@ -91,44 +91,46 @@ At this point, all the tools are properly installed and you are ready for next s
 
 ## Create new project with STM32CubeMX or STM32CubeIDE
 
-Let's create a simple project for STM32 with STM32CubeMX or STM32CubeIDE.
+Before we move to VSCode tutorial with CMake, we need a project to work on it.
+Fast, simple and effective is to use STM32CubeMX or STm32CubeIDE tools and start from there, to have a first buildable and executable project.
 
-> I am using STM32H735G-DK board for these tests, but any other STM32 board could be used.
+> I am using STM32H735G-DK board for these tests and STM32CubeIDE for project generation, but any other STM32 board could be used.
 
-- Open STM32CubeIDE and start new project
+Open STM32CubeIDE and start new project
 ![STM32CubeIDE - 1](docs/images/cubeide-1.png)
 
-- Select STM32 MCU - I am selecting STM32H735IG which is used on STM32H735G-DK board
+Select STM32 MCU - I am selecting STM32H735IG which is used on STM32H735G-DK board
 ![STM32CubeIDE - 2](docs/images/cubeide-2.png)
 
-- Select project name and path, then create project and wait for Pinout view to open
+Select project name and path, then create project and wait for Pinout view to open
 ![STM32CubeIDE - 3](docs/images/cubeide-3.png)
 
-- LEDs on DK board are connected to PC2 and PC3, active LOW. Pins can be configured in output push-pull or open-drain mode
+LEDs on DK board are connected to PC2 and PC3, active LOW. Pins can be configured in output push-pull or open-drain mode
 ![STM32CubeIDE - 4 - 1](docs/images/cubeide-4-1.png)
 
-- Set pins as outputs with optional labels as `LED1` and `LED2` respectively
+Set pins as outputs with optional labels as `LED1` and `LED2` respectively
 ![STM32CubeIDE - 4](docs/images/cubeide-4.png)
 
-- If you are using `STM32CubeMX`, go to project manager, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
+If you are using `STM32CubeMX`, go to project manager, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
 ![STM32CubeIDE - 5](docs/images/cubeide-5.png)
 
-- Go to advanced settings and select `LL` as drivers for generated code
+Go to advanced settings and select `LL` as drivers for generated code
 ![STM32CubeIDE - 6](docs/images/cubeide-6.png)
     - LL drivers are used in this example for simplicity
 
-- Regenerate the project by pressing below button or saving the project with `CTRL + S` shortcut
+Regenerate the project by pressing below button or saving the project with `CTRL + S` shortcut
 ![STM32CubeIDE - 7](docs/images/cubeide-7.png)
 
-- Yellow highlighted files are sources to build, while linker script is in blue
+Yellow highlighted files are sources to build, while linker script is in blue
 ![STM32CubeIDE - 8](docs/images/cubeide-8.png)
 
-- Result after compilation, STM32CubeIDE well compiled project. It is now ready for flashing to MCU and debugging.
+You are now ready to compile the project. Hit `CTRL + B` or click on *hammer* icon to start.
+STM32CubeIDE well compiled project, as it can be seen on picture below. It is now ready for flashing the MCU+s flash and start debugging.
 ![STM32CubeIDE - 9](docs/images/cubeide-9.png)
 
-> This is end of first part, where we successfully created our project.
+> This is end of first part, where we successfully created our project. At this point we consider project is ready to be transferred to CMake-based build system.
 
-You can continue your development with STM32CubeIDE forever, add new sources, modify code, flash the binary and debug directly on the microcontroller.
+You can continue your development with STM32CubeIDE in the future, add new sources, modify code, compile, flash the binary and debug directly the microcontroller.
 This is preferred STM32 development studio, developed and maintained by STMicroelectronics.
 
 ## Transfer project to CMake
@@ -144,7 +146,7 @@ Let's start with CMake setup for project description.
 
 ### Prepare CMakeLists.txt file
 
-Every CMake-based application requires `CMakeLists.txt` file in the root directory, that describes the project and provides input information for build system generation.
+Every CMake-based application requires `CMakeLists.txt` file *in the root directory*, that describes the project and provides input information for build system generation.
 
 > Root CMakeLists.txt file is also called top-level CMake file
 
