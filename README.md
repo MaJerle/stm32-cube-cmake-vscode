@@ -676,7 +676,7 @@ Instead of remembering all of them, let's create `.vscode/tasks.json` file inste
 }
 ```
 
-> Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal -> Run Task` or with `CTRL + ALT + T` shortcut
+Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal -> Run Task` or with `CTRL + ALT + T` shortcut
 ![VSCode - Tasks.json file](docs/images/vscode-10-tasks.png)
 
 *Build Project* task is configured as *default*, which will get executed when we run default task, or press shortcut `CTRL + SHIFT + B`.
@@ -686,7 +686,7 @@ Instead of remembering all of them, let's create `.vscode/tasks.json` file inste
     "isDefault": true
 }
 ```
-Another nice featured *Build Project* task parameter is `"problemMatcher": ["$gcc"],` set to GCC, which means that terminal output is parsed against GCC standard format and in case of warnings or errors, it will display nice messages in *Problems* view.
+Another nice *Build Project* task parameter is `"problemMatcher": ["$gcc"],` set to GCC, which means that terminal output is parsed against GCC standard format and in case of warnings or errors, it will display nice messages in *Problems* view.
 ![VSCode - Tasks.json file](docs/images/vscode-10-tasks-1.png)
 
 We reached at the end of CMake configuration and build setup.
@@ -701,13 +701,16 @@ This is now fully working GCC-based compilation system running in VSCode.
 When project uses files outside *root folder* tree, there is no way to see them in VSCode by default, unless you add another folder to project workspace, but then you *destroy* some of the features listed above.
 
 *CMake-Tools* extension well parses `CMakeLists.txt` file and is able to display all the source files, currently part of the CMake build system generation and later part of GCC build thanks to *Ninja*.
+On the left side of the screen, you will find an icon for *CMake* build, marked red on picture below.
 ![VSCode - List files part of CMake build system generation](docs/images/vscode-cmake-tools-list-files.png)
 
-It draws virtual folder tree according to files path listed in `CMakeLists.txt` file.
+It draws virtual folder tree according to source (executable) files path listed in `CMakeLists.txt` file.
 
-For the sake of this demonstration purpose, I created a file `demo_file.c` in one folder up from `CMakeLists.txt` location and added it to the project.
+For the sake of this demonstration purpose, I created a file `demo_file.c`, one folder up from `CMakeLists.txt` location and added it to the project.
 After CMake build system generation, we can see virtual file added in *CMake-Tools browser*.
 ![VSCode - List files part of CMake build system generation](docs/images/vscode-cmake-tools-list-files-ext.png)
+
+Thanks to this feature, we can have a full control over files being part of build and can quickly find files to modify, even if these are outside workspace folder directory.
 
 ### Stop receiving virtual C/C++ errors
 
