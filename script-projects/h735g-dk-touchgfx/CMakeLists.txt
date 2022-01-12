@@ -23,9 +23,11 @@ set(CMAKE_CXX_EXTENSIONS            ON)
 #
 set(CPU_PARAMETERS
     -mthumb
+    # Other parameters
+    # -mcpu, -mfloat, -mfloat-abi, ...
     -mcpu=cortex-m7
-    -mfpu=fpv5-d16
-    -mfloat-abi=hard
+	-mfpu=fpv5-d16
+	-mfloat-abi=hard
 )
 
 # Set linker script
