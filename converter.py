@@ -8,6 +8,9 @@ import argparse
 import pathlib
 import shutil
 
+#
+# Copy tree of data
+#
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
         s = os.path.join(src, item)
@@ -178,16 +181,18 @@ def parse_and_generate(projectFolderBasePath):
       print(".cproject or .project not found or could not be parsed. Exiting the parse process")
       print("--------")
       return
+   print(".cproject or .project files parsed")
 
    # Print values to user
    print("Project top folder path:                  ", projectFolderBasePath)
-   print("Project .cproject and .project path:      ", CProjBasePath)
+   print("Project .cproject and .project basepath:  ", CProjBasePath)
    print("Project base vs .c/.cproj difference path:", CProjBasePath_ProjectBasePath_diff)
 
    #
    # We can normalize tree to one array once we are inside one configuration.
    # Every feature has a "superClass" tag, that can be used for identification purpose
    #
+   print("Processing .cproject file")
    fTreeRootCproj = fTreeCproj.getroot()
    fTreeCprojNormalized = normalize_xml_tree(fTreeRootCproj)
    for tEntry in fTreeCprojNormalized:
@@ -377,6 +382,7 @@ def parse_and_generate(projectFolderBasePath):
    #
    # Handle .project file
    #
+   print("Processing .project file")
    fTreeRootProj = fTreeProj.getroot()
    fTreeRootProjNormalized = normalize_xml_tree(fTreeRootProj)
    for treeEntry in fTreeRootProjNormalized:
@@ -412,6 +418,7 @@ def parse_and_generate(projectFolderBasePath):
    #
 
    # Read template file
+   print("Opening templates/CMakeLists_template.txt file")
    templatefiledata = ''
    with open("templates/CMakeLists_template.txt", "r") as file:
       templatefiledata = file.read()
@@ -424,6 +431,8 @@ def parse_and_generate(projectFolderBasePath):
 
    # Set MCU specifics
    for conf in ['debug']:
+      cpu_params = []
+
       # Set Cortex
       target_mcu = data_obj['configurations'][conf]['target_mcu'][0:7].upper()
       if len(target_mcu) < 7:
@@ -445,21 +454,24 @@ def parse_and_generate(projectFolderBasePath):
       else:
          print("Unknown STM32")
          return
+      cpu_params.append(target_cpu)
 
       # Set floating point
       target_fpu = data_obj['configurations'][conf]['fpu']
-      if len(target_fpu) > 0:
+      if target_fpu == 'none' or target_fpu == 'None':
+         target_fpu = ''
+      elif len(target_fpu) > 0:
          target_fpu = '-mfpu=' + target_fpu
+         cpu_params.append(target_fpu)
 
       # Set floating point API
       target_fpu_abi = data_obj['configurations'][conf]['float_abi']
       if len(target_fpu_abi) > 0:
          target_fpu_abi = '-mfloat-abi=' + target_fpu_abi
+         cpu_params.append(target_fpu_abi)
 
       # Make replacements
-      templatefiledata = templatefiledata.replace('{{sr:m_cpu}}', target_cpu)
-      templatefiledata = templatefiledata.replace('{{sr:m_fpu}}', target_fpu)
-      templatefiledata = templatefiledata.replace('{{sr:m_float_abi}}', target_fpu_abi)
+      templatefiledata = templatefiledata.replace('{{sr:cpu_params}}', '\n\t' . join(cpu_params))
 
    # Check all linked files from .cproject file
    templatefiledata = templatefiledata.replace(
@@ -499,9 +511,12 @@ def parse_and_generate(projectFolderBasePath):
          varname = 'include_' + compiler + '_DIRS'
          paths = []
          for path in data_obj['configurations'][conf][compiler]['include_paths']:
-            # We are here adding "Debug" fake name
-            # because "cwd" path for CubeIDE is "<location_of_.cproject>/Debug"
-            path = os.path.join(os.path.join(CProjBasePath, 'Debug'), path)
+            path = path.replace('${ProjDirPath}', CProjBasePath)
+            if not os.path.isabs(path):
+               # We are here adding "Debug" fake name (for relativep paths only)
+               # because "cwd" path for CubeIDE is "<location_of_.cproject>/Debug"
+               path = os.path.join(os.path.join(CProjBasePath, 'Debug'), path)
+
             # Normalize path to remove "Debug" from path
             paths.append(os.path.normpath(path))
          templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in paths]))
@@ -549,6 +564,7 @@ def parse_and_generate(projectFolderBasePath):
 
    # Write data to file
    cmakelistsfile = os.path.join(projectFolderBasePath, 'CMakeLists.txt')
+   print("Generating output", cmakelistsfile)
    with open(cmakelistsfile, "w") as file:
       file.write(templatefiledata)
 
@@ -582,5 +598,5 @@ if __name__ == '__main__':
    for p in args.path:
       path = str(p)
       if not os.path.isabs(path):
-         path = os.path.join(basepath, path)
+         path = os.path.normpath(os.path.join(basepath, path))
       parse_and_generate(path)

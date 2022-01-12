@@ -23,9 +23,9 @@ set(CMAKE_CXX_EXTENSIONS            ON)
 #
 set(CPU_PARAMETERS
     -mthumb
-    {{sr:m_cpu}}
-    {{sr:m_fpu}}
-    {{sr:m_float_abi}}
+    # Other parameters
+    # -mcpu, -mfloat, -mfloat-abi, ...
+    {{sr:cpu_params}}
 )
 
 # Set linker script

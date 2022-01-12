@@ -549,7 +549,7 @@ At the bottom of your VSCode window is *No active kit* that is clickable to chan
 After rescan process, our custom kit is now available and can be selected
 ![VSCode - CMake setup - kit selection](docs/images/vscode-7-kit-found.png)
 
-Very good, now that we reached so far, our next step is to again run CMake to generate build configuration for Ninja, mainly to test if it works well.
+Very good, now that we reached so far, our next step is to again run CMake to generate build configuration for *Ninja*, mainly to test if it works well.
 
 There are `2` ways of executing CMake generation step:
 
@@ -579,8 +579,14 @@ As a result, we got some output in `build` directory:
 - `project-name.bin` BIN file
 - `project-name.map` map file
 
-In default configuration, `.hex` and `.bin` files are not generated nor *memory usage* is not displayed. We prepared `CMakeLists.txt` file with `POST_BUILD` option, to execute additional commands 
-after successful build. Code is already in your CMakeLists.txt file, so no need to do anything, just observe.
+In default configuration, `.hex` and `.bin` files are not generated nor *memory usage* is displayed.
+Our prepared `CMakeLists.txt` file includes `POST_BUILD` options, to execute additional commands after successful build.
+Code is already in your CMakeLists.txt file, so no need to do anything, just observe.
+
+It executes command to:
+- Print used size of each region + final executable memory consumption
+- Generate `.hex` file from executable
+- Generate `.bin` file from executable
 
 ```cmake
 # Execute post-build to print size
@@ -599,15 +605,16 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 )
 ```
 
-> To disable `.bin` file generation, simply delete POST_BUILD line for `.bin` and regenerate CMake build system commands.
+> To disable `.bin` file generation, simply delete `POST_BUILD` line for `.bin` and regenerate CMake build system commands.
+> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories.
 
-Some other useful commands to keep in mind during project development:
+There is a list of useful commands to keep in mind during project development:
 
 - Build changes:  `cmake --build "build"`
 - Clean project:  `cmake --build "build" --target clean`
 - Re-build files: `cmake --build "build" --clean-first -v`
 
-Let's rather create `.vscode/tasks.json` file and add all commands inside to have them remembered:
+Instead of remembering all of them, let's create `.vscode/tasks.json` file instead and add all commands to it, for quick run:
 ```json
 {
     "version": "2.0.0",
@@ -623,7 +630,7 @@ Let's rather create `.vscode/tasks.json` file and add all commands inside to hav
             "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": true       //This is default task
             }
         },
         {
@@ -745,6 +752,7 @@ If you have MCU SVD file, add its path in `launch.json` configuration, and you w
 
 To view memory, open command palette with `CTRL + SHIFT + P` and type `memory`
 
+First select command to view memory
 ![VSCode - Debug session - Memory command](docs/images/vscode-dbg-4-memory.png)
 Select memory start address
 ![VSCode - Debug session - Memory address](docs/images/vscode-dbg-4-memory-address.png)
@@ -780,8 +788,8 @@ Let's create `.vscode/c_cpp_properties.json` file and copy below text to it
     "configurations": [
         {
             "name": "STM32",
-            "includePath": [],      //Kepp empty
-            "defines": [],          //Keep empty
+            "includePath": [],      //Kepp empty, ms-vscode.cmake-tools extension will provide it for you
+            "defines": [],          //Keep empty, ms-vscode.cmake-tools extension will provide it for you
             "compilerPath": "",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",
@@ -852,7 +860,12 @@ Run script with arguments:
 ```
 python converter.py --path "path1" ["path2" ["pathn", [...]]]
 ```
-`CMakeLists.txt` will be generated in the provided paths, but only if converter is able to find `.project` and `.cproject` files
+
+As an example, giving demo projects in `script-projects/` dir, script shall be executed as
+```
+python converter.py --path "script-projects/h735g-dk-touchgfx/" "script-projects/h735g-dk-usart/"
+```
+`CMakeLists.txt` will be generated in the provided paths, but only if converter is able to find `.project` and `.cproject` files inside project directory
 
 ## Known limitations
 
