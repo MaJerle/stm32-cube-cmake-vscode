@@ -539,7 +539,7 @@ Start by creating a new `.vscode/cmake-kits.json` file and copy below text to it
 When you are back, hit `CTRL + SHIFT + P` to open command palette and type `CMake: Quick start`
 ![VSCode - CMake setup - quick start](docs/images/vscode-5-cmake-quick-start.png)
 
-*CMake-Tools* extension will now get notified that there is `CMakeLists.txt` file and that it must take care of it. It will ask you to pick *CMake kit* (compiler setup to use with *CMakeLists.txt* file).
+*CMake-Tools* extension will now get notified that there is `CMakeLists.txt` file and that it must take care of it. It will ask you to pick *CMake kit* (compiler setup to use with `CMakeLists.txt` file).
 Previously we created `cmake-kits.json` file with added custom config named `GCC arm-none-eabi - custom toolchain setup`. Extension will use our file to find custom kits.
 
 If you do not see it on the list, force re-scan and try to select kit again.
@@ -612,7 +612,7 @@ There is a list of useful commands to keep in mind during project development:
 
 - Build changes:  `cmake --build "build"`
 - Clean project:  `cmake --build "build" --target clean`
-- Re-build files: `cmake --build "build" --clean-first -v`
+- Re-build project, with clean first: `cmake --build "build" --clean-first -v`
 
 Instead of remembering all of them, let's create `.vscode/tasks.json` file instead and add all commands to it, for quick run:
 ```json
@@ -693,9 +693,62 @@ This is now fully working GCC-based compilation system running in VSCode.
 
 > Do not forget to regenerate CMake when `CMakeLists.txt` file gets modified.
 
+### List project files with CMake-Tools plugin
+
+*CMake-Tools* VSCode plugin comes with very nice feature, that being listing all files in the project.
+When project uses files outside *root folder* tree, there is no way to see them in VSCode by default, unless you add another folder to project workspace, but then you *destroy* some of the features listed above.
+
+*CMake-Tools* extension well parses `CMakeLists.txt` file and is able to display all the source files, currently part of the CMake build system generation and later part of GCC build thanks to *Ninja*.
+![VSCode - List files part of CMake build system generation](docs/images/vscode-cmake-tools-list-files.png)
+
+It draws virtual folder tree according to files path listed in `CMakeLists.txt` file.
+
+For the sake of this demonstration purpose, I created a file `demo_file.c` in one folder up from `CMakeLists.txt` location and added it to the project.
+After CMake build system generation, we can see virtual file added in *CMake-Tools browser*.
+![VSCode - List files part of CMake build system generation](docs/images/vscode-cmake-tools-list-files-ext.png)
+
+### Stop receiving virtual C/C++ errors
+
+As you may have noticed, some lines in C files are red-underlined, reporting a `could not find resource` error, but when compiled, all is working just fine.
+![VSCode - Debug session](docs/images/vscode-dbg-1.png)
+
+This is reported by `CppTools` extension as it cannot find resources by default, as Intellisense is not aware of include paths or preprocessor defines.
+
+> It will still compile well as include paths are defined in `CMakeLists.txt`, just VSCode Intellisense editor won't work by default.
+
+To overcome this problem, let's create `.vscode/c_cpp_properties.json` file and copy below text to it
+```json
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "STM32",
+            "includePath": [],      //Kepp empty, ms-vscode.cmake-tools extension will provide it for you
+            "defines": [],          //Keep empty, ms-vscode.cmake-tools extension will provide it for you
+            "compilerPath": "",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "${default}",
+
+            /* Use this and all the include paths will come from CMake configuration instead */
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ]
+}
+```
+![VSCode - C/C++ virtual errors](docs/images/vscode-c-cpp-1-file.png)
+
+We provided settings for `C/C++` extension, mainly for Intellisense feature, and configure it in a way to use `CMake-Tools` extension to find include paths and list of defines (preprocessor defined).
+
+No errors are visible anymore and Intellisense is now fully operational.
+You can test it by going to one resource (ex. with mouse over a function name), then click `CTRL + left mouse click` command and you should jump to definition location directly.
+![VSCode - No errors anymore](docs/images/vscode-c-cpp-2-no-errors.png)
+
+> `.vscode/c_cpp_properties.json` is used for `CppTools` extension purpose.
+
 ## Debug project with cortex-debug
 
-Our `.elf` file has been built in previous section and can't wait to be uploaded into MCU flash and executed by Cortex-M.
+Our `.elf` file has been built in previous section and can't wait to be uploaded into MCU flash and executed by *Cortex-M core*.
 We will use `Cortex-Debug` extension for debugging purpose, that will also flash firmware for us.
 
 First thing is to create `.vscode/launch.json` file and copy below content to it:
@@ -771,40 +824,6 @@ It is possible to later step by step assembly instructions too.
 ![VSCode - Debug session - Memory view](docs/images/vscode-dbg-5-disassembly.png)
 
 Many other features are available.
-
-### Get rid of virtual C/C++ errors
-
-As you may have noticed, some lines in C file are red-underlined, reporting a `could not find resource` error, but when compiled, all is fine.
-![VSCode - Debug session](docs/images/vscode-dbg-1.png)
-
-This is reported by `CppTools` extension as it cannot find where are include paths to find all symbols in the project.
-
-> It will still compile well as include paths are defined in CMakeTools, just VSCode editor won't find it by default.
-
-Let's create `.vscode/c_cpp_properties.json` file and copy below text to it
-```json
-{
-    "version": 4,
-    "configurations": [
-        {
-            "name": "STM32",
-            "includePath": [],      //Kepp empty, ms-vscode.cmake-tools extension will provide it for you
-            "defines": [],          //Keep empty, ms-vscode.cmake-tools extension will provide it for you
-            "compilerPath": "",
-            "cStandard": "gnu17",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "${default}",
-
-            /* Use this and all the include paths will come from CMake configuration instead */
-            "configurationProvider": "ms-vscode.cmake-tools"
-        }
-    ]
-}
-```
-![VSCode - C/C++ virtual errors](docs/images/vscode-c-cpp-1-file.png)
-
-No errors are visible anymore. Go to one resource (ex. with mouse over a function name), `CTRL + left mouse click` command will hit you to the definition location, directly.
-![VSCode - No errors anymore](docs/images/vscode-c-cpp-2-no-errors.png)
 
 ## Conclusion
 
