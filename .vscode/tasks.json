@@ -26,6 +26,26 @@
                 "../lwow/examples/stm32/ow_ds18b20_stm32l496g_discovery/",
                 "../lwprintf/examples/stm32/lwprintf_stm32l432kc_nucleo/",
                 */
+                /*
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_F1/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_F4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_G0/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_L4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_G0/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_tx_G0/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_tx_H7/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_tx_loopback_G4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_rtos_F4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_rtos_G4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_rtos_L4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_rtos_L4_multi_instance/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_stop_mode_G4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_polling_F4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_polling_rtos_F4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_tx_debug_rtos_F4/",
+                */
+                "../CanOpenSTM32/stm32h7xx_fdcan/",
+                "../CanOpenSTM32/stm32h7xx_fdcan_rtos/",
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
