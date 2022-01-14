@@ -625,7 +625,7 @@ Instead of remembering all of them, let's create `.vscode/tasks.json` file inste
             "type": "cppbuild",
             "label": "Build project",
             "command": "cmake",
-            "args": ["--build", "\"build\""],
+            "args": ["--build", "\"build\"", "-j", "8"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -639,7 +639,7 @@ Instead of remembering all of them, let's create `.vscode/tasks.json` file inste
             "type": "shell",
             "label": "Re-build project",
             "command": "cmake",
-            "args": ["--build", "\"build\"", "--clean-first", "-v"],
+            "args": ["--build", "\"build\"", "--clean-first", "-v", "-j", "8"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
