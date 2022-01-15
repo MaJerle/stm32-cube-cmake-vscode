@@ -73,7 +73,7 @@ MX25LM51245G_GetFlashInfo(MX25LM51245G_Info_t* pInfo) {
     pInfo->ProgPagesNumber        = (MX25LM51245G_FLASH_SIZE / MX25LM51245G_PAGE_SIZE);
 
     return MX25LM51245G_OK;
-};
+}
 
 /**
   * @brief  Polling WIP(Write In Progress) bit become to 0

@@ -35,15 +35,7 @@ set(EXECUTABLE                      ${CMAKE_PROJECT_NAME})
 #
 # Source files
 #
-set(linked_SRCS
-    {{sr:linked_SRCS}}
-)
 {{sr:set_source_folder_files}}
-
-# Source files in the same path as ".cproject/.project" but nowhere included in file descriptions
-set(all_project_dir_SRCS
-    {{sr:all_project_dir_SRCS}}
-)
 
 #
 # Include directories
@@ -83,9 +75,7 @@ link_directories(${EXECUTABLE} ${link_DIRS})
 #
 # Executable files
 #
-add_executable(${EXECUTABLE}
-    ${linked_SRCS}
-    ${all_project_dir_SRCS} {{sr:set_source_folder_files_variables}})
+add_executable(${EXECUTABLE} {{sr:set_source_folder_files_variables}})
 
 #
 # Add linked libraries for linker
@@ -142,7 +132,9 @@ target_compile_options(${EXECUTABLE} PRIVATE
         #-Wsuggest-override
     >
     $<$<COMPILE_LANGUAGE:ASM>:
-
+        -x assembler-with-cpp
+        -MMD
+        -MP
     >
     $<$<CONFIG:Debug>:
         -Og -g3 -ggdb

@@ -37,9 +37,13 @@ set(EXECUTABLE                      ${CMAKE_PROJECT_NAME})
 #
 # Source files
 #
-set(linked_SRCS
-    ${PROJ_PATH}/STM32H735G-DK.ioc
-	${PROJ_PATH}/Core/Src/system_stm32h7xx.c
+set(src__SRCS 
+	${PROJ_PATH}/STM32H735G-DK.ioc)
+
+set(src_drivers_cmsis_SRCS 
+	${PROJ_PATH}/Core/Src/system_stm32h7xx.c)
+
+set(src_drivers_stm32h7xx_hal_driver_SRCS 
 	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
 	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
 	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c
@@ -63,7 +67,9 @@ set(linked_SRCS
 	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
 	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
 	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
+	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c)
+
+set(src_middlewares_freertos_SRCS 
 	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
 	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/croutine.c
 	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
@@ -73,33 +79,51 @@ set(linked_SRCS
 	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/queue.c
 	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
 	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/tasks.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/timers.c
+	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/timers.c)
+
+set(src_application_user_core_SRCS 
 	${PROJ_PATH}/Core/Src/freertos.c
 	${PROJ_PATH}/Core/Src/main.c
 	${PROJ_PATH}/Core/Src/stm32h7xx_hal_msp.c
 	${PROJ_PATH}/Core/Src/stm32h7xx_hal_timebase_tim.c
 	${PROJ_PATH}/Core/Src/stm32h7xx_it.c
+	${PROJ_PATH}/STM32CubeIDE/Application/User/Core/syscalls.c
+	${PROJ_PATH}/STM32CubeIDE/Application/User/Core/sysmem.c)
+
+set(src_drivers_bsp_components_SRCS 
 	${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336.c
 	${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336_reg.c
 	${PROJ_PATH}/Drivers/BSP/Components/mx25lm51245g/mx25lm51245g.c
-	${PROJ_PATH}/Drivers/BSP/Components/s70kl1281/s70kl1281.c
+	${PROJ_PATH}/Drivers/BSP/Components/s70kl1281/s70kl1281.c)
+
+set(src_drivers_bsp_stm32h735g_dk_SRCS 
 	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.c
 	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.c
-	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c
-	${PROJ_PATH}/TouchGFX/App/app_touchgfx.c
+	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c)
+
+set(src_application_user_touchgfx_app_SRCS 
+	${PROJ_PATH}/TouchGFX/App/app_touchgfx.c)
+
+set(src_application_user_touchgfx_target_SRCS 
 	${PROJ_PATH}/TouchGFX/target/CortexMMCUInstrumentation.cpp
 	${PROJ_PATH}/TouchGFX/target/STM32TouchController.cpp
 	${PROJ_PATH}/TouchGFX/target/TouchGFXGPIO.cpp
-	${PROJ_PATH}/TouchGFX/target/TouchGFXHAL.cpp
+	${PROJ_PATH}/TouchGFX/target/TouchGFXHAL.cpp)
+
+set(src_application_user_touchgfx_target_generated_SRCS 
 	${PROJ_PATH}/TouchGFX/target/generated/OSWrappers.cpp
 	${PROJ_PATH}/TouchGFX/target/generated/STM32DMA.cpp
 	${PROJ_PATH}/TouchGFX/target/generated/TouchGFXConfiguration.cpp
-	${PROJ_PATH}/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp
+	${PROJ_PATH}/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp)
+
+set(src_application_user_gui_SRCS 
 	${PROJ_PATH}/TouchGFX/gui/src/common/FrontendApplication.cpp
 	${PROJ_PATH}/TouchGFX/gui/src/containers/ScrollList_myContainer.cpp
 	${PROJ_PATH}/TouchGFX/gui/src/model/Model.cpp
 	${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1Presenter.cpp
-	${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1View.cpp
+	${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1View.cpp)
+
+set(src_application_user_generated_SRCS 
 	${PROJ_PATH}/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp
 	${PROJ_PATH}/TouchGFX/generated/fonts/src/CachedFont.cpp
 	${PROJ_PATH}/TouchGFX/generated/fonts/src/FontCache.cpp
@@ -123,16 +147,10 @@ set(linked_SRCS
 	${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Dark_Backgrounds_Main_bg_texture_320x240px.cpp
 	${PROJ_PATH}/TouchGFX/generated/texts/src/LanguageGb.cpp
 	${PROJ_PATH}/TouchGFX/generated/texts/src/Texts.cpp
-	${PROJ_PATH}/TouchGFX/generated/texts/src/TypedTextDatabase.cpp
-)
+	${PROJ_PATH}/TouchGFX/generated/texts/src/TypedTextDatabase.cpp)
 
-
-# Source files in the same path as ".cproject/.project" but nowhere included in file descriptions
-set(all_project_dir_SRCS
-    ${PROJ_PATH}/STM32CubeIDE/Application/User/Core/syscalls.c
-	${PROJ_PATH}/STM32CubeIDE/Application/User/Core/sysmem.c
-	${PROJ_PATH}/STM32CubeIDE/Application/User/Startup/startup_stm32h735igkx.s
-)
+set(src_application_user_startup_SRCS 
+	${PROJ_PATH}/STM32CubeIDE/Application/User/Startup/startup_stm32h735igkx.s)
 
 #
 # Include directories
@@ -214,10 +232,20 @@ link_directories(${EXECUTABLE} ${link_DIRS})
 #
 # Executable files
 #
-add_executable(${EXECUTABLE}
-    ${linked_SRCS}
-    ${all_project_dir_SRCS} 
-	)
+add_executable(${EXECUTABLE} 
+	${src__SRCS}
+	${src_drivers_cmsis_SRCS}
+	${src_drivers_stm32h7xx_hal_driver_SRCS}
+	${src_middlewares_freertos_SRCS}
+	${src_application_user_core_SRCS}
+	${src_drivers_bsp_components_SRCS}
+	${src_drivers_bsp_stm32h735g_dk_SRCS}
+	${src_application_user_touchgfx_app_SRCS}
+	${src_application_user_touchgfx_target_SRCS}
+	${src_application_user_touchgfx_target_generated_SRCS}
+	${src_application_user_gui_SRCS}
+	${src_application_user_generated_SRCS}
+	${src_application_user_startup_SRCS})
 
 #
 # Add linked libraries for linker
@@ -274,7 +302,9 @@ target_compile_options(${EXECUTABLE} PRIVATE
         #-Wsuggest-override
     >
     $<$<COMPILE_LANGUAGE:ASM>:
-
+        -x assembler-with-cpp
+        -MMD
+        -MP
     >
     $<$<CONFIG:Debug>:
         -Og -g3 -ggdb
