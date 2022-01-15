@@ -149,7 +149,7 @@ def parse_and_generate(projectFolderBasePath):
             'source_folders': [],
          },
       },
-      'linked_files': [],
+      'linked_files': {},
       'all_source_files_in_path': []
    }
 
@@ -352,34 +352,6 @@ def parse_and_generate(projectFolderBasePath):
          break
 
    #
-   # Glob for files in the same directory as .project and .cproject
-   #
-   # These are automatically added to the project
-   #
-   files_scan = []
-   files_scan = files_scan + glob.glob(os.path.join(CProjBasePath, "**/*.c"), recursive = True)
-   files_scan = files_scan + glob.glob(os.path.join(CProjBasePath, "**/*.cpp"), recursive = True)
-   files_scan = files_scan + glob.glob(os.path.join(CProjBasePath, "**/*.s"), recursive = True)
-   files_scan = [os.path.join(CProjBasePath, f) for f in files_scan]
-
-   # Remove files from build directory
-   files = []
-   for file in files_scan:
-      if os.path.join(projectFolderBasePath, 'build') in file:
-         continue
-      add_to_list = True
-      for conf in ['debug']:
-         for srcGrp in data_obj['configurations'][conf]['source_folders']:
-            for f in srcGrp['files']:
-               if file == f:
-                  add_to_list = False
-      if add_to_list:
-         files.append(file)
-
-   # Add full path to the files indeed
-   data_obj['all_source_files_in_path'] = files
-
-   #
    # Handle .project file
    #
    print("Processing .project file")
@@ -397,6 +369,7 @@ def parse_and_generate(projectFolderBasePath):
          # List all links in the chain
          for linkEntry in treeEntry['obj']:
             path = ''
+            virtual_folder = ''
             for linkEntryTag in linkEntry:
                if linkEntryTag.tag == 'locationURI':
                   path = linkEntryTag.text.replace('$%7B', '').replace('%7D', '').replace('$%7', '')
@@ -409,8 +382,50 @@ def parse_and_generate(projectFolderBasePath):
 
                   # Create full path
                   path = os.path.normpath(os.path.join(CProjBasePath, path))
+               elif linkEntryTag.tag == 'name':
+                  # Get virtual folder to group files together
+                  virtual_folder = os.path.dirname(linkEntryTag.text).replace('/', '_').replace('\\', '_').replace('-', '_').lower()
             if path != '':
-               data_obj['linked_files'].append(path)
+               if virtual_folder not in data_obj['linked_files']:
+                  data_obj['linked_files'][virtual_folder] = []
+               data_obj['linked_files'][virtual_folder].append(path)
+
+   # 
+   # Group linked files and source folders together to one merge
+   #
+   # From now on, work only with linked files across application
+   #
+   for conf in ['debug']:
+      for sourceGroup in data_obj['configurations'][conf]['source_folders']:
+         files = sourceGroup['files']
+         for f in files:
+            folder_name = os.path.dirname(f.replace(os.path.join(CProjBasePath, ''), '')).replace('/', '_').replace('\\', '_').replace('-', '_').lower()
+            if folder_name not in data_obj['linked_files']:
+               data_obj['linked_files'][folder_name] = []
+            if f not in data_obj['linked_files'][folder_name]:
+               data_obj['linked_files'][folder_name].append(f)
+
+   #
+   # Glob for files in the same directory as .project and .cproject
+   # These are automatically added to the project, even if not specifically mentioned in project config
+   #
+   files_scan = []
+   files_scan = files_scan + glob.glob(os.path.join(CProjBasePath, "**/*.c"), recursive = True)
+   files_scan = files_scan + glob.glob(os.path.join(CProjBasePath, "**/*.cpp"), recursive = True)
+   files_scan = files_scan + glob.glob(os.path.join(CProjBasePath, "**/*.s"), recursive = True)
+   files_scan = [os.path.join(CProjBasePath, f) for f in files_scan]
+
+   # Remove files from build directory
+   for f in files_scan:
+      # Remove build folder
+      if os.path.join(projectFolderBasePath, 'build') in f:
+         continue
+      # Get folder name between .cproject location and actual file location (create virtual folder for variable)
+      folder_name = os.path.dirname(f.replace(os.path.join(CProjBasePath, ''), '')).replace('/', '_').replace('\\', '_').replace('-', '_').lower()
+      if folder_name not in data_obj['linked_files']:
+         data_obj['linked_files'][folder_name] = []
+      if f not in data_obj['linked_files'][folder_name]:
+         data_obj['linked_files'][folder_name].append(f)
 
    ##
    # TODO: Ignore any .c file from "/build/" directory
@@ -473,34 +488,33 @@ def parse_and_generate(projectFolderBasePath):
       # Make replacements
       templatefiledata = templatefiledata.replace('{{sr:cpu_params}}', '\n\t' . join(cpu_params))
 
-   # Check all linked files from .cproject file
-   templatefiledata = templatefiledata.replace(
-      '{{sr:linked_SRCS}}',
-      '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in data_obj['linked_files']])
-   )
+   #
+   # Process all linked files, grouped by "directory name"
+   #
+   cmake_set_strings_list = []
+   cmake_variables_list = []
+   for name in data_obj['linked_files']:
+      var_name = 'src_' + name + '_SRCS'        # Set variable name
+      files = data_obj['linked_files'][name]    # List of files part of the set command
+
+      # This will generate list of files part of set command in readable format
+      files_text = '\n\t' + '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, f) for f in files])
+
+      # Add set command with generated files text
+      cmake_set_strings_list.append('set(' + var_name + ' ' + files_text + ')')
+
+      # Add list of variables
+      cmake_variables_list.append('${' + var_name + '}')
+
+   # Replace template file with data
+   templatefiledata = templatefiledata.replace('{{sr:set_source_folder_files}}', '\n\n'.join(cmake_set_strings_list))
+   templatefiledata = templatefiledata.replace('{{sr:set_source_folder_files_variables}}', '\n\t' + '\n\t'.join(cmake_variables_list))
 
    # Check all files in the same directory as .cproject/.project directory
    templatefiledata = templatefiledata.replace(
       '{{sr:all_project_dir_SRCS}}',
       '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in data_obj['all_source_files_in_path']])
    )
-
-   #
-   # Check source folders and respective files, defined in .project file
-   # Group variables by source folder name
-   #
-   for conf in ['debug']:
-      cmake_set_arr = []               # List of "set" commands
-      cmake_source_vars_arr = []       # List of "set" variable names
-      for sourceGroup in data_obj['configurations'][conf]['source_folders']:
-         srcGroupFilesVarName = 'source_folder_' + sourceGroup['name'].replace('/', '_').replace('\\', '_') + '_SRCS'
-         srcGroupFilesText = '\n\t' + '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, f) for f in sourceGroup['files']])
-         cmake_set_arr.append('set(' + srcGroupFilesVarName + ' ' + srcGroupFilesText + ')')
-         cmake_source_vars_arr.append('${' + srcGroupFilesVarName + '}')
-
-      # Replace file with text
-      templatefiledata = templatefiledata.replace('{{sr:set_source_folder_files}}', '\n\n'.join(cmake_set_arr))
-      templatefiledata = templatefiledata.replace('{{sr:set_source_folder_files_variables}}', '\n\t' + '\n\t'.join(cmake_source_vars_arr))
 
    #
    # Check include paths
