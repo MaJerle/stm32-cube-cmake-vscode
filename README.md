@@ -772,10 +772,10 @@ First thing is to create `.vscode/launch.json` file and copy below content to it
             "device": "STM32H735IG",            //MCU used
             "interface": "swd",                 //Interface setup
             "serialNumber": "",                 //Set ST-Link ID if you use multiple at the same time
-            "runToMain": true,                  //Run to main and stop there
+            "runToEntryPoint": "main",          //Run to main and stop there
             "svdFile": "STM32H73x.svd",         //SVD file to see reisters
             "v1": false,
-            "showDevDebugOutput": true,
+            "showDevDebugOutput": "both",
 
             /* Will get automatically detected if STM32CubeIDE is installed to default directory
                or it can be manually provided if necessary.. */
