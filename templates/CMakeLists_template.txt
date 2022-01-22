@@ -149,6 +149,7 @@ target_link_options(${EXECUTABLE} PRIVATE
     -T${MCU_LINKER_SCRIPT}${linker_script_SRC}
     ${CPU_PARAMETERS}
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
+    -u _printf_float              # STDIO float formatting support (remove if not used)
     --specs=nosys.specs
     -Wl,--start-group
     -lc
