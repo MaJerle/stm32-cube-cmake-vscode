@@ -323,7 +323,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.hex
 )
 
-# Conver to bin file -> add conditional check?
+# Convert to bin file -> add conditional check?
 add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.bin
 )
@@ -496,7 +496,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.hex
 )
 
-# Conver to bin file -> add conditional check?
+# Convert to bin file -> add conditional check?
 add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.bin
 )
@@ -603,7 +603,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.hex
 )
 
-# Conver to bin file -> add conditional check?
+# Convert to bin file -> add conditional check?
 add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.bin
 )
