@@ -29,22 +29,37 @@ In case of my computer, using STM32CubeIDE 1.8 (updated through eclipse, hence m
 
 > Your paths may differ at version numbers.
 
-Verify correct setup with `3` commands in cmd, see image below.
+Verify correct setup with `3` commands in cmd, by running
 
+```
+arm-none-eabi-gcc --version
+STM32_Programmer_CLI --version
+ST-LINK_gdbserver --version
+```
+
+Output shall be something similar to
 ![STM32CubeIDE environment test](docs/images/gcc-prog-gdb-version-test.png)
 
-## Install CMake
+## Install CMake and ninja
 
+### CMake
 Install [CMake](https://cmake.org/).
 
 > During installation, wizard will ask you to add CMake to environmental paths. If you do not select this option, you should add it manually after installation.
 
-## Install Ninja
+### Ninja
 
 Download [Ninja build system](https://github.com/ninja-build/ninja/releases) from Github releases page.
 It comes as portable executable, without need to install anything.
 However it must be visible at environment level, like all previous tools.
 
+Verify both in cmd, by running
+```
+cmake --version
+ninja --version
+```
+
+Output shall be something similar to
 ![CMake and Ninja verification](docs/images/cmake-ninja-version-test.png)
 
 ## Install Visual Studio Code
