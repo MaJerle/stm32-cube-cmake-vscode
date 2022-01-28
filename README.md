@@ -38,6 +38,7 @@ ST-LINK_gdbserver --version
 ```
 
 Output shall be something similar to
+
 ![STM32CubeIDE environment test](docs/images/gcc-prog-gdb-version-test.png)
 
 ## Install CMake and ninja
@@ -60,6 +61,7 @@ ninja --version
 ```
 
 Output shall be something similar to
+
 ![CMake and Ninja verification](docs/images/cmake-ninja-version-test.png)
 
 ## Install Visual Studio Code
