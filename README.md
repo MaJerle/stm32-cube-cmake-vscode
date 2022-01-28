@@ -635,7 +635,7 @@ There is a list of useful commands to keep in mind during project development:
 - Clean project:  `cmake --build "build" --target clean`
 - Re-build project, with clean first: `cmake --build "build" --clean-first -v`
 
-Instead of remembering all of them, let's create `.vscode/tasks.json` file instead and add all commands to it, for quick run:
+Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file with commands list, for quick run:
 ```json
 {
     "version": "2.0.0",
@@ -705,14 +705,19 @@ Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal
     "isDefault": true
 }
 ```
-Another nice *Build Project* task parameter is `"problemMatcher": ["$gcc"],` set to GCC, which means that terminal output is parsed against GCC standard format and in case of warnings or errors, it will display nice messages in *Problems* view.
-![VSCode - Tasks.json file](docs/images/vscode-10-tasks-1.png)
 
-We reached at the end of CMake configuration and build setup.
-You can freely modify C source code and and/remove files from/to project.
-This is now fully working GCC-based compilation system running in VSCode.
+### CMake build system & build command with single click
 
-> Do not forget to regenerate CMake when `CMakeLists.txt` file gets modified.
+*CMake-Tools* is super powerful extension, provides many features for development.
+We have explained the hard-way how to move from source `CMakeLists.txt` file to finally fully built `.elf` project file,
+but there is another way to speed complete process.
+
+At the bottom of the project, in blue line, is a `Build` button, which essentially does the following:
+
+- Runs cmake command to generate build system (runs only is not already available or modified by user, otherwise skips to next step)
+- Runs `ninja` to build changed files and generate output `.elf` file
+
+![VSCode - Generate and build with single click](docs/images/vscode-cmake-tools-build-button.png)
 
 ### List project files with CMake-Tools plugin
 
@@ -730,6 +735,17 @@ After CMake build system generation, we can see virtual file added in *CMake-Too
 ![VSCode - List files part of CMake build system generation](docs/images/vscode-cmake-tools-list-files-ext.png)
 
 Thanks to this feature, we can have a full control over files being part of build and can quickly find files to modify, even if these are outside workspace folder directory.
+
+### GCC Problem matcher
+
+Another nice *Build Project* task parameter is `"problemMatcher": ["$gcc"],` set to GCC, which means that terminal output is parsed against GCC standard format and in case of warnings or errors, it will display nice messages in *Problems* view.
+![VSCode - Tasks.json file](docs/images/vscode-10-tasks-1.png)
+
+We reached at the end of CMake configuration and build setup.
+You can freely modify C source code and and/remove files from/to project.
+This is now fully working GCC-based compilation system running in VSCode.
+
+> Do not forget to regenerate CMake when `CMakeLists.txt` file gets modified, or use *Build* button to do it for you.
 
 ### Stop receiving virtual C/C++ errors
 
