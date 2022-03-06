@@ -349,7 +349,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 Now we need to fill it properly.
 Source files are the same as in STM32CubeIDE project. You can check previous image with highlighted sources in yellow color.
 
-Symbols and include paths can be found in STM32CubeIDE under project settings. Added are `2` pictures below how it is in the case of demo project.
+Symbols and include paths can be found in STM32CubeIDE under project settings. `2` pictures below are showing how it is in the case of demo project.
 
 ![STM32CubeIDE - include paths](docs/images/cubeide-include-paths.png)
 ![STM32CubeIDE - symbols](docs/images/cubeide-symbols.png)
