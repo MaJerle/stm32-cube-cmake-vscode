@@ -23,13 +23,29 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": ["$gcc"]
         },
         {
             "type": "shell",
             "label": "Clean project",
             "command": "cmake",
             "args": ["--build", "\"build\"", "--target", "clean"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Flash project",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--connect",
+                "port=swd",
+                "--download",
+                "build/cube-ide-cmake-demo-proj.elf",
+                "-hardRst"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
