@@ -43,7 +43,7 @@
                 "--connect",
                 "port=swd",
                 "--download",
-                "build/{{sr:project_name}}.elf",
+                "${command:cmake.launchTargetPath}",
                 "-hardRst"
             ],
             "options": {
