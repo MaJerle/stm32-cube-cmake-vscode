@@ -683,7 +683,7 @@ Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file wi
                 "--connect",
                 "port=swd",
                 "--download",
-                "build/project-name.elf", // Put here the path to your elf file
+                "${command:cmake.launchTargetPath}",
                 "-hardRst"
             ],
             "options": {
