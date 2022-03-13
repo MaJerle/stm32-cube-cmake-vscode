@@ -43,7 +43,7 @@
                 "--connect",
                 "port=swd",
                 "--download",
-                "build/STM32H735G-DK.elf",
+                "${command:cmake.launchTargetPath}",
                 "-hardRst"
             ],
             "options": {

@@ -43,7 +43,7 @@
                 "--connect",
                 "port=swd",
                 "--download",
-                "build/h735g-dk-usart.elf",
+                "${command:cmake.launchTargetPath}",
                 "-hardRst"
             ],
             "options": {

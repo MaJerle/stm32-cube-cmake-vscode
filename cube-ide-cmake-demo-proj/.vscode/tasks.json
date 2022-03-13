@@ -43,7 +43,7 @@
                 "--connect",
                 "port=swd",
                 "--download",
-                "build/cube-ide-cmake-demo-proj.elf",
+                "${command:cmake.launchTargetPath}",
                 "-hardRst"
             ],
             "options": {
