@@ -16,7 +16,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
         if os.path.isdir(s):
-            shutil.copytree(s, d, symlinks, ignore, dirs_exist_ok=True)
+            shutil.copytree(s, d, symlinks, ignore)
         else:
             shutil.copy2(s, d)
 
@@ -581,24 +581,6 @@ def parse_and_generate(projectFolderBasePath):
    print("Generating output", cmakelistsfile)
    with open(cmakelistsfile, "w") as file:
       file.write(templatefiledata)
-   print("CMakeLists.txt file generated:", cmakelistsfile)
-
-   # Read tasks.json template file
-   print("Opening templates/.vscode/tasks_template.json file")
-   tasksjsonfiledata = ""
-   with open("templates/.vscode/tasks_template.json", "r") as file:
-      tasksjsonfiledata = file.read()
-
-   # Set name for ELF file
-   tasksjsonfiledata = tasksjsonfiledata.replace('{{sr:project_name}}', project_name)
-
-   # Write data to file
-   tasksjsonfilepath = os.path.join(projectFolderBasePath, '.vscode', 'tasks.json')
-   print("Generating output", tasksjsonfilepath)
-   os.makedirs(os.path.dirname(tasksjsonfilepath), exist_ok=True)
-   with open(tasksjsonfilepath, "w") as file:
-      file.write(tasksjsonfiledata)
-   print("tasks.json file generated:", tasksjsonfilepath)
 
    # Copy compiler .cmake file to user path
    try:
@@ -608,6 +590,7 @@ def parse_and_generate(projectFolderBasePath):
       pass
 
    # That's it
+   print("CMakeLists.txt file generated:", cmakelistsfile)
    print("Finished")
    print("--------")
 
