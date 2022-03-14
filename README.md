@@ -634,6 +634,7 @@ There is a list of useful commands to keep in mind during project development:
 - Build changes:  `cmake --build "build"`
 - Clean project:  `cmake --build "build" --target clean`
 - Re-build project, with clean first: `cmake --build "build" --clean-first -v`
+- Flash project: `STM32_Programmer_CLI --connect port=swd --download build/project-name.elf -hardRst`
 
 Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file with commands list, for quick run:
 ```json
@@ -662,13 +663,29 @@ Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file wi
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": ["$gcc"]
         },
         {
             "type": "shell",
             "label": "Clean project",
             "command": "cmake",
             "args": ["--build", "\"build\"", "--target", "clean"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Flash project",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--connect",
+                "port=swd",
+                "--download",
+                "${command:cmake.launchTargetPath}",
+                "-hardRst"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
