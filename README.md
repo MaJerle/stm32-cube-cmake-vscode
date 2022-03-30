@@ -627,7 +627,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 ```
 
 > To disable `.bin` file generation, simply delete `POST_BUILD` line for `.bin` and regenerate CMake build system commands.
-> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories.
+> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories. It may generate very large files (>= 2GB) with plenty of non-used zeros. 
 
 There is a list of useful commands to keep in mind during project development:
 
