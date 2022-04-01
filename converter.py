@@ -561,7 +561,10 @@ def parse_and_generate(projectFolderBasePath):
    #
    for conf in ['debug']:
       var_replace_name = '{{sr:linker_script_SRC}}'
-      linker_file_orig = data_obj['configurations'][conf]['c']['linker_script']
+      for l in ['c', 'cxx']:
+         linker_file_orig = data_obj['configurations'][conf][l]['linker_script']
+         if linker_file_orig != '':
+            break
       linker_file = linker_file_orig.replace('${workspace_loc:/${ProjName}/', '')
       linker_file = linker_file.replace('workspace_loc:', '').replace('', '')
       linker_file = linker_file.replace('${ProjName}', '')
