@@ -8,7 +8,14 @@
             "args": ["converter.py",
                 "--path",
 
+                "d:/_WORK/projects/bogmek/projects/p1_6btn_2out_1turbine/",
+                "d:/_WORK/projects/bogmek/projects/p2_8turbine/",
+                "d:/_WORK/projects/bogmek/projects/p3_16in_16out/",
+
                 /*
+                "c:/TouchGFXProjects/H747-DK-Test/STM32CubeIDE/CM7/"
+                "c:/TouchGFXProjects/H747-DK-Test/STM32CubeIDE/CM4/",
+
                 "script-projects/h735g-dk-usart/",
                 "script-projects/h735g-dk-touchgfx/",
                 "script-projects/h735g-dk-touchgfx/",
@@ -50,7 +57,7 @@
                 //"../CanOpenSTM32/stm32h7xx_fdcan/",
                 //"../CanOpenSTM32/stm32h7xx_fdcan_rtos/",
 
-                "d:/_WORK/projects/smart-house/modules/unit_control_h735/"
+                //"d:/_WORK/projects/smart-house/modules/unit_control_h735/"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
