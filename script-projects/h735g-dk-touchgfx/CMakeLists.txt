@@ -26,8 +26,8 @@ set(CPU_PARAMETERS
     # Other parameters
     # -mcpu, -mfloat, -mfloat-abi, ...
     -mcpu=cortex-m7
-	-mfpu=fpv5-d16
-	-mfloat-abi=hard
+    -mfpu=fpv5-d16
+    -mfloat-abi=hard
 )
 
 # Set linker script
@@ -38,166 +38,166 @@ set(EXECUTABLE                      ${CMAKE_PROJECT_NAME})
 # Source files
 #
 set(src__SRCS 
-	${PROJ_PATH}/STM32H735G-DK.ioc)
+    ${PROJ_PATH}/STM32H735G-DK.ioc)
 
 set(src_drivers_cmsis_SRCS 
-	${PROJ_PATH}/Core/Src/system_stm32h7xx.c)
+    ${PROJ_PATH}/Core/Src/system_stm32h7xx.c)
 
 set(src_drivers_stm32h7xx_hal_driver_SRCS 
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c)
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c)
 
 set(src_middlewares_freertos_SRCS 
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/croutine.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/list.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/queue.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/tasks.c
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/timers.c)
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/list.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/queue.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/tasks.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/timers.c)
 
 set(src_application_user_core_SRCS 
-	${PROJ_PATH}/Core/Src/freertos.c
-	${PROJ_PATH}/Core/Src/main.c
-	${PROJ_PATH}/Core/Src/stm32h7xx_hal_msp.c
-	${PROJ_PATH}/Core/Src/stm32h7xx_hal_timebase_tim.c
-	${PROJ_PATH}/Core/Src/stm32h7xx_it.c
-	${PROJ_PATH}/STM32CubeIDE/Application/User/Core/syscalls.c
-	${PROJ_PATH}/STM32CubeIDE/Application/User/Core/sysmem.c)
+    ${PROJ_PATH}/Core/Src/freertos.c
+    ${PROJ_PATH}/Core/Src/main.c
+    ${PROJ_PATH}/Core/Src/stm32h7xx_hal_msp.c
+    ${PROJ_PATH}/Core/Src/stm32h7xx_hal_timebase_tim.c
+    ${PROJ_PATH}/Core/Src/stm32h7xx_it.c
+    ${PROJ_PATH}/STM32CubeIDE/Application/User/Core/syscalls.c
+    ${PROJ_PATH}/STM32CubeIDE/Application/User/Core/sysmem.c)
 
 set(src_drivers_bsp_components_SRCS 
-	${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336.c
-	${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336_reg.c
-	${PROJ_PATH}/Drivers/BSP/Components/mx25lm51245g/mx25lm51245g.c
-	${PROJ_PATH}/Drivers/BSP/Components/s70kl1281/s70kl1281.c)
+    ${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336.c
+    ${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336_reg.c
+    ${PROJ_PATH}/Drivers/BSP/Components/mx25lm51245g/mx25lm51245g.c
+    ${PROJ_PATH}/Drivers/BSP/Components/s70kl1281/s70kl1281.c)
 
 set(src_drivers_bsp_stm32h735g_dk_SRCS 
-	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.c
-	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.c
-	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c)
+    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.c
+    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.c
+    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c)
 
 set(src_application_user_touchgfx_app_SRCS 
-	${PROJ_PATH}/TouchGFX/App/app_touchgfx.c)
+    ${PROJ_PATH}/TouchGFX/App/app_touchgfx.c)
 
 set(src_application_user_touchgfx_target_SRCS 
-	${PROJ_PATH}/TouchGFX/target/CortexMMCUInstrumentation.cpp
-	${PROJ_PATH}/TouchGFX/target/STM32TouchController.cpp
-	${PROJ_PATH}/TouchGFX/target/TouchGFXGPIO.cpp
-	${PROJ_PATH}/TouchGFX/target/TouchGFXHAL.cpp)
+    ${PROJ_PATH}/TouchGFX/target/CortexMMCUInstrumentation.cpp
+    ${PROJ_PATH}/TouchGFX/target/STM32TouchController.cpp
+    ${PROJ_PATH}/TouchGFX/target/TouchGFXGPIO.cpp
+    ${PROJ_PATH}/TouchGFX/target/TouchGFXHAL.cpp)
 
 set(src_application_user_touchgfx_target_generated_SRCS 
-	${PROJ_PATH}/TouchGFX/target/generated/OSWrappers.cpp
-	${PROJ_PATH}/TouchGFX/target/generated/STM32DMA.cpp
-	${PROJ_PATH}/TouchGFX/target/generated/TouchGFXConfiguration.cpp
-	${PROJ_PATH}/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp)
+    ${PROJ_PATH}/TouchGFX/target/generated/OSWrappers.cpp
+    ${PROJ_PATH}/TouchGFX/target/generated/STM32DMA.cpp
+    ${PROJ_PATH}/TouchGFX/target/generated/TouchGFXConfiguration.cpp
+    ${PROJ_PATH}/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp)
 
 set(src_application_user_gui_SRCS 
-	${PROJ_PATH}/TouchGFX/gui/src/common/FrontendApplication.cpp
-	${PROJ_PATH}/TouchGFX/gui/src/containers/ScrollList_myContainer.cpp
-	${PROJ_PATH}/TouchGFX/gui/src/model/Model.cpp
-	${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1Presenter.cpp
-	${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1View.cpp)
+    ${PROJ_PATH}/TouchGFX/gui/src/common/FrontendApplication.cpp
+    ${PROJ_PATH}/TouchGFX/gui/src/containers/ScrollList_myContainer.cpp
+    ${PROJ_PATH}/TouchGFX/gui/src/model/Model.cpp
+    ${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1Presenter.cpp
+    ${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1View.cpp)
 
 set(src_application_user_generated_SRCS 
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/CachedFont.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/FontCache.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_10_4bpp_0.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_20_4bpp_0.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_40_4bpp_0.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/GeneratedFont.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_10_4bpp.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_20_4bpp.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_40_4bpp.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_10_4bpp.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_20_4bpp.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_40_4bpp.cpp
-	${PROJ_PATH}/TouchGFX/generated/fonts/src/UnmappedDataFont.cpp
-	${PROJ_PATH}/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp
-	${PROJ_PATH}/TouchGFX/generated/gui_generated/src/containers/ScrollList_myContainerBase.cpp
-	${PROJ_PATH}/TouchGFX/generated/gui_generated/src/screen1_screen/Screen1ViewBase.cpp
-	${PROJ_PATH}/TouchGFX/generated/images/src/BitmapDatabase.cpp
-	${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Blue_Buttons_Round_large.cpp
-	${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Blue_Icons_Add_new_32.cpp
-	${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Dark_Backgrounds_Main_bg_texture_320x240px.cpp
-	${PROJ_PATH}/TouchGFX/generated/texts/src/LanguageGb.cpp
-	${PROJ_PATH}/TouchGFX/generated/texts/src/Texts.cpp
-	${PROJ_PATH}/TouchGFX/generated/texts/src/TypedTextDatabase.cpp)
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/CachedFont.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/FontCache.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_10_4bpp_0.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_20_4bpp_0.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_40_4bpp_0.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/GeneratedFont.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_10_4bpp.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_20_4bpp.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_40_4bpp.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_10_4bpp.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_20_4bpp.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_40_4bpp.cpp
+    ${PROJ_PATH}/TouchGFX/generated/fonts/src/UnmappedDataFont.cpp
+    ${PROJ_PATH}/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp
+    ${PROJ_PATH}/TouchGFX/generated/gui_generated/src/containers/ScrollList_myContainerBase.cpp
+    ${PROJ_PATH}/TouchGFX/generated/gui_generated/src/screen1_screen/Screen1ViewBase.cpp
+    ${PROJ_PATH}/TouchGFX/generated/images/src/BitmapDatabase.cpp
+    ${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Blue_Buttons_Round_large.cpp
+    ${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Blue_Icons_Add_new_32.cpp
+    ${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Dark_Backgrounds_Main_bg_texture_320x240px.cpp
+    ${PROJ_PATH}/TouchGFX/generated/texts/src/LanguageGb.cpp
+    ${PROJ_PATH}/TouchGFX/generated/texts/src/Texts.cpp
+    ${PROJ_PATH}/TouchGFX/generated/texts/src/TypedTextDatabase.cpp)
 
 set(src_application_user_startup_SRCS 
-	${PROJ_PATH}/STM32CubeIDE/Application/User/Startup/startup_stm32h735igkx.s)
+    ${PROJ_PATH}/STM32CubeIDE/Application/User/Startup/startup_stm32h735igkx.s)
 
 #
 # Include directories
 #
 set(include_c_DIRS
     ${PROJ_PATH}/Core/Inc
-	${PROJ_PATH}/TouchGFX/App
-	${PROJ_PATH}/TouchGFX/target/generated
-	${PROJ_PATH}/TouchGFX/target
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/include
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
-	${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
-	${PROJ_PATH}/Drivers/CMSIS/Include
-	${PROJ_PATH}/Drivers/BSP/Components/Common
-	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK
-	${PROJ_PATH}/Middlewares/ST/touchgfx/framework/include
-	${PROJ_PATH}/TouchGFX/generated/fonts/include
-	${PROJ_PATH}/TouchGFX/generated/gui_generated/include
-	${PROJ_PATH}/TouchGFX/generated/images/include
-	${PROJ_PATH}/TouchGFX/generated/texts/include
-	${PROJ_PATH}/TouchGFX/gui/include
-	${PROJ_PATH}/TouchGFX/generated/videos/include
+    ${PROJ_PATH}/TouchGFX/App
+    ${PROJ_PATH}/TouchGFX/target/generated
+    ${PROJ_PATH}/TouchGFX/target
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/include
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
+    ${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
+    ${PROJ_PATH}/Drivers/CMSIS/Include
+    ${PROJ_PATH}/Drivers/BSP/Components/Common
+    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK
+    ${PROJ_PATH}/Middlewares/ST/touchgfx/framework/include
+    ${PROJ_PATH}/TouchGFX/generated/fonts/include
+    ${PROJ_PATH}/TouchGFX/generated/gui_generated/include
+    ${PROJ_PATH}/TouchGFX/generated/images/include
+    ${PROJ_PATH}/TouchGFX/generated/texts/include
+    ${PROJ_PATH}/TouchGFX/gui/include
+    ${PROJ_PATH}/TouchGFX/generated/videos/include
 )
 set(include_cxx_DIRS
     ${PROJ_PATH}/Core/Inc
-	${PROJ_PATH}/TouchGFX/App
-	${PROJ_PATH}/TouchGFX/target/generated
-	${PROJ_PATH}/TouchGFX/target
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/include
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
-	${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
-	${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
-	${PROJ_PATH}/Drivers/CMSIS/Include
-	${PROJ_PATH}/Drivers/BSP/Components/Common
-	${PROJ_PATH}/Drivers/BSP/STM32H735G-DK
-	${PROJ_PATH}/Middlewares/ST/touchgfx/framework/include
-	${PROJ_PATH}/TouchGFX/generated/fonts/include
-	${PROJ_PATH}/TouchGFX/generated/gui_generated/include
-	${PROJ_PATH}/TouchGFX/generated/images/include
-	${PROJ_PATH}/TouchGFX/generated/texts/include
-	${PROJ_PATH}/TouchGFX/gui/include
-	${PROJ_PATH}/TouchGFX/generated/videos/include
+    ${PROJ_PATH}/TouchGFX/App
+    ${PROJ_PATH}/TouchGFX/target/generated
+    ${PROJ_PATH}/TouchGFX/target
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/include
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
+    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
+    ${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
+    ${PROJ_PATH}/Drivers/CMSIS/Include
+    ${PROJ_PATH}/Drivers/BSP/Components/Common
+    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK
+    ${PROJ_PATH}/Middlewares/ST/touchgfx/framework/include
+    ${PROJ_PATH}/TouchGFX/generated/fonts/include
+    ${PROJ_PATH}/TouchGFX/generated/gui_generated/include
+    ${PROJ_PATH}/TouchGFX/generated/images/include
+    ${PROJ_PATH}/TouchGFX/generated/texts/include
+    ${PROJ_PATH}/TouchGFX/gui/include
+    ${PROJ_PATH}/TouchGFX/generated/videos/include
 )
 set(include_asm_DIRS
     
@@ -208,13 +208,13 @@ set(include_asm_DIRS
 #
 set(symbols_c_SYMB
     "USE_HAL_DRIVER"
-	"DEBUG"
-	"STM32H735xx"
+    "DEBUG"
+    "STM32H735xx"
 )
 set(symbols_cxx_SYMB
     "USE_HAL_DRIVER"
-	"DEBUG"
-	"STM32H735xx"
+    "DEBUG"
+    "STM32H735xx"
 )
 set(symbols_asm_SYMB
     "DEBUG"
@@ -233,19 +233,19 @@ link_directories(${EXECUTABLE} ${link_DIRS})
 # Executable files
 #
 add_executable(${EXECUTABLE} 
-	${src__SRCS}
-	${src_drivers_cmsis_SRCS}
-	${src_drivers_stm32h7xx_hal_driver_SRCS}
-	${src_middlewares_freertos_SRCS}
-	${src_application_user_core_SRCS}
-	${src_drivers_bsp_components_SRCS}
-	${src_drivers_bsp_stm32h735g_dk_SRCS}
-	${src_application_user_touchgfx_app_SRCS}
-	${src_application_user_touchgfx_target_SRCS}
-	${src_application_user_touchgfx_target_generated_SRCS}
-	${src_application_user_gui_SRCS}
-	${src_application_user_generated_SRCS}
-	${src_application_user_startup_SRCS})
+    ${src__SRCS}
+    ${src_drivers_cmsis_SRCS}
+    ${src_drivers_stm32h7xx_hal_driver_SRCS}
+    ${src_middlewares_freertos_SRCS}
+    ${src_application_user_core_SRCS}
+    ${src_drivers_bsp_components_SRCS}
+    ${src_drivers_bsp_stm32h735g_dk_SRCS}
+    ${src_application_user_touchgfx_app_SRCS}
+    ${src_application_user_touchgfx_target_SRCS}
+    ${src_application_user_touchgfx_target_generated_SRCS}
+    ${src_application_user_gui_SRCS}
+    ${src_application_user_generated_SRCS}
+    ${src_application_user_startup_SRCS})
 
 #
 # Add linked libraries for linker
@@ -316,9 +316,10 @@ target_compile_options(${EXECUTABLE} PRIVATE
 
 # Setup linker parameters
 target_link_options(${EXECUTABLE} PRIVATE
-    -T${MCU_LINKER_SCRIPT}${linker_script_SRC}
+    -T${linker_script_SRC}
     ${CPU_PARAMETERS}
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
+    -u _printf_float              # STDIO float formatting support (remove if not used)
     --specs=nosys.specs
     -Wl,--start-group
     -lc
@@ -339,7 +340,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.hex
 )
 
-# Conver to bin file -> add conditional check?
+# Convert to bin file -> add conditional check?
 add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.bin
 )

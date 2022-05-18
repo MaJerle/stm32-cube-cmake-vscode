@@ -8,14 +8,8 @@
             "args": ["converter.py",
                 "--path",
 
-                "d:/_WORK/projects/bogmek/projects/p1_6btn_2out_1turbine/",
-                "d:/_WORK/projects/bogmek/projects/p2_8turbine/",
-                "d:/_WORK/projects/bogmek/projects/p3_16in_16out/",
-
-                /*
-                "c:/TouchGFXProjects/H747-DK-Test/STM32CubeIDE/CM7/"
-                "c:/TouchGFXProjects/H747-DK-Test/STM32CubeIDE/CM4/",
-
+                //Repository projects
+                "cube-ide-cmake-demo-proj",
                 "script-projects/h735g-dk-usart/",
                 "script-projects/h735g-dk-touchgfx/",
                 "script-projects/h735g-dk-touchgfx/",
@@ -44,6 +38,7 @@
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_tx_G0/",
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_tx_H7/",
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_tx_loopback_G4/",
+                "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_ringbuff_tx_loopback_U5/",
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_rtos_F4/",
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_rtos_G4/",
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_idle_line_irq_rtos_L4/",
@@ -52,10 +47,11 @@
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_polling_F4/",
                 "../stm32-usart-dma-rx-tx/projects/usart_rx_polling_rtos_F4/",
                 "../stm32-usart-dma-rx-tx/projects/usart_tx_debug_rtos_F4/",
-                */
 
-                //"../CanOpenSTM32/stm32h7xx_fdcan/",
-                //"../CanOpenSTM32/stm32h7xx_fdcan_rtos/",
+                "../CanOpenSTM32/stm32h7xx_fdcan/",
+                "../CanOpenSTM32/stm32h7xx_fdcan_rtos/",
+
+                "../stm32-ws2811-ws2812-ws2812b-ws281x-tim-pwm-dma-timer/projects/stm32g0b1_nucleo/",
 
                 //"d:/_WORK/projects/smart-house/modules/unit_control_h735/"
             ],

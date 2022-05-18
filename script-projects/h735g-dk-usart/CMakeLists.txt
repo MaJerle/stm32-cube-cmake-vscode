@@ -26,8 +26,8 @@ set(CPU_PARAMETERS
     # Other parameters
     # -mcpu, -mfloat, -mfloat-abi, ...
     -mcpu=cortex-m7
-	-mfpu=fpv5-d16
-	-mfloat-abi=hard
+    -mfpu=fpv5-d16
+    -mfloat-abi=hard
 )
 
 # Set linker script
@@ -38,64 +38,64 @@ set(EXECUTABLE                      ${CMAKE_PROJECT_NAME})
 # Source files
 #
 set(src_core_src_SRCS 
-	${PROJ_PATH}/Core/Src/main.c
-	${PROJ_PATH}/Core/Src/stm32h7xx_hal_msp.c
-	${PROJ_PATH}/Core/Src/stm32h7xx_it.c
-	${PROJ_PATH}/Core/Src/syscalls.c
-	${PROJ_PATH}/Core/Src/sysmem.c
-	${PROJ_PATH}/Core/Src/system_stm32h7xx.c)
+    ${PROJ_PATH}/Core/Src/main.c
+    ${PROJ_PATH}/Core/Src/stm32h7xx_hal_msp.c
+    ${PROJ_PATH}/Core/Src/stm32h7xx_it.c
+    ${PROJ_PATH}/Core/Src/syscalls.c
+    ${PROJ_PATH}/Core/Src/sysmem.c
+    ${PROJ_PATH}/Core/Src/system_stm32h7xx.c)
 
 set(src_core_startup_SRCS 
-	${PROJ_PATH}/Core/Startup/startup_stm32h735igkx.s)
+    ${PROJ_PATH}/Core/Startup/startup_stm32h735igkx.s)
 
 set(src_fatfs_app_SRCS 
-	${PROJ_PATH}/FATFS/App/fatfs.c)
+    ${PROJ_PATH}/FATFS/App/fatfs.c)
 
 set(src_fatfs_target_SRCS 
-	${PROJ_PATH}/FATFS/Target/user_diskio.c)
+    ${PROJ_PATH}/FATFS/Target/user_diskio.c)
 
 set(src_middlewares_third_party_fatfs_src_SRCS 
-	${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/diskio.c
-	${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/ff.c
-	${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c)
+    ${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/diskio.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/ff.c
+    ${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c)
 
 set(src_middlewares_third_party_fatfs_src_option_SRCS 
-	${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/option/syscall.c)
+    ${PROJ_PATH}/Middlewares/Third_Party/FatFs/src/option/syscall.c)
 
 set(src_drivers_stm32h7xx_hal_driver_src_SRCS 
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c)
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c)
 
 #
 # Include directories
 #
 set(include_c_DIRS
     ${PROJ_PATH}/FATFS/Target
-	${PROJ_PATH}/FATFS/App
-	${PROJ_PATH}/Core/Inc
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
-	${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
-	${PROJ_PATH}/Middlewares/Third_Party/FatFs/src
-	${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
-	${PROJ_PATH}/Drivers/CMSIS/Include
+    ${PROJ_PATH}/FATFS/App
+    ${PROJ_PATH}/Core/Inc
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
+    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+    ${PROJ_PATH}/Middlewares/Third_Party/FatFs/src
+    ${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
+    ${PROJ_PATH}/Drivers/CMSIS/Include
 )
 set(include_cxx_DIRS
     
@@ -109,8 +109,8 @@ set(include_asm_DIRS
 #
 set(symbols_c_SYMB
     "DEBUG"
-	"USE_HAL_DRIVER"
-	"STM32H735xx"
+    "USE_HAL_DRIVER"
+    "STM32H735xx"
 )
 set(symbols_cxx_SYMB
     
@@ -132,13 +132,13 @@ link_directories(${EXECUTABLE} ${link_DIRS})
 # Executable files
 #
 add_executable(${EXECUTABLE} 
-	${src_core_src_SRCS}
-	${src_core_startup_SRCS}
-	${src_fatfs_app_SRCS}
-	${src_fatfs_target_SRCS}
-	${src_middlewares_third_party_fatfs_src_SRCS}
-	${src_middlewares_third_party_fatfs_src_option_SRCS}
-	${src_drivers_stm32h7xx_hal_driver_src_SRCS})
+    ${src_core_src_SRCS}
+    ${src_core_startup_SRCS}
+    ${src_fatfs_app_SRCS}
+    ${src_fatfs_target_SRCS}
+    ${src_middlewares_third_party_fatfs_src_SRCS}
+    ${src_middlewares_third_party_fatfs_src_option_SRCS}
+    ${src_drivers_stm32h7xx_hal_driver_src_SRCS})
 
 #
 # Add linked libraries for linker
@@ -209,9 +209,10 @@ target_compile_options(${EXECUTABLE} PRIVATE
 
 # Setup linker parameters
 target_link_options(${EXECUTABLE} PRIVATE
-    -T${MCU_LINKER_SCRIPT}${linker_script_SRC}
+    -T${linker_script_SRC}
     ${CPU_PARAMETERS}
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
+    -u _printf_float              # STDIO float formatting support (remove if not used)
     --specs=nosys.specs
     -Wl,--start-group
     -lc
@@ -232,7 +233,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.hex
 )
 
-# Conver to bin file -> add conditional check?
+# Convert to bin file -> add conditional check?
 add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.bin
 )
