@@ -590,6 +590,7 @@ def parse_and_generate(projectFolderBasePath):
    # Copy compiler .cmake file to user path
    try:
       copytree('templates/', os.path.join(projectFolderBasePath, '.'))
+      os.remove(os.path.join(projectFolderBasePath, 'CMakeLists_template.txt'))
    except:
       print("Copy exception...")
       pass
