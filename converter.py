@@ -432,6 +432,8 @@ def parse_and_generate(projectFolderBasePath):
    # This is ninja build system
    #
 
+   newline_indented = '\n    '
+
    # Read template file
    print("Opening templates/CMakeLists_template.txt file")
    templatefiledata = ''
@@ -486,7 +488,7 @@ def parse_and_generate(projectFolderBasePath):
          cpu_params.append(target_fpu_abi)
 
       # Make replacements
-      templatefiledata = templatefiledata.replace('{{sr:cpu_params}}', '\n\t' . join(cpu_params))
+      templatefiledata = templatefiledata.replace('{{sr:cpu_params}}', newline_indented.join(cpu_params))
 
    #
    # Process all linked files, grouped by "directory name"
@@ -498,7 +500,7 @@ def parse_and_generate(projectFolderBasePath):
       files = data_obj['linked_files'][name]    # List of files part of the set command
 
       # This will generate list of files part of set command in readable format
-      files_text = '\n\t' + '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, f) for f in files])
+      files_text = newline_indented + newline_indented.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, f) for f in files])
 
       # Add set command with generated files text
       cmake_set_strings_list.append('set(' + var_name + ' ' + files_text + ')')
@@ -508,12 +510,12 @@ def parse_and_generate(projectFolderBasePath):
 
    # Replace template file with data
    templatefiledata = templatefiledata.replace('{{sr:set_source_folder_files}}', '\n\n'.join(cmake_set_strings_list))
-   templatefiledata = templatefiledata.replace('{{sr:set_source_folder_files_variables}}', '\n\t' + '\n\t'.join(cmake_variables_list))
+   templatefiledata = templatefiledata.replace('{{sr:set_source_folder_files_variables}}', newline_indented + newline_indented.join(cmake_variables_list))
 
    # Check all files in the same directory as .cproject/.project directory
    templatefiledata = templatefiledata.replace(
       '{{sr:all_project_dir_SRCS}}',
-      '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in data_obj['all_source_files_in_path']])
+      newline_indented.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in data_obj['all_source_files_in_path']])
    )
 
    #
@@ -533,7 +535,7 @@ def parse_and_generate(projectFolderBasePath):
 
             # Normalize path to remove "Debug" from path
             paths.append(os.path.normpath(path))
-         templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', '\n\t'.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in paths]))
+         templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', newline_indented.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in paths]))
 
    #
    # Check all symbols (global defines)
@@ -542,7 +544,7 @@ def parse_and_generate(projectFolderBasePath):
    for conf in ['debug']:
       for compiler in ['c', 'cxx', 'asm']:
          varname = 'symbols_' + compiler + '_SYMB'
-         templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', "\n\t".join(["\"" + f + "\"" for f in data_obj['configurations'][conf][compiler]['symbols']]))
+         templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', newline_indented.join(["\"" + f + "\"" for f in data_obj['configurations'][conf][compiler]['symbols']]))
 
    #
    # Setup linked libraries
@@ -553,8 +555,8 @@ def parse_and_generate(projectFolderBasePath):
       for i in range(len(paths)):
          # Do some optimizations with path if necessary
          pass
-      templatefiledata = templatefiledata.replace('{{sr:link_DIRS}}', "\n\t".join([gen_relative_path_to_cmake_folder(projectFolderBasePath, os.path.normpath(os.path.join(CProjBasePath, 'Debug', p))) for p in paths]))
-      templatefiledata = templatefiledata.replace('{{sr:link_LIBS}}', "\n\t".join(libs))
+      templatefiledata = templatefiledata.replace('{{sr:link_DIRS}}', newline_indented.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, os.path.normpath(os.path.join(CProjBasePath, 'Debug', p))) for p in paths]))
+      templatefiledata = templatefiledata.replace('{{sr:link_LIBS}}', newline_indented.join(libs))
 
    #
    # Setup linker script
