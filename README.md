@@ -1,52 +1,60 @@
 # Convert STM32CubeIDE project to CMake and Visual Studio Code
 
-This tutorial explains steps to effectively develop and debug STM32 application in *Visual Studio Code*, with *CMake* build automation system and *Ninja* build system
+This tutorial explains steps to effectively develop and debug STM32 application in *Visual Studio Code* using *CMake* build generator, *Ninja* build tool and *GCC* compiler.
 
-> Windows is used for the sake of this tutorial. Similar steps apply for other operating systems too.
+Things you will learn
 
-## Install STM32CubeIDE
+- How to install and setup all tools
+- How to create new STM32 project with STM32CubeMX or STM32CubeIDE tools
+- How to install and setup recommended extensions for *Visual Studio Code* for easier development
+- How to setup CMake lists and CMake presets
+- How to generate build system for compiler
+- How to compile the project with GCC
+- How to flash and debug application to the STM32 target
 
-First install [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html).
+> This tutorial is using *Windows* operating system. Similar procedure will apply for Linux and MAC operating system.
 
-It is used for 2 purposes:
-- You can start new project with integrated graphical configurator STM32CubeMX
-- STM32CubeIDE provides essential tools necessary for later use with VSCode
-    - ARM none eabi GCC compiler
-    - ST-LINK GDBServer for debugging
-    - STM32CubeProgrammer for code downloading
-    - Folder with SVD files for STM32 MCUs (optional use)
+## Tools installation
 
-STM32CubeIDE installation adds drivers for ST-Link debug probe too.
+### STM32CubeIDE
 
-### STM32CubeIDE environmental setup
+First step is to install [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), that will be used to easily start new *STM32* project and it comes with integrated *STM32CubeMX* tool - allowing us graphical configuration.
 
-We need to add `3` paths to environmental settings from STM32CubeIDE installation, one path for each of above-mentioned tools.
+STM32CubeIDE also provides necessary tools needed later for *VSCode* development
+
+- ARM none eabi GCC compiler
+- ST-LINK GDBServer for debugging
+- STM32CubeProgrammer tool for code downloading and respective ST-Link drivers
+- Folder with STM32 SVD files
+- Drivers for ST-Link fo
+
+**Environmental path setup**
+
+`3` paths should be added to environmental settings from STM32CubeIDE installation, one path for each of above-mentioned tools.
 In case of my computer, using STM32CubeIDE 1.8 (updated through eclipse, hence my actual installation path is still showing version `1.0.2`) paths are defined as:
 
 - GCC compiler: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\tools\bin\`
 - ST-Link GDB server: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.win32_2.0.100.202109301221\tools\bin\`
 - STM32Cube Programmer CLI: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.0.100.202110141430\tools\bin\`
 
-> Your paths may differ at version numbers.
+> Your paths may differ at version numbers
 
-Verify correct setup with `3` commands in cmd, by running
-
+Verify correct path setup, run:
 ```
 arm-none-eabi-gcc --version
 STM32_Programmer_CLI --version
 ST-LINK_gdbserver --version
 ```
 
-Output shall be something similar to
+That should produce output similar to the picture below
 
 ![STM32CubeIDE environment test](docs/images/gcc-prog-gdb-version-test.png)
 
-## Install CMake and ninja
-
 ### CMake
-Install [CMake](https://cmake.org/).
 
-> During installation, wizard will ask you to add CMake to environmental paths. If you do not select this option, you should add it manually after installation.
+Download and install [CMake](https://cmake.org/).
+
+Installation wizard will ask you to add CMake to environmental paths. Select the option or add `bin` folder of CMake installation folder to environmental path.
 
 ### Ninja
 
@@ -54,7 +62,7 @@ Download [Ninja build system](https://github.com/ninja-build/ninja/releases) fro
 It comes as portable executable, without need to install anything.
 However it must be visible at environment level, like all previous tools.
 
-Verify both in cmd, by running
+Verify *CMake* and *Ninja* installation, run:
 ```
 cmake --version
 ninja --version
@@ -64,17 +72,17 @@ Output shall be something similar to
 
 ![CMake and Ninja verification](docs/images/cmake-ninja-version-test.png)
 
-## Install Visual Studio Code
+### Visual Studio Code
 
-Install [VSCode](https://code.visualstudio.com/)
+Download and install [VSCode](https://code.visualstudio.com/)
 
 ![Visual Studio Code first time](docs/images/vscode-first-time.png)
 
-### Installation of VSCode plugins
+### Visual Studio Code extensions
 
-VSCode is famous of being lightweight and extremely modular with 3rd party extensions.
+*Visual Studio Code* is lightweight text editor with capability to enlarge it using extensions.
 
-For Cortex-M debugging with CMake, these extensions are essential:
+List of useful *Cortex-M debugging with CMake*:
 
 - `ms-vscode.cpptools`: Syntax highlighting and other core features for C/C++ development
 - `ms-vscode.cmake-tools`: CMake core tools, build system generator tool
@@ -83,7 +91,7 @@ For Cortex-M debugging with CMake, these extensions are essential:
 - `dan-c-underwood.arm`: ARM Assembly syntax highlighter
 - `zixuanwang.linkerscript`: GCC Linker script syntax highlighter
 
-To install them in one shot, copy code below to terminal in VSCode
+You can install them by copying below commands in VSCode's internal terminal window.
 
 ```
 code --install-extension ms-vscode.cpptools
@@ -98,11 +106,12 @@ code --install-extension zixuanwang.linkerscript
 
 ![VSCode installed plugins](docs/images/vscode-plugins-installed.png)
 
-If you do not like command line for installation, extensions are searchable through VSCode GUI.
-Once installed, you should have at least these extensions ready for next steps.
+Alternative way is to use Extension search GUI and manually install all extensions.
+Once installed, that should be your minimum list of extensions.
+
 ![VSCode installed plugins](docs/images/vscode-plugins-installed-preview.png)
 
-## Tools installed successfully
+### Tools installed successfully
 
 At this point, all the tools are properly installed and you are ready for next steps.
 
@@ -165,9 +174,9 @@ Let's start with CMake setup for project description.
 
 Every CMake-based application requires `CMakeLists.txt` file *in the root directory*, that describes the project and provides input information for build system generation.
 
-> Root CMakeLists.txt file is also called top-level CMake file
+> Root `CMakeLists.txt` file is also called top-level CMake file
 
-Essential things for CMakeLists.txt file we need to provide:
+Essential things for `CMakeLists.txt` file we need to provide:
 
 - Toolchain information, such as GCC configuration
 - Project name
@@ -390,11 +399,9 @@ General rule for settings would be as per table below
 | STM32WL CM4 | `cortex-m4`     | `Not used`    | `soft`      |
 | STM32WL CM0 | `cortex-m0plus` | `Not used`    | `soft`      |
 
-> This table is a subject of potential mistakes, not tested with GCC compiler
+> This table is a subject of potential mistakes, not tested with *GCC compiler* for all lines. For STM32F7, go to [STM32F7xx official site](https://www.st.com/en/microcontrollers-microprocessors/stm32f7-series.html) and check if your device has single or double precision FPU, then apply settings accordingly.
 
-> Go to [STM32F7xx official site](https://www.st.com/en/microcontrollers-microprocessors/stm32f7-series.html) and check if your device has single or double precision FPU.
-
-Final CMakeLists.txt file after source files, include paths, MCU core settings and defines are set:
+Final `CMakeLists.txt` file after source files, include paths, MCU core settings and defines are set:
 ```cmake
 cmake_minimum_required(VERSION 3.22)
 
@@ -533,7 +540,7 @@ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOL
 It should well complete the execution with similar output as on picture below, plus a new `build` folder should be added to the project. If CMake cannot generate build instructions for Ninja, you will get list of errors in the same terminal window.
 ![VSCode - final CMakeLists.txt](docs/images/vscode-3-cmake-run.png)
 
-> Every time you modify CMakeLists.txt file, you have to run above command to re-generate build system instructions, otherwise your file changes are not affected for build system.
+> Every time you modify `CMakeLists.txt` file, you have to run above command to re-generate build system instructions, otherwise your file changes are not affected for build system.
 
 ### Run CMake command automatically
 
@@ -603,7 +610,7 @@ As a result, we got some output in `build` directory:
 
 In default configuration, `.hex` and `.bin` files are not generated nor *memory usage* is displayed.
 Our prepared `CMakeLists.txt` file includes `POST_BUILD` options, to execute additional commands after successful build.
-Code is already in your CMakeLists.txt file, so no need to do anything, just observe.
+Code is already in your `CMakeLists.txt` file, so no need to do anything, just observe.
 
 It executes command to:
 - Print used size of each region + final executable memory consumption
@@ -628,7 +635,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 ```
 
 > To disable `.bin` file generation, simply delete `POST_BUILD` line for `.bin` and regenerate CMake build system commands.
-> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories. It may generate very large files (>= 2GB) with plenty of non-used zeros. 
+> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories. It may generate very large files (`>= 2GB`) with plenty of non-used zeros. 
 
 There is a list of useful commands to keep in mind during project development:
 
@@ -717,6 +724,7 @@ Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal
 ![VSCode - Tasks.json file](docs/images/vscode-10-tasks.png)
 
 *Build Project* task is configured as *default*, which will get executed when we run default task, or press shortcut `CTRL + SHIFT + B`.
+
 ```json
 "group": {
     "kind": "build",
