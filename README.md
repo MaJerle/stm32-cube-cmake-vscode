@@ -378,6 +378,7 @@ General rule for settings would be as per table below
 | STM32F7 SP  | `cortex-m7`     | `fpv5-sp-d16` | `hard`      |
 | STM32F7 DP  | `cortex-m7`     | `fpv5-d16`    | `hard`      |
 | STM32G0     | `cortex-m0plus` | `Not used`    | `soft`      |
+| STM32C0     | `cortex-m0plus` | `Not used`    | `soft`      |
 | STM32G4     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
 | STM32H7     | `cortex-m7`     | `fpv5-d16`    | `hard`      |
 | STM32L0     | `cortex-m0plus` | `Not used`    | `soft`      |

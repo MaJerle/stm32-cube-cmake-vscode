@@ -458,7 +458,7 @@ def parse_and_generate(projectFolderBasePath):
       target_mcu = target_mcu[0:7].upper()
       if target_mcu in ['STM32F0']:
          target_cpu = '-mcpu=cortex-m0'
-      elif target_mcu in ['STM32L0', 'STM32G0']:
+      elif target_mcu in ['STM32L0', 'STM32G0', 'STM32C0']:
          target_cpu = '-mcpu=cortex-m0plus'
       elif target_mcu in ['STM32F1', 'STM32F2', 'STM32L1']:
          target_cpu = '-mcpu=cortex-m3'
