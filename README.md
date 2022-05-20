@@ -14,9 +14,9 @@ Things you will learn
 
 > This tutorial is using *Windows* operating system. Similar procedure will apply for Linux and MAC operating system.
 
-## Tools installation
+# Tools installation
 
-### STM32CubeIDE
+## STM32CubeIDE
 
 First step is to install [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), that will be used to easily start new *STM32* project and it comes with integrated *STM32CubeMX* tool - allowing us graphical configuration.
 
@@ -50,13 +50,13 @@ That should produce output similar to the picture below
 
 ![STM32CubeIDE environment test](docs/images/gcc-prog-gdb-version-test.png)
 
-### CMake
+## CMake
 
 Download and install [CMake](https://cmake.org/).
 
 Installation wizard will ask you to add CMake to environmental paths. Select the option or add `bin` folder of CMake installation folder to environmental path.
 
-### Ninja
+## Ninja
 
 Download [Ninja build system](https://github.com/ninja-build/ninja/releases) from Github releases page.
 It comes as portable executable, without need to install anything.
@@ -72,13 +72,13 @@ Output shall be something similar to
 
 ![CMake and Ninja verification](docs/images/cmake-ninja-version-test.png)
 
-### Visual Studio Code
+## Visual Studio Code
 
 Download and install [VSCode](https://code.visualstudio.com/)
 
 ![Visual Studio Code first time](docs/images/vscode-first-time.png)
 
-### Visual Studio Code extensions
+## Visual Studio Code extensions
 
 *Visual Studio Code* is lightweight text editor with capability to enlarge it using extensions.
 
@@ -111,11 +111,11 @@ Once installed, that should be your minimum list of extensions.
 
 ![VSCode installed plugins](docs/images/vscode-plugins-installed-preview.png)
 
-### Tools installed successfully
+## Tools installed successfully
 
 At this point, all the tools are properly installed and you are ready for next steps.
 
-## Create new project with STM32CubeMX or STM32CubeIDE
+# Create new project with STM32CubeMX or STM32CubeIDE
 
 Before we move to VSCode tutorial with CMake, we need a project to work on it.
 Fast, simple and effective is to use STM32CubeMX or STm32CubeIDE tools and start from there, to have a first buildable and executable project.
