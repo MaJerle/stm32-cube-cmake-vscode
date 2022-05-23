@@ -1,60 +1,68 @@
 # Convert STM32CubeIDE project to CMake and Visual Studio Code
 
-This tutorial explains steps to effectively develop and debug STM32 application in *Visual Studio Code*, with *CMake* build automation system and *Ninja* build system
+This tutorial explains steps to effectively develop and debug STM32 application in *Visual Studio Code* using *CMake* build generator, *Ninja* build tool and *GCC* compiler.
 
-> Windows is used for the sake of this tutorial. Similar steps apply for other operating systems too.
+Things you will learn
 
-## Install STM32CubeIDE
+- How to install and setup all tools
+- How to create new STM32 project with STM32CubeMX or STM32CubeIDE tools
+- How to install and setup recommended extensions for *Visual Studio Code* for easier development
+- How to setup CMake lists and CMake presets
+- How to generate build system for compiler
+- How to compile the project with GCC
+- How to flash and debug application to the STM32 target
 
-First install [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html).
+> This tutorial is using *Windows* operating system. Similar procedure will apply for Linux and MAC operating system.
 
-It is used for 2 purposes:
-- You can start new project with integrated graphical configurator STM32CubeMX
-- STM32CubeIDE provides essential tools necessary for later use with VSCode
-    - ARM none eabi GCC compiler
-    - ST-LINK GDBServer for debugging
-    - STM32CubeProgrammer for code downloading
-    - Folder with SVD files for STM32 MCUs (optional use)
+# Tools installation
 
-STM32CubeIDE installation adds drivers for ST-Link debug probe too.
+## STM32CubeIDE
 
-### STM32CubeIDE environmental setup
+First step is to install [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), that will be used to easily start new *STM32* project and it comes with integrated *STM32CubeMX* tool - allowing us graphical configuration.
 
-We need to add `3` paths to environmental settings from STM32CubeIDE installation, one path for each of above-mentioned tools.
+STM32CubeIDE also provides necessary tools needed later for *VSCode* development
+
+- ARM none eabi GCC compiler
+- ST-LINK GDBServer for debugging
+- STM32CubeProgrammer tool for code downloading and respective ST-Link drivers
+- Folder with STM32 SVD files
+- Drivers for ST-Link fo
+
+**Environmental path setup**
+
+`3` paths should be added to environmental settings from STM32CubeIDE installation, one path for each of above-mentioned tools.
 In case of my computer, using STM32CubeIDE 1.8 (updated through eclipse, hence my actual installation path is still showing version `1.0.2`) paths are defined as:
 
 - GCC compiler: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\tools\bin\`
 - ST-Link GDB server: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.win32_2.0.100.202109301221\tools\bin\`
 - STM32Cube Programmer CLI: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.0.100.202110141430\tools\bin\`
 
-> Your paths may differ at version numbers.
+> Your paths may differ at version numbers
 
-Verify correct setup with `3` commands in cmd, by running
-
+Verify correct path setup, run:
 ```
 arm-none-eabi-gcc --version
 STM32_Programmer_CLI --version
 ST-LINK_gdbserver --version
 ```
 
-Output shall be something similar to
+That should produce output similar to the picture below
 
 ![STM32CubeIDE environment test](docs/images/gcc-prog-gdb-version-test.png)
 
-## Install CMake and ninja
+## CMake
 
-### CMake
-Install [CMake](https://cmake.org/).
+Download and install [CMake](https://cmake.org/).
 
-> During installation, wizard will ask you to add CMake to environmental paths. If you do not select this option, you should add it manually after installation.
+Installation wizard will ask you to add CMake to environmental paths. Select the option or add `bin` folder of CMake installation folder to environmental path.
 
-### Ninja
+## Ninja
 
 Download [Ninja build system](https://github.com/ninja-build/ninja/releases) from Github releases page.
 It comes as portable executable, without need to install anything.
 However it must be visible at environment level, like all previous tools.
 
-Verify both in cmd, by running
+Verify *CMake* and *Ninja* installation, run:
 ```
 cmake --version
 ninja --version
@@ -64,17 +72,16 @@ Output shall be something similar to
 
 ![CMake and Ninja verification](docs/images/cmake-ninja-version-test.png)
 
-## Install Visual Studio Code
+## Visual Studio Code
 
-Install [VSCode](https://code.visualstudio.com/)
-
+Download and install [VSCode](https://code.visualstudio.com/). Once installed and opened, window will look similar to the one below.
 ![Visual Studio Code first time](docs/images/vscode-first-time.png)
 
-### Installation of VSCode plugins
+## Visual Studio Code extensions
 
-VSCode is famous of being lightweight and extremely modular with 3rd party extensions.
+*Visual Studio Code* is lightweight text editor with capability to enlarge it using extensions.
 
-For Cortex-M debugging with CMake, these extensions are essential:
+List of useful extensions for STM32 development using CMake:
 
 - `ms-vscode.cpptools`: Syntax highlighting and other core features for C/C++ development
 - `ms-vscode.cmake-tools`: CMake core tools, build system generator tool
@@ -83,7 +90,7 @@ For Cortex-M debugging with CMake, these extensions are essential:
 - `dan-c-underwood.arm`: ARM Assembly syntax highlighter
 - `zixuanwang.linkerscript`: GCC Linker script syntax highlighter
 
-To install them in one shot, copy code below to terminal in VSCode
+You can install them by copying below commands in VSCode's internal terminal window.
 
 ```
 code --install-extension ms-vscode.cpptools
@@ -98,104 +105,102 @@ code --install-extension zixuanwang.linkerscript
 
 ![VSCode installed plugins](docs/images/vscode-plugins-installed.png)
 
-If you do not like command line for installation, extensions are searchable through VSCode GUI.
-Once installed, you should have at least these extensions ready for next steps.
+Alternative way is to use *Extension search GUI* and manually install from there.
+
 ![VSCode installed plugins](docs/images/vscode-plugins-installed-preview.png)
 
-## Tools installed successfully
+## Tools installed - checkpoint
 
-At this point, all the tools are properly installed and you are ready for next steps.
+At this point, all the tools are properly installed - you are on the right track towards success.
 
-## Create new project with STM32CubeMX or STM32CubeIDE
+# New project creation
 
-Before we move to VSCode tutorial with CMake, we need a project to work on it.
-Fast, simple and effective is to use STM32CubeMX or STm32CubeIDE tools and start from there, to have a first buildable and executable project.
+Fundamental requirement to move forward is to have a working project that will be converted to *CMake* and developed in *VSCode*.
+For this purpose, I will guide you through simple new project creation using *STM32CubeMX* or *STM32CubeIDE* software tools.
 
-> I am using STM32H735G-DK board for these tests and STM32CubeIDE for project generation, but any other STM32 board could be used.
+> I used *STM32CubeIDE* tool and  STM32H735G-DK board for this demo.
 
 Open STM32CubeIDE and start new project
 ![STM32CubeIDE - 1](docs/images/cubeide-1.png)
 
-Select STM32 MCU - I am selecting STM32H735IG which is used on STM32H735G-DK board
+Select STM32 MCU - I selected *STM32H735IG* which is used on *STM32H735G-DK* board
 ![STM32CubeIDE - 2](docs/images/cubeide-2.png)
 
-Select project name and path, then create project and wait for Pinout view to open
+Select project name and path, then create project and wait for *Pinout view* to open
 ![STM32CubeIDE - 3](docs/images/cubeide-3.png)
 
-LEDs on DK board are connected to PC2 and PC3, active LOW. Pins can be configured in output push-pull or open-drain mode
+Our task is to have a simple project that will toggle leds. LEDs are connected to `PC2` and `PC3` respectively, active LOW. Pins can be configured in output push-pull or open-drain mode
 ![STM32CubeIDE - 4 - 1](docs/images/cubeide-4-1.png)
 
 Set pins as outputs with optional labels as `LED1` and `LED2` respectively
 ![STM32CubeIDE - 4](docs/images/cubeide-4.png)
 
-If you are using `STM32CubeMX`, go to project manager, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
+If you are using `STM32CubeMX`, go to *P*roject manager*, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
 ![STM32CubeIDE - 5](docs/images/cubeide-5.png)
 
 Go to advanced settings and select `LL` as drivers for generated code
 ![STM32CubeIDE - 6](docs/images/cubeide-6.png)
-    - LL drivers are used in this example for simplicity
+> We are using LL drivers for the sake of simplicity in this tutorial
 
-Regenerate the project by pressing below button or saving the project with `CTRL + S` shortcut
+Re-generate the project by pressing red button or by saving the project with `CTRL + S` shortcut
 ![STM32CubeIDE - 7](docs/images/cubeide-7.png)
 
-Yellow highlighted files are sources to build, while linker script is in blue
+Project is now (re)generated. *Yellow* highlighted files are sources to build. *Blue* is linker script.
 ![STM32CubeIDE - 8](docs/images/cubeide-8.png)
 
-You are now ready to compile the project. Hit `CTRL + B` or click on *hammer* icon to start.
-STM32CubeIDE well compiled project, as it can be seen on picture below. It is now ready for flashing the MCU+s flash and start debugging.
+That's it for the first run, we are ready to compile. Hit `CTRL + B` or click on *hammer* icon to start.
+*STM32CubeIDE* will compile the project, you should see similar as on picture below. It is now ready for flashing the MCU's flash and start debugging.
 ![STM32CubeIDE - 9](docs/images/cubeide-9.png)
 
-> This is end of first part, where we successfully created our project. At this point we consider project is ready to be transferred to CMake-based build system.
+> This is end of first part, where we successfully created our project. At this point we consider project being ready to be transferred to CMake-based build system.
 
 You can continue your development with STM32CubeIDE in the future, add new sources, modify code, compile, flash the binary and debug directly the microcontroller.
 This is preferred STM32 development studio, developed and maintained by STMicroelectronics.
 
-## Transfer project to CMake
+# CMake configuration
 
-Aside STM32CubeIDE, developers use different tools for STM32, such as Keil or IAR compilers.
+It is expected that project to develop in VSCode has been created. We will move forward for GCC compiler, but others could be used too.
 
 With release of Visual Studio Code, many developers use the tool for many programming languages and fortunately can also develop STM32 applications with single tool.
 If you are one of developers liking VSCode, most elegant way to move forward is to transfer STM32CubeIDE-based project to *CMake*, develop code in VSCode and compile with Ninja build system using GCC compiler. It is fast and lightweight.
 
-> Development in VSCode is for intermediate or experienced users. I suggest to all STM32 beginners to stay with STM32CubeIDE toolchain as it will be very easy to move forward and come to VSCode topic later.
+> Development in VSCode is for intermediate or experienced users. I suggest to all STM32 beginners to stay with *STM32CubeIDE* development toolchain. It will be very easy to move forward and come to VSCode topic later.
 
-Let's start with CMake setup for project description.
-
-### Prepare CMakeLists.txt file
+## Prepare CMakeLists.txt file
 
 Every CMake-based application requires `CMakeLists.txt` file *in the root directory*, that describes the project and provides input information for build system generation.
 
-> Root CMakeLists.txt file is also called top-level CMake file
+> Root `CMakeLists.txt` file is sometimes called *top-level CMake* file
 
-Essential things for CMakeLists.txt file we need to provide:
+Essential things described in `CMakeLists.txt` file:
 
-- Toolchain information, such as GCC configuration
+- Toolchain information, such as GCC configuration with build flags
 - Project name
 - Source files to build with compiler, C, C++ or Assembly files
-- Setting include paths for compiler to find functions, defines, ... (`-I`)
-- Set linker script path for final linking process
-- Set compilation defines, or sometimes called *preprocessor defines* (`-D`)
+- List of include paths for compiler to find functions, defines, ... (`-I`)
+- Linker script path
+- Compilation defines, or sometimes called *preprocessor defines* (`-D`)
 - Cortex-Mxx and floating point settings for instruction set generation
 
-### Open project in VSCode
+## Open VSCode in project root folder
 
-We will configure all files inside VSCode directly as it has its own editor.
+Visual Studio Code has been installed and will be used as further file editor.
 
-Open STM32CubeMX/STM32CubeIDE generated project's root folder in VSCode.
+Find your generated project path and open folder with VSCode:
 
 - Option 1: Go to the folder with explorer, then right click and select `Open in Code`.
 - Option 2: Alternatively, open VScode as new empty solution and add folder to it manually. Use `File -> Open Folder...` to open folder
-- Option 3: Go to folder with cmd or powershell tool and type `code .` to run command
+- Option 3: Go to folder with cmd or powershell tool and run `code .`
 
 Final result should look similar to the one below
 ![VSCode - Folder is open](docs/images/vscode-1.png)
 
-### Toolchain information
+## Toolchain information
 
-As mentioned before, one of the things we need for CMake is toolchain information.
+CMake needs to be aware about Toolchain we would like to use to finally compile the project with.
 As same toolchain is usually reused among different projects, it is advised to create this part in separate file for easier reuse. These are generic compiler settings and not directly linked to projects itself.
 
-A simple `.cmake` can be used and later reused among projects. I am using name `gcc-arm-none-eabi.cmake` for this tutorial and below is its example:
+A simple `.cmake` file can be used and later reused among your various projects. I am using name `cmake/gcc-arm-none-eabi.cmake` for this tutorial and below is its example:
 
 ```cmake
 set(CMAKE_SYSTEM_NAME               Generic)
@@ -221,14 +226,14 @@ set(CMAKE_EXECUTABLE_SUFFIX_CXX     ".elf")
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 ```
 
-Create a file in the root of the folder.
+Create a file in the `cmake/` folder of root project directory.
 ![VSCode - 2 - CMake - Toolchain](docs/images/vscode-2-cmake-toolchain.png)
 
-> If CMake highlighter plugin is installed, VSCode will nicely colorize CMake commands for you
+> If CMake highlighter plugin is installed, VSCode will nicely highlight CMake commands for you
 
 Toolchain setup is complete. You can freely close the file and move to next step.
 
-### Create main CMakeLists.txt file
+## Create main CMakeLists.txt file
 
 We need to create main `CMakeLists.txt`, also called *root* CMake file.
 
@@ -346,10 +351,9 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 )
 ```
 
-Now we need to fill it properly.
-Source files are the same as in STM32CubeIDE project. You can check previous image with highlighted sources in yellow color.
+Source files are the same as in *STM32CubeIDE* project. You can check previous image with highlighted sources in yellow color.
 
-Symbols and include paths can be found in STM32CubeIDE under project settings. `2` pictures below are showing how it is in the case of demo project.
+Symbols and include paths can be found in *STM32CubeIDE* under project settings. `2` pictures below are showing how it is in the case of demo project.
 
 ![STM32CubeIDE - include paths](docs/images/cubeide-include-paths.png)
 ![STM32CubeIDE - symbols](docs/images/cubeide-symbols.png)
@@ -378,6 +382,7 @@ General rule for settings would be as per table below
 | STM32F7 SP  | `cortex-m7`     | `fpv5-sp-d16` | `hard`      |
 | STM32F7 DP  | `cortex-m7`     | `fpv5-d16`    | `hard`      |
 | STM32G0     | `cortex-m0plus` | `Not used`    | `soft`      |
+| STM32C0     | `cortex-m0plus` | `Not used`    | `soft`      |
 | STM32G4     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
 | STM32H7     | `cortex-m7`     | `fpv5-d16`    | `hard`      |
 | STM32L0     | `cortex-m0plus` | `Not used`    | `soft`      |
@@ -389,11 +394,9 @@ General rule for settings would be as per table below
 | STM32WL CM4 | `cortex-m4`     | `Not used`    | `soft`      |
 | STM32WL CM0 | `cortex-m0plus` | `Not used`    | `soft`      |
 
-> This table is a subject of potential mistakes, not tested with GCC compiler
+> This table is a subject of potential mistakes, not tested with *GCC compiler* for all lines. For STM32F7, go to [STM32F7xx official site](https://www.st.com/en/microcontrollers-microprocessors/stm32f7-series.html) and check if your device has single or double precision FPU, then apply settings accordingly.
 
-> Go to [STM32F7xx official site](https://www.st.com/en/microcontrollers-microprocessors/stm32f7-series.html) and check if your device has single or double precision FPU.
-
-Final CMakeLists.txt file after source files, include paths, MCU core settings and defines are set:
+Final `CMakeLists.txt` file after source files, include paths, MCU core settings and defines are set:
 ```cmake
 cmake_minimum_required(VERSION 3.22)
 
@@ -522,78 +525,102 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 In VSCode, well highlighted, it looks like this
 ![VSCode - final CMakeLists.txt](docs/images/vscode-3-cmake-final.png)
 
-CMake source files are now created and we are ready to proceed to build *build system input files*, in our case we will run CMake engine to prepare build structure for *Ninja build system*
+## Create preset CMakePresets.json file
 
-Open VSCode integrated terminal and run command
-```
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="gcc-arm-none-eabi.cmake" -Bbuild -G Ninja
-```
+`CMakePresets.json` is a special file, available since CMake `3.18` and provides definition for user configuration, similar to *debug* and *release* configuration known in eclipse. Having this file allows developer to quickly change between *debug* and *release* mode, or even between *bootloader* and *main application*, that is a common use case in embedded applications.
 
-It should well complete the execution with similar output as on picture below, plus a new `build` folder should be added to the project. If CMake cannot generate build instructions for Ninja, you will get list of errors in the same terminal window.
-![VSCode - final CMakeLists.txt](docs/images/vscode-3-cmake-run.png)
+> This tutorial will not focus on details about the file, rather here is the provided template file
 
-> Every time you modify CMakeLists.txt file, you have to run above command to re-generate build system instructions, otherwise your file changes are not affected for build system.
+File describes:
+- Path to build directory for each build configuration
+- Default build type for each configuration (*Debug*, *Release*, ...)
+- Path to `*.cmake* toolchain descriptor
 
-### Run CMake command automatically
+> `4` presets are configured in the template for each of the default *CMake* configurations
 
-*CMake-Tools* extension can be configured to create and run aforementioned command automatically on every file modification, but requires some additional steps.
-
-> Personally I highly recommend to do these steps. It will boost your productivity in the future.
-
-Start by creating a new `.vscode/cmake-kits.json` file and copy below text to it. This is a special file name for *CMake-Tools* extension and defines list of *CMake Kits*, or list of compiler settings.
 ```json
-[
-    {
-      "name": "GCC arm-none-eabi - custom toolchain setup",
-      "compilers": {
-        "C": "arm-none-eabi-gcc",
-        "CXX": "arm-none-eabi-g++"
-      },
-      "toolchainFile": "gcc-arm-none-eabi.cmake"
-    }
-]
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi.cmake",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "Debug",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "RelWithDebInfo",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "Release",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "MinSizeRel",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "MinSizeRel"
+            }
+        }
+    ]
+}
 ```
-![VSCode - CMake setup - quick start](docs/images/vscode-4-cmake-kits.png)
+> Always up-to-date file is available in `templates/CMakePresets.json`
 
-> Restart VSCode after this step to refresh changes
+## Run CMake commands
 
-When you are back, hit `CTRL + SHIFT + P` to open command palette and type `CMake: Quick start`
-![VSCode - CMake setup - quick start](docs/images/vscode-5-cmake-quick-start.png)
+We have configured *CMake* with project information and are now ready to run the CMake commands.
 
-*CMake-Tools* extension will now get notified that there is `CMakeLists.txt` file and that it must take care of it. It will ask you to pick *CMake kit* (compiler setup to use with `CMakeLists.txt` file).
-Previously we created `cmake-kits.json` file with added custom config named `GCC arm-none-eabi - custom toolchain setup`. Extension will use our file to find custom kits.
+VSCode comes with *CMake Tools* plugin - a great helper for CMake commands. When installed, several options are available at the bottom of the VSCode active window
 
-If you do not see it on the list, force re-scan and try to select kit again.
-At the bottom of your VSCode window is *No active kit* that is clickable to change the kit.
-![VSCode - CMake setup - quick start](docs/images/vscode-6-scan-for-kits.png)
+![VSCode - Default CMake Tools plugin view](docs/images/vscode-5-cmake-tools-window-default.png)
 
-After rescan process, our custom kit is now available and can be selected
-![VSCode - CMake setup - kit selection](docs/images/vscode-7-kit-found.png)
+As you can see, there is no Configuration Preset selected.
 
-Very good, now that we reached so far, our next step is to again run CMake to generate build configuration for *Ninja*, mainly to test if it works well.
+> If you do not see such information, hit `CTRl + ALT + P` and run `CMake: Quick Start` command.
 
-There are `2` ways of executing CMake generation step:
+Next step is to select current *preset*. Click on *No Configure Preset Selected* to open a window on top side and select your *preset*. I selected *debug* for the sake of this tutorial.
 
-1. Use terminal and manually run command as mentioned before
-![VSCode - CMake setup - run cmake build system generation](docs/images/vscode-3-cmake-run.png)
-    - Command can be added to `tasks.json` file for future use
+![VSCode - Select application preset](docs/images/vscode-6-cmake-tools-select-preset.png)
 
-2. Or let *CMake-Tools* plugin to [re]generate it for you each time file `CMakeLists.txt` is changed and saved. Open `CMakeLists.txt` file, write & delete a character to mark file as *dirty*, finally save file with `CTRL + S`. *CMake-Tools* extension should run build system generation each time `CMakeLists.txt` file is saved. You should see this in `Output` tab
-![VSCode - CMake setup - auto run with Output information](docs/images/vscode-8-cmake-run-auto.png)
+When selected, text will change to selected *preset label*.
 
-For sure you can take a break or a beer at this point, and continue in `5` minutes. You did a great job so far.
+![VSCode - Preset selected](docs/images/vscode-7-cmake-tools-preset-selected-run-build.png)
 
-### Build project with ninja
+Now that preset is active, every time user will modify `CMakeLists.txt` file, thanks to *CMake-Tools* extension, VSCode will automatically invoke build generation command to apply new changes.
 
-Our project is ready for building and linking. Unless CMake build generation step failed, we should have `build` directory ready to invoke *Ninja* compiler.
+# Build project
 
-During CMake generation step, *Ninja* was already selected as build system with `-G Ninja` parameter.
-To run actual build of source files with GCC compiler, run `cmake --build "build"` command to execute build using ninja build system.
-![VSCode - Ninja build - build finished](docs/images/vscode-9-build-finish.png)
+Our project is ready for building and linking. Unless CMake build generation step failed, we should have build directory ready to invoke *ninja build system*.
+
+Next step is to hit *Build* button - as indicated with green rectangle. CMake will run commands:
+
+- Run build generator for selected preset
+- Actually build code with *Ninja*
+
+![VSCode - Preset selected](docs/images/vscode-9-build-finish.png)
 
 > If it builds well, final step on the output is print of memory use with different sections.
 
-As a result, we got some output in `build` directory:
+As a result, we got some output in `build/<presetname>/` directory:
 
 - `project-name.elf` file with complete executable information
 - `project-name.hex` HEX file
@@ -602,7 +629,7 @@ As a result, we got some output in `build` directory:
 
 In default configuration, `.hex` and `.bin` files are not generated nor *memory usage* is displayed.
 Our prepared `CMakeLists.txt` file includes `POST_BUILD` options, to execute additional commands after successful build.
-Code is already in your CMakeLists.txt file, so no need to do anything, just observe.
+Code is already in your `CMakeLists.txt` file, so no need to do anything, just observe.
 
 It executes command to:
 - Print used size of each region + final executable memory consumption
@@ -627,49 +654,49 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 ```
 
 > To disable `.bin` file generation, simply delete `POST_BUILD` line for `.bin` and regenerate CMake build system commands.
-> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories. It may generate very large files (>= 2GB) with plenty of non-used zeros. 
+> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories. It may generate very large files (`>= 2GB`) with plenty of non-used zeros. 
 
 There is a list of useful commands to keep in mind during project development:
 
-- Build changes:  `cmake --build "build"`
-- Clean project:  `cmake --build "build" --target clean`
-- Re-build project, with clean first: `cmake --build "build" --clean-first -v`
-- Flash project: `STM32_Programmer_CLI --connect port=swd --download build/project-name.elf -hardRst`
+- Build changes
+- Clean project
+- Re-build project, with clean first
+- Flash project
 
 Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file with commands list, for quick run:
 ```json
 {
-    "version": "2.0.0",
-    "tasks": [
+	"version": "2.0.0",
+	"tasks": [
         {
             "type": "cppbuild",
             "label": "Build project",
             "command": "cmake",
-            "args": ["--build", "\"build\"", "-j", "8"],
+            "args": ["--build", "${command:cmake.buildDirectory}", "-j", "8"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
-                "isDefault": true       //This is default task
+                "isDefault": true
             }
         },
         {
             "type": "shell",
             "label": "Re-build project",
             "command": "cmake",
-            "args": ["--build", "\"build\"", "--clean-first", "-v", "-j", "8"],
+            "args": ["--build", "${command:cmake.buildDirectory}", "--clean-first", "-v", "-j", "8"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
         },
         {
             "type": "shell",
             "label": "Clean project",
             "command": "cmake",
-            "args": ["--build", "\"build\"", "--target", "clean"],
+            "args": ["--build", "${command:cmake.buildDirectory}", "--target", "clean"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -677,13 +704,12 @@ Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file wi
         },
         {
             "type": "shell",
-            "label": "Flash project",
+            "label": "CubeProg: Flash project (SWD)",
             "command": "STM32_Programmer_CLI",
             "args": [
                 "--connect",
                 "port=swd",
-                "--download",
-                "${command:cmake.launchTargetPath}",
+                "--download", "${command:cmake.launchTargetPath}",
                 "-hardRst"
             ],
             "options": {
@@ -693,29 +719,42 @@ Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file wi
         },
         {
             "type": "shell",
-            "label": "Run CMake configuration",
-            "command": "cmake",
+            "label": "CubeProg: Flash project with defined serial number (SWD) - you must set serial number first",
+            "command": "STM32_Programmer_CLI",
             "args": [
-                "--no-warn-unused-cli",
-                "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE",
-                "-DCMAKE_BUILD_TYPE:STRING=Debug",
-                "-DCMAKE_TOOLCHAIN_FILE:FILEPATH=gcc-arm-none-eabi.cmake",
-                "-Bbuild",
-                "-G", "Ninja"
+                "--connect",
+                "port=swd",
+                "sn=<yourserialnumber>",
+                "--download", "${command:cmake.launchTargetPath}",
+                "-hardRst"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": []
-        }
+        },
+        {
+            "type": "shell",
+            "label": "CubeProg: List all available communication interfaces",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--list",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
     ]
 }
 ```
+> Always up-to-date file is available in `templates/.vscode/tasks.json`
 
 Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal -> Run Task` or with `CTRL + ALT + T` shortcut
 ![VSCode - Tasks.json file](docs/images/vscode-10-tasks.png)
 
 *Build Project* task is configured as *default*, which will get executed when we run default task, or press shortcut `CTRL + SHIFT + B`.
+
 ```json
 "group": {
     "kind": "build",
@@ -723,20 +762,7 @@ Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal
 }
 ```
 
-### CMake build system & build command with single click
-
-*CMake-Tools* is super powerful extension, provides many features for development.
-We have explained the hard-way how to move from source `CMakeLists.txt` file to finally fully built `.elf` project file,
-but there is another way to speed complete process.
-
-At the bottom of the project, in blue line, is a `Build` button, which essentially does the following:
-
-- Runs cmake command to generate build system (runs only is not already available or modified by user, otherwise skips to next step)
-- Runs `ninja` to build changed files and generate output `.elf` file
-
-![VSCode - Generate and build with single click](docs/images/vscode-cmake-tools-build-button.png)
-
-### List project files with CMake-Tools plugin
+## List project files with CMake-Tools plugin
 
 *CMake-Tools* VSCode plugin comes with very nice feature, that being listing all files in the project.
 When project uses files outside *root folder* tree, there is no way to see them in VSCode by default, unless you add another folder to project workspace, but then you *destroy* some of the features listed above.
@@ -753,7 +779,7 @@ After CMake build system generation, we can see virtual file added in *CMake-Too
 
 Thanks to this feature, we can have a full control over files being part of build and can quickly find files to modify, even if these are outside workspace folder directory.
 
-### GCC Problem matcher
+## GCC Problem matcher
 
 Another nice *Build Project* task parameter is `"problemMatcher": ["$gcc"],` set to GCC, which means that terminal output is parsed against GCC standard format and in case of warnings or errors, it will display nice messages in *Problems* view.
 ![VSCode - Tasks.json file](docs/images/vscode-10-tasks-1.png)
@@ -764,7 +790,7 @@ This is now fully working GCC-based compilation system running in VSCode.
 
 > Do not forget to regenerate CMake when `CMakeLists.txt` file gets modified, or use *Build* button to do it for you.
 
-### Stop receiving virtual C/C++ errors
+## Stop receiving virtual C/C++ errors
 
 As you may have noticed, some lines in C files are red-underlined, reporting a `could not find resource` error, but when compiled, all is working just fine.
 ![VSCode - Debug session](docs/images/vscode-dbg-1.png)
@@ -793,6 +819,8 @@ To overcome this problem, let's create `.vscode/c_cpp_properties.json` file and 
     ]
 }
 ```
+> Always up-to-date file is available in `templates/.vscode/c_cpp_properties.json`
+
 ![VSCode - C/C++ virtual errors](docs/images/vscode-c-cpp-1-file.png)
 
 We provided settings for `C/C++` extension, mainly for Intellisense feature, and configure it in a way to use `CMake-Tools` extension to find include paths and list of defines (preprocessor defined).
@@ -803,7 +831,7 @@ You can test it by going to one resource (ex. with mouse over a function name), 
 
 > `.vscode/c_cpp_properties.json` is used for `CppTools` extension purpose.
 
-## Debug project with cortex-debug
+# Debug project with cortex-debug
 
 Our `.elf` file has been built in previous section and can't wait to be uploaded into MCU flash and executed by *Cortex-M core*.
 We will use `Cortex-Debug` extension for debugging purpose, that will also flash firmware for us.
@@ -841,24 +869,27 @@ First thing is to create `.vscode/launch.json` file and copy below content to it
     ]
 }
 ```
+> Always up-to-date launch file is available in `templates/.vscode/launch.json`
 
 And you are ready to go! Hit `F5` and you should enter debug session with your MCU.
 ![VSCode - Debug session](docs/images/vscode-dbg-1.png)
 
 > Be sure to have ST-Link debug probe software at its latest version.
 
-### Debug to main
+Extension will invoke ST-GDBServer application, and will take `.elf` file as defined by *CMake* as target launch file.
+
+## Debug to main
 
 ![VSCode - Debug session - breakpoints - step over - step into](docs/images/vscode-dbg-1.png)
 
 You have full control over stepping and can set breakpoints like you would in STM32CubeIDE.
 
-### MCU registers with SVD
+## MCU registers with SVD
 
 If you have MCU SVD file, add its path in `launch.json` configuration, and you will see all peripheral registers in MCU.
 ![VSCode - Debug session - SVD](docs/images/vscode-dbg-3.png)
 
-### Memory view
+## Memory view
 
 To view memory, open command palette with `CTRL + SHIFT + P` and type `memory`
 
@@ -871,7 +902,7 @@ And memory length to fetch
 Nice view of MCU memory
 ![VSCode - Debug session - Memory view](docs/images/vscode-dbg-4-memory-view.png)
 
-### Assembly stepping
+## Assembly stepping
 
 You can step with assembly instructions
 
@@ -882,7 +913,7 @@ It is possible to later step by step assembly instructions too.
 
 Many other features are available.
 
-## Conclusion
+# Conclusion
 
 This is all for the tutorial.
 We showed how to create first project with STM32CubeIDE or STM32CubeMX to have its structure, sources and graphical configuration, later transferred to VSCode, CMake and Cortex-debug.
