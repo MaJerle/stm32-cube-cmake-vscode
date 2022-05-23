@@ -536,7 +536,7 @@ File describes:
 - Default build type for each configuration (*Debug*, *Release*, ...)
 - Path to `*.cmake* toolchain descriptor
 
-> `4` presets are configured in the template for each of the default *CMake* configurations. Always up-to-date file is available in `templates/CMakePresets.json`
+> `4` presets are configured in the template for each of the default *CMake* configurations
 
 ```json
 {
@@ -583,6 +583,7 @@ File describes:
     ]
 }
 ```
+> Always up-to-date file is available in `templates/CMakePresets.json`
 
 ## Run CMake commands
 
@@ -604,22 +605,22 @@ When selected, text will change to selected *preset label*.
 
 ![VSCode - Preset selected](docs/images/vscode-7-cmake-tools-preset-selected-run-build.png)
 
+Now that preset is active, every time user will modify `CMakeLists.txt` file, thanks to *CMake-Tools* extension, VSCode will automatically invoke build generation command to apply new changes.
+
+# Build project
+
+Our project is ready for building and linking. Unless CMake build generation step failed, we should have build directory ready to invoke *ninja build system*.
+
 Next step is to hit *Build* button - as indicated with green rectangle. CMake will run commands:
 
 - Run build generator for selected preset
 - Actually build code with *Ninja*
 
-## Build project with ninja
-
-Our project is ready for building and linking. Unless CMake build generation step failed, we should have `build` directory ready to invoke *Ninja* compiler.
-
-During CMake generation step, *Ninja* was already selected as build system with `-G Ninja` parameter.
-To run actual build of source files with GCC compiler, run `cmake --build "build"` command to execute build using ninja build system.
-![VSCode - Ninja build - build finished](docs/images/vscode-9-build-finish.png)
+![VSCode - Preset selected](docs/images/vscode-9-build-finish.png)
 
 > If it builds well, final step on the output is print of memory use with different sections.
 
-As a result, we got some output in `build` directory:
+As a result, we got some output in `build/<presetname>/` directory:
 
 - `project-name.elf` file with complete executable information
 - `project-name.hex` HEX file
@@ -657,45 +658,45 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 
 There is a list of useful commands to keep in mind during project development:
 
-- Build changes:  `cmake --build "build"`
-- Clean project:  `cmake --build "build" --target clean`
-- Re-build project, with clean first: `cmake --build "build" --clean-first -v`
-- Flash project: `STM32_Programmer_CLI --connect port=swd --download build/project-name.elf -hardRst`
+- Build changes
+- Clean project
+- Re-build project, with clean first
+- Flash project
 
 Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file with commands list, for quick run:
 ```json
 {
-    "version": "2.0.0",
-    "tasks": [
+	"version": "2.0.0",
+	"tasks": [
         {
             "type": "cppbuild",
             "label": "Build project",
             "command": "cmake",
-            "args": ["--build", "\"build\"", "-j", "8"],
+            "args": ["--build", "${command:cmake.buildDirectory}", "-j", "8"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
-                "isDefault": true       //This is default task
+                "isDefault": true
             }
         },
         {
             "type": "shell",
             "label": "Re-build project",
             "command": "cmake",
-            "args": ["--build", "\"build\"", "--clean-first", "-v", "-j", "8"],
+            "args": ["--build", "${command:cmake.buildDirectory}", "--clean-first", "-v", "-j", "8"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
         },
         {
             "type": "shell",
             "label": "Clean project",
             "command": "cmake",
-            "args": ["--build", "\"build\"", "--target", "clean"],
+            "args": ["--build", "${command:cmake.buildDirectory}", "--target", "clean"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -703,13 +704,12 @@ Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file wi
         },
         {
             "type": "shell",
-            "label": "Flash project",
+            "label": "CubeProg: Flash project (SWD)",
             "command": "STM32_Programmer_CLI",
             "args": [
                 "--connect",
                 "port=swd",
-                "--download",
-                "${command:cmake.launchTargetPath}",
+                "--download", "${command:cmake.launchTargetPath}",
                 "-hardRst"
             ],
             "options": {
@@ -719,24 +719,36 @@ Its easy to forget full syntax, rather let's create `.vscode/tasks.json` file wi
         },
         {
             "type": "shell",
-            "label": "Run CMake configuration",
-            "command": "cmake",
+            "label": "CubeProg: Flash project with defined serial number (SWD) - you must set serial number first",
+            "command": "STM32_Programmer_CLI",
             "args": [
-                "--no-warn-unused-cli",
-                "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE",
-                "-DCMAKE_BUILD_TYPE:STRING=Debug",
-                "-DCMAKE_TOOLCHAIN_FILE:FILEPATH=gcc-arm-none-eabi.cmake",
-                "-Bbuild",
-                "-G", "Ninja"
+                "--connect",
+                "port=swd",
+                "sn=<yourserialnumber>",
+                "--download", "${command:cmake.launchTargetPath}",
+                "-hardRst"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": []
-        }
+        },
+        {
+            "type": "shell",
+            "label": "CubeProg: List all available communication interfaces",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--list",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
     ]
 }
 ```
+> Always up-to-date file is available in `templates/.vscode/tasks.json`
 
 Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal -> Run Task` or with `CTRL + ALT + T` shortcut
 ![VSCode - Tasks.json file](docs/images/vscode-10-tasks.png)
@@ -750,7 +762,7 @@ Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal
 }
 ```
 
-### CMake build system & build command with single click
+## CMake build system & build command with single click
 
 *CMake-Tools* is super powerful extension, provides many features for development.
 We have explained the hard-way how to move from source `CMakeLists.txt` file to finally fully built `.elf` project file,
@@ -763,7 +775,7 @@ At the bottom of the project, in blue line, is a `Build` button, which essential
 
 ![VSCode - Generate and build with single click](docs/images/vscode-cmake-tools-build-button.png)
 
-### List project files with CMake-Tools plugin
+## List project files with CMake-Tools plugin
 
 *CMake-Tools* VSCode plugin comes with very nice feature, that being listing all files in the project.
 When project uses files outside *root folder* tree, there is no way to see them in VSCode by default, unless you add another folder to project workspace, but then you *destroy* some of the features listed above.
@@ -780,7 +792,7 @@ After CMake build system generation, we can see virtual file added in *CMake-Too
 
 Thanks to this feature, we can have a full control over files being part of build and can quickly find files to modify, even if these are outside workspace folder directory.
 
-### GCC Problem matcher
+## GCC Problem matcher
 
 Another nice *Build Project* task parameter is `"problemMatcher": ["$gcc"],` set to GCC, which means that terminal output is parsed against GCC standard format and in case of warnings or errors, it will display nice messages in *Problems* view.
 ![VSCode - Tasks.json file](docs/images/vscode-10-tasks-1.png)
@@ -791,7 +803,7 @@ This is now fully working GCC-based compilation system running in VSCode.
 
 > Do not forget to regenerate CMake when `CMakeLists.txt` file gets modified, or use *Build* button to do it for you.
 
-### Stop receiving virtual C/C++ errors
+## Stop receiving virtual C/C++ errors
 
 As you may have noticed, some lines in C files are red-underlined, reporting a `could not find resource` error, but when compiled, all is working just fine.
 ![VSCode - Debug session](docs/images/vscode-dbg-1.png)
@@ -820,6 +832,8 @@ To overcome this problem, let's create `.vscode/c_cpp_properties.json` file and 
     ]
 }
 ```
+> Always up-to-date file is available in `templates/.vscode/c_cpp_properties.json`
+
 ![VSCode - C/C++ virtual errors](docs/images/vscode-c-cpp-1-file.png)
 
 We provided settings for `C/C++` extension, mainly for Intellisense feature, and configure it in a way to use `CMake-Tools` extension to find include paths and list of defines (preprocessor defined).
@@ -830,7 +844,7 @@ You can test it by going to one resource (ex. with mouse over a function name), 
 
 > `.vscode/c_cpp_properties.json` is used for `CppTools` extension purpose.
 
-## Debug project with cortex-debug
+# Debug project with cortex-debug
 
 Our `.elf` file has been built in previous section and can't wait to be uploaded into MCU flash and executed by *Cortex-M core*.
 We will use `Cortex-Debug` extension for debugging purpose, that will also flash firmware for us.
@@ -868,24 +882,27 @@ First thing is to create `.vscode/launch.json` file and copy below content to it
     ]
 }
 ```
+> Always up-to-date launch file is available in `templates/.vscode/launch.json`
 
 And you are ready to go! Hit `F5` and you should enter debug session with your MCU.
 ![VSCode - Debug session](docs/images/vscode-dbg-1.png)
 
 > Be sure to have ST-Link debug probe software at its latest version.
 
-### Debug to main
+Extension will invoke ST-GDBServer application, and will take `.elf` file as defined by *CMake* as target launch file.
+
+## Debug to main
 
 ![VSCode - Debug session - breakpoints - step over - step into](docs/images/vscode-dbg-1.png)
 
 You have full control over stepping and can set breakpoints like you would in STM32CubeIDE.
 
-### MCU registers with SVD
+## MCU registers with SVD
 
 If you have MCU SVD file, add its path in `launch.json` configuration, and you will see all peripheral registers in MCU.
 ![VSCode - Debug session - SVD](docs/images/vscode-dbg-3.png)
 
-### Memory view
+## Memory view
 
 To view memory, open command palette with `CTRL + SHIFT + P` and type `memory`
 
@@ -898,7 +915,7 @@ And memory length to fetch
 Nice view of MCU memory
 ![VSCode - Debug session - Memory view](docs/images/vscode-dbg-4-memory-view.png)
 
-### Assembly stepping
+## Assembly stepping
 
 You can step with assembly instructions
 
@@ -909,7 +926,7 @@ It is possible to later step by step assembly instructions too.
 
 Many other features are available.
 
-## Conclusion
+# Conclusion
 
 This is all for the tutorial.
 We showed how to create first project with STM32CubeIDE or STM32CubeMX to have its structure, sources and graphical configuration, later transferred to VSCode, CMake and Cortex-debug.
