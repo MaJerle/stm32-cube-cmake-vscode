@@ -762,19 +762,6 @@ Tasks defined in `tasks.json` can be invoked in VSCode interface using `Terminal
 }
 ```
 
-## CMake build system & build command with single click
-
-*CMake-Tools* is super powerful extension, provides many features for development.
-We have explained the hard-way how to move from source `CMakeLists.txt` file to finally fully built `.elf` project file,
-but there is another way to speed complete process.
-
-At the bottom of the project, in blue line, is a `Build` button, which essentially does the following:
-
-- Runs cmake command to generate build system (runs only is not already available or modified by user, otherwise skips to next step)
-- Runs `ninja` to build changed files and generate output `.elf` file
-
-![VSCode - Generate and build with single click](docs/images/vscode-cmake-tools-build-button.png)
-
 ## List project files with CMake-Tools plugin
 
 *CMake-Tools* VSCode plugin comes with very nice feature, that being listing all files in the project.
