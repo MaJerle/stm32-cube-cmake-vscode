@@ -111,55 +111,55 @@ Once installed, that should be your minimum list of extensions.
 
 ![VSCode installed plugins](docs/images/vscode-plugins-installed-preview.png)
 
-## Tools installed successfully
+## Tools installed - checkpoint
 
-At this point, all the tools are properly installed and you are ready for next steps.
+At this point, all the tools are properly installed - you are on the right track towards success.
 
-# Create new project with STM32CubeMX or STM32CubeIDE
+# New project creation
 
-Before we move to VSCode tutorial with CMake, we need a project to work on it.
-Fast, simple and effective is to use STM32CubeMX or STm32CubeIDE tools and start from there, to have a first buildable and executable project.
+Fundamental requirement to move forward is to have a working project that will be converted to *CMake* and developed in *VSCode*.
+For this purpose, I will guide you through simple new project creation using *STM32CubeMX* or *STM32CubeIDE* software tools.
 
-> I am using STM32H735G-DK board for these tests and STM32CubeIDE for project generation, but any other STM32 board could be used.
+> I used *STM32CubeIDE* tool and  STM32H735G-DK board for this demo.
 
 Open STM32CubeIDE and start new project
 ![STM32CubeIDE - 1](docs/images/cubeide-1.png)
 
-Select STM32 MCU - I am selecting STM32H735IG which is used on STM32H735G-DK board
+Select STM32 MCU - I selected *STM32H735IG* which is used on *STM32H735G-DK* board
 ![STM32CubeIDE - 2](docs/images/cubeide-2.png)
 
-Select project name and path, then create project and wait for Pinout view to open
+Select project name and path, then create project and wait for *Pinout view* to open
 ![STM32CubeIDE - 3](docs/images/cubeide-3.png)
 
-LEDs on DK board are connected to PC2 and PC3, active LOW. Pins can be configured in output push-pull or open-drain mode
+Our task is to have a simple project that will toggle leds. LEDs are connected to `PC2` and `PC3` respectively, active LOW. Pins can be configured in output push-pull or open-drain mode
 ![STM32CubeIDE - 4 - 1](docs/images/cubeide-4-1.png)
 
 Set pins as outputs with optional labels as `LED1` and `LED2` respectively
 ![STM32CubeIDE - 4](docs/images/cubeide-4.png)
 
-If you are using `STM32CubeMX`, go to project manager, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
+If you are using `STM32CubeMX`, go to *P*roject manager*, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
 ![STM32CubeIDE - 5](docs/images/cubeide-5.png)
 
 Go to advanced settings and select `LL` as drivers for generated code
 ![STM32CubeIDE - 6](docs/images/cubeide-6.png)
-    - LL drivers are used in this example for simplicity
+> We are using LL drivers for the sake of simplicity in this tutorial
 
-Regenerate the project by pressing below button or saving the project with `CTRL + S` shortcut
+Re-generate the project by pressing red button or by saving the project with `CTRL + S` shortcut
 ![STM32CubeIDE - 7](docs/images/cubeide-7.png)
 
-Yellow highlighted files are sources to build, while linker script is in blue
+Project is now (re)generated. *Yellow* highlighted files are sources to build. *Blue* is linker script.
 ![STM32CubeIDE - 8](docs/images/cubeide-8.png)
 
-You are now ready to compile the project. Hit `CTRL + B` or click on *hammer* icon to start.
-STM32CubeIDE well compiled project, as it can be seen on picture below. It is now ready for flashing the MCU+s flash and start debugging.
+That's it for the first run, we are ready to compile. Hit `CTRL + B` or click on *hammer* icon to start.
+*STM32CubeIDE* will compile the project, you should see similar as on picture below. It is now ready for flashing the MCU's flash and start debugging.
 ![STM32CubeIDE - 9](docs/images/cubeide-9.png)
 
-> This is end of first part, where we successfully created our project. At this point we consider project is ready to be transferred to CMake-based build system.
+> This is end of first part, where we successfully created our project. At this point we consider project being ready to be transferred to CMake-based build system.
 
 You can continue your development with STM32CubeIDE in the future, add new sources, modify code, compile, flash the binary and debug directly the microcontroller.
 This is preferred STM32 development studio, developed and maintained by STMicroelectronics.
 
-## Transfer project to CMake
+# CMake configuration
 
 Aside STM32CubeIDE, developers use different tools for STM32, such as Keil or IAR compilers.
 
@@ -170,23 +170,23 @@ If you are one of developers liking VSCode, most elegant way to move forward is 
 
 Let's start with CMake setup for project description.
 
-### Prepare CMakeLists.txt file
+## Prepare CMakeLists.txt file
 
 Every CMake-based application requires `CMakeLists.txt` file *in the root directory*, that describes the project and provides input information for build system generation.
 
-> Root `CMakeLists.txt` file is also called top-level CMake file
+> Root `CMakeLists.txt` file is sometimes called *top-level CMake* file
 
-Essential things for `CMakeLists.txt` file we need to provide:
+Essential things described in `CMakeLists.txt` file:
 
-- Toolchain information, such as GCC configuration
+- Toolchain information, such as GCC configuration with build flags
 - Project name
 - Source files to build with compiler, C, C++ or Assembly files
-- Setting include paths for compiler to find functions, defines, ... (`-I`)
-- Set linker script path for final linking process
-- Set compilation defines, or sometimes called *preprocessor defines* (`-D`)
+- List of include paths for compiler to find functions, defines, ... (`-I`)
+- Linker script path
+- Compilation defines, or sometimes called *preprocessor defines* (`-D`)
 - Cortex-Mxx and floating point settings for instruction set generation
 
-### Open project in VSCode
+## Open project in VSCode
 
 We will configure all files inside VSCode directly as it has its own editor.
 
@@ -199,7 +199,7 @@ Open STM32CubeMX/STM32CubeIDE generated project's root folder in VSCode.
 Final result should look similar to the one below
 ![VSCode - Folder is open](docs/images/vscode-1.png)
 
-### Toolchain information
+## Toolchain information
 
 As mentioned before, one of the things we need for CMake is toolchain information.
 As same toolchain is usually reused among different projects, it is advised to create this part in separate file for easier reuse. These are generic compiler settings and not directly linked to projects itself.
@@ -237,7 +237,7 @@ Create a file in the root of the folder.
 
 Toolchain setup is complete. You can freely close the file and move to next step.
 
-### Create main CMakeLists.txt file
+## Create main CMakeLists.txt file
 
 We need to create main `CMakeLists.txt`, also called *root* CMake file.
 
@@ -542,7 +542,7 @@ It should well complete the execution with similar output as on picture below, p
 
 > Every time you modify `CMakeLists.txt` file, you have to run above command to re-generate build system instructions, otherwise your file changes are not affected for build system.
 
-### Run CMake command automatically
+## Run CMake command automatically
 
 *CMake-Tools* extension can be configured to create and run aforementioned command automatically on every file modification, but requires some additional steps.
 
@@ -591,7 +591,7 @@ There are `2` ways of executing CMake generation step:
 
 For sure you can take a break or a beer at this point, and continue in `5` minutes. You did a great job so far.
 
-### Build project with ninja
+## Build project with ninja
 
 Our project is ready for building and linking. Unless CMake build generation step failed, we should have `build` directory ready to invoke *Ninja* compiler.
 
