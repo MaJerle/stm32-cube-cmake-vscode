@@ -74,15 +74,14 @@ Output shall be something similar to
 
 ## Visual Studio Code
 
-Download and install [VSCode](https://code.visualstudio.com/)
-
+Download and install [VSCode](https://code.visualstudio.com/). Once installed and opened, window will look similar to the one below.
 ![Visual Studio Code first time](docs/images/vscode-first-time.png)
 
 ## Visual Studio Code extensions
 
 *Visual Studio Code* is lightweight text editor with capability to enlarge it using extensions.
 
-List of useful *Cortex-M debugging with CMake*:
+List of useful extensions for STM32 development using CMake:
 
 - `ms-vscode.cpptools`: Syntax highlighting and other core features for C/C++ development
 - `ms-vscode.cmake-tools`: CMake core tools, build system generator tool
@@ -106,8 +105,7 @@ code --install-extension zixuanwang.linkerscript
 
 ![VSCode installed plugins](docs/images/vscode-plugins-installed.png)
 
-Alternative way is to use Extension search GUI and manually install all extensions.
-Once installed, that should be your minimum list of extensions.
+Alternative way is to use *Extension search GUI* and manually install from there.
 
 ![VSCode installed plugins](docs/images/vscode-plugins-installed-preview.png)
 
@@ -161,14 +159,12 @@ This is preferred STM32 development studio, developed and maintained by STMicroe
 
 # CMake configuration
 
-Aside STM32CubeIDE, developers use different tools for STM32, such as Keil or IAR compilers.
+It is expected that project to develop in VSCode has been created. We will move forward for GCC compiler, but others could be used too.
 
 With release of Visual Studio Code, many developers use the tool for many programming languages and fortunately can also develop STM32 applications with single tool.
 If you are one of developers liking VSCode, most elegant way to move forward is to transfer STM32CubeIDE-based project to *CMake*, develop code in VSCode and compile with Ninja build system using GCC compiler. It is fast and lightweight.
 
-> Development in VSCode is for intermediate or experienced users. I suggest to all STM32 beginners to stay with STM32CubeIDE toolchain as it will be very easy to move forward and come to VSCode topic later.
-
-Let's start with CMake setup for project description.
+> Development in VSCode is for intermediate or experienced users. I suggest to all STM32 beginners to stay with *STM32CubeIDE* development toolchain. It will be very easy to move forward and come to VSCode topic later.
 
 ## Prepare CMakeLists.txt file
 
@@ -186,25 +182,25 @@ Essential things described in `CMakeLists.txt` file:
 - Compilation defines, or sometimes called *preprocessor defines* (`-D`)
 - Cortex-Mxx and floating point settings for instruction set generation
 
-## Open project in VSCode
+## Open VSCode in project root folder
 
-We will configure all files inside VSCode directly as it has its own editor.
+Visual Studio Code has been installed and will be used as further file editor.
 
-Open STM32CubeMX/STM32CubeIDE generated project's root folder in VSCode.
+Find your generated project path and open folder with VSCode:
 
 - Option 1: Go to the folder with explorer, then right click and select `Open in Code`.
 - Option 2: Alternatively, open VScode as new empty solution and add folder to it manually. Use `File -> Open Folder...` to open folder
-- Option 3: Go to folder with cmd or powershell tool and type `code .` to run command
+- Option 3: Go to folder with cmd or powershell tool and run `code .`
 
 Final result should look similar to the one below
 ![VSCode - Folder is open](docs/images/vscode-1.png)
 
 ## Toolchain information
 
-As mentioned before, one of the things we need for CMake is toolchain information.
+CMake needs to be aware about Toolchain we would like to use to finally compile the project with.
 As same toolchain is usually reused among different projects, it is advised to create this part in separate file for easier reuse. These are generic compiler settings and not directly linked to projects itself.
 
-A simple `.cmake` can be used and later reused among projects. I am using name `gcc-arm-none-eabi.cmake` for this tutorial and below is its example:
+A simple `.cmake` file can be used and later reused among your various projects. I am using name `cmake/gcc-arm-none-eabi.cmake` for this tutorial and below is its example:
 
 ```cmake
 set(CMAKE_SYSTEM_NAME               Generic)
@@ -230,10 +226,10 @@ set(CMAKE_EXECUTABLE_SUFFIX_CXX     ".elf")
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 ```
 
-Create a file in the root of the folder.
+Create a file in the `cmake/` folder of root project directory.
 ![VSCode - 2 - CMake - Toolchain](docs/images/vscode-2-cmake-toolchain.png)
 
-> If CMake highlighter plugin is installed, VSCode will nicely colorize CMake commands for you
+> If CMake highlighter plugin is installed, VSCode will nicely highlight CMake commands for you
 
 Toolchain setup is complete. You can freely close the file and move to next step.
 
@@ -355,10 +351,9 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 )
 ```
 
-Now we need to fill it properly.
-Source files are the same as in STM32CubeIDE project. You can check previous image with highlighted sources in yellow color.
+Source files are the same as in *STM32CubeIDE* project. You can check previous image with highlighted sources in yellow color.
 
-Symbols and include paths can be found in STM32CubeIDE under project settings. `2` pictures below are showing how it is in the case of demo project.
+Symbols and include paths can be found in *STM32CubeIDE* under project settings. `2` pictures below are showing how it is in the case of demo project.
 
 ![STM32CubeIDE - include paths](docs/images/cubeide-include-paths.png)
 ![STM32CubeIDE - symbols](docs/images/cubeide-symbols.png)
@@ -530,66 +525,89 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 In VSCode, well highlighted, it looks like this
 ![VSCode - final CMakeLists.txt](docs/images/vscode-3-cmake-final.png)
 
-CMake source files are now created and we are ready to proceed to build *build system input files*, in our case we will run CMake engine to prepare build structure for *Ninja build system*
+## Create preset CMakePresets.json file
 
-Open VSCode integrated terminal and run command
-```
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="gcc-arm-none-eabi.cmake" -Bbuild -G Ninja
-```
+`CMakePresets.json` is a special file, available since CMake `3.18` and provides definition for user configuration, similar to *debug* and *release* configuration known in eclipse. Having this file allows developer to quickly change between *debug* and *release* mode, or even between *bootloader* and *main application*, that is a common use case in embedded applications.
 
-It should well complete the execution with similar output as on picture below, plus a new `build` folder should be added to the project. If CMake cannot generate build instructions for Ninja, you will get list of errors in the same terminal window.
-![VSCode - final CMakeLists.txt](docs/images/vscode-3-cmake-run.png)
+> This tutorial will not focus on details about the file, rather here is the provided template file
 
-> Every time you modify `CMakeLists.txt` file, you have to run above command to re-generate build system instructions, otherwise your file changes are not affected for build system.
+File describes:
+- Path to build directory for each build configuration
+- Default build type for each configuration (*Debug*, *Release*, ...)
+- Path to `*.cmake* toolchain descriptor
 
-## Run CMake command automatically
+> `4` presets are configured in the template for each of the default *CMake* configurations. Always up-to-date file is available in `templates/CMakePresets.json`
 
-*CMake-Tools* extension can be configured to create and run aforementioned command automatically on every file modification, but requires some additional steps.
-
-> Personally I highly recommend to do these steps. It will boost your productivity in the future.
-
-Start by creating a new `.vscode/cmake-kits.json` file and copy below text to it. This is a special file name for *CMake-Tools* extension and defines list of *CMake Kits*, or list of compiler settings.
 ```json
-[
-    {
-      "name": "GCC arm-none-eabi - custom toolchain setup",
-      "compilers": {
-        "C": "arm-none-eabi-gcc",
-        "CXX": "arm-none-eabi-g++"
-      },
-      "toolchainFile": "gcc-arm-none-eabi.cmake"
-    }
-]
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi.cmake",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "Debug",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "RelWithDebInfo",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "Release",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "MinSizeRel",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "MinSizeRel"
+            }
+        }
+    ]
+}
 ```
-![VSCode - CMake setup - quick start](docs/images/vscode-4-cmake-kits.png)
 
-> Restart VSCode after this step to refresh changes
+## Run CMake commands
 
-When you are back, hit `CTRL + SHIFT + P` to open command palette and type `CMake: Quick start`
-![VSCode - CMake setup - quick start](docs/images/vscode-5-cmake-quick-start.png)
+We have configured *CMake* with project information and are now ready to run the CMake commands.
 
-*CMake-Tools* extension will now get notified that there is `CMakeLists.txt` file and that it must take care of it. It will ask you to pick *CMake kit* (compiler setup to use with `CMakeLists.txt` file).
-Previously we created `cmake-kits.json` file with added custom config named `GCC arm-none-eabi - custom toolchain setup`. Extension will use our file to find custom kits.
+VSCode comes with *CMake Tools* plugin - a great helper for CMake commands. When installed, several options are available at the bottom of the VSCode active window
 
-If you do not see it on the list, force re-scan and try to select kit again.
-At the bottom of your VSCode window is *No active kit* that is clickable to change the kit.
-![VSCode - CMake setup - quick start](docs/images/vscode-6-scan-for-kits.png)
+![VSCode - Default CMake Tools plugin view](docs/images/vscode-5-cmake-tools-window-default.png)
 
-After rescan process, our custom kit is now available and can be selected
-![VSCode - CMake setup - kit selection](docs/images/vscode-7-kit-found.png)
+As you can see, there is no Configuration Preset selected.
 
-Very good, now that we reached so far, our next step is to again run CMake to generate build configuration for *Ninja*, mainly to test if it works well.
+> If you do not see such information, hit `CTRl + ALT + P` and run `CMake: Quick Start` command.
 
-There are `2` ways of executing CMake generation step:
+Next step is to select current *preset*. Click on *No Configure Preset Selected* to open a window on top side and select your *preset*. I selected *debug* for the sake of this tutorial.
 
-1. Use terminal and manually run command as mentioned before
-![VSCode - CMake setup - run cmake build system generation](docs/images/vscode-3-cmake-run.png)
-    - Command can be added to `tasks.json` file for future use
+![VSCode - Select application preset](docs/images/vscode-6-cmake-tools-select-preset.png)
 
-2. Or let *CMake-Tools* plugin to [re]generate it for you each time file `CMakeLists.txt` is changed and saved. Open `CMakeLists.txt` file, write & delete a character to mark file as *dirty*, finally save file with `CTRL + S`. *CMake-Tools* extension should run build system generation each time `CMakeLists.txt` file is saved. You should see this in `Output` tab
-![VSCode - CMake setup - auto run with Output information](docs/images/vscode-8-cmake-run-auto.png)
+When selected, text will change to selected *preset label*.
 
-For sure you can take a break or a beer at this point, and continue in `5` minutes. You did a great job so far.
+![VSCode - Preset selected](docs/images/vscode-7-cmake-tools-preset-selected-run-build.png)
+
+Next step is to hit *Build* button - as indicated with green rectangle. CMake will run commands:
+
+- Run build generator for selected preset
+- Actually build code with *Ninja*
 
 ## Build project with ninja
 
