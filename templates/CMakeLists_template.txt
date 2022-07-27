@@ -157,7 +157,7 @@ target_link_options(${EXECUTABLE} PRIVATE
     -lstdc++
     -lsupc++
     -Wl,--end-group
-    -Wl,-z,max-page-size=4        # Allow good software remapping across address space (with proper GCC section making)
+    -Wl,-z,max-page-size=8        # Allow good software remapping across address space (with proper GCC section making)
     -Wl,--print-memory-usage
 )
 
