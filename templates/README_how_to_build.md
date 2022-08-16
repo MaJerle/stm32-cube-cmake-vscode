@@ -25,3 +25,4 @@ For debugging from inside VSCode
 * Run `cmake --preset Debug` to generate build system for ninja using `Debug` preset, that comes with the default `CMakePresets.json` file
 * Run `cmake --build --preset Debug` to actually invoke ninja-build and compile with GCC
 * Go to `build/Debug` folder - you will find your `.elf` file there (only if build is a pass). This is default build directory for `Debug` preset that comes with the project
+* Clean the project with `cmake --build --preset Debug --target clean`
