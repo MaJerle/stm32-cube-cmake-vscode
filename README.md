@@ -805,12 +805,15 @@ To overcome this problem, let's create `.vscode/c_cpp_properties.json` file and 
     "version": 4,
     "configurations": [
         {
-            /* ms-vscode.cmake-tools plugin should be installed; it provides include paths and defines through CMake file */
+            /* 
+             * ms-vscode.cmake-tools plugin should be installed.
+             * 
+             * It provides data for C/C++ plugin,
+             * such as include paths, browse paths, defines, etc.
+             */
             "name": "STM32",
-            "intelliSenseMode": "${default}",
-
-            /* Use this and all the include paths will come from CMake configuration instead */
             "configurationProvider": "ms-vscode.cmake-tools",
+            "intelliSenseMode": "${default}"
         }
     ]
 }
