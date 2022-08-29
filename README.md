@@ -26,7 +26,7 @@ STM32CubeIDE also provides necessary tools needed later for *VSCode* development
 - ST-LINK GDBServer for debugging
 - STM32CubeProgrammer tool for code downloading and respective ST-Link drivers
 - Folder with STM32 SVD files
-- Drivers for ST-Link fo
+- Drivers for ST-Link
 
 **Environmental path setup**
 
@@ -135,7 +135,7 @@ Our task is to have a simple project that will toggle leds. LEDs are connected t
 Set pins as outputs with optional labels as `LED1` and `LED2` respectively
 ![STM32CubeIDE - 4](docs/images/cubeide-4.png)
 
-If you are using `STM32CubeMX`, go to *P*roject manager*, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
+If you are using `STM32CubeMX`, go to *Project manager*, set project name and be sure `STM32CubeIDE` is selected as `Toolchain`.
 ![STM32CubeIDE - 5](docs/images/cubeide-5.png)
 
 Go to advanced settings and select `LL` as drivers for generated code
