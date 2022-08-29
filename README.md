@@ -534,7 +534,7 @@ In VSCode, well highlighted, it looks like this
 File describes:
 - Path to build directory for each build configuration
 - Default build type for each configuration (*Debug*, *Release*, ...)
-- Path to `*.cmake* toolchain descriptor
+- Path to *.cmake* toolchain descriptor
 
 > `4` presets are configured in the template for each of the default *CMake* configurations
 
