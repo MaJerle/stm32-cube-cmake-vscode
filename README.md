@@ -118,6 +118,8 @@ At this point, all the tools are properly installed - you are on the right track
 Fundamental requirement to move forward is to have a working project that will be converted to *CMake* and developed in *VSCode*.
 For this purpose, I will guide you through simple new project creation using *STM32CubeMX* or *STM32CubeIDE* software tools.
 
+You can skip this part, if you already have your project to work on.
+
 > I used *STM32CubeIDE* tool and  STM32H735G-DK board for this demo.
 
 Open STM32CubeIDE and start new project
