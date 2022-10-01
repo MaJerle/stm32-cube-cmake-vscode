@@ -1,3 +1,7 @@
+# This is converter generated file, and shall not be touched by user
+#
+# It is always re-generated if converter script is called multiple times
+# Use CMakeLists.txt to apply user changes
 cmake_minimum_required(VERSION 3.22)
 
 # Core MCU flags, CPU, instruction set and FPU setup
@@ -11,7 +15,7 @@ set(cpu_PARAMS ${cpu_PARAMS}
     -mfloat-abi=hard
 )
 
-# Set linker script
+# Linker script
 set(linker_script_SRC ${linker_script_SRC}
     ${CMAKE_CURRENT_SOURCE_DIR}/STM32CubeIDE/STM32H735IGKX_FLASH.ld
 )
@@ -178,7 +182,7 @@ set(link_DIRS ${link_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc
 )
 
-# Link directories
+# Link libraries
 set(link_LIBS ${link_LIBS}
     :libtouchgfx-float-abi-hard.a
 )

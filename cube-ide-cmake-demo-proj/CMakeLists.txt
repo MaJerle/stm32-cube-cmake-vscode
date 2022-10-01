@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 3.22)
 
+#
+# This file is generated only once,
+# and is not re-generated if converter is called multiple times.
+#
+# User is free to modify the file as much as necessary
+#
+
 # Core project settings
 project(cube-ide-cmake-demo-proj)
 enable_language(C CXX ASM)
@@ -14,9 +21,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
 # Core MCU flags, CPU type, instruction set and FPU setup
-set(cpu_PARAMS -mthumb
-
+set(cpu_PARAMS 
     # Other parameters
+    # -mthumb
     # -mcpu, -mfloat, -mfloat-abi, ...
 )
 
