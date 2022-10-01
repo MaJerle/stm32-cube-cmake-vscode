@@ -1,325 +1,115 @@
 cmake_minimum_required(VERSION 3.22)
 
-message("Entering ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt")
-
-#
 # Core project settings
-#
-set(PROJ_PATH                       ${CMAKE_CURRENT_SOURCE_DIR})
 project(STM32H735G-DK)
 enable_language(C CXX ASM)
-message("Build type: "              ${CMAKE_BUILD_TYPE})
+message("Build type: " ${CMAKE_BUILD_TYPE})
 
 # Setup compiler settings
-set(CMAKE_C_STANDARD                11)
-set(CMAKE_C_STANDARD_REQUIRED       ON)
-set(CMAKE_C_EXTENSIONS              ON)
-set(CMAKE_CXX_STANDARD              20)
-set(CMAKE_CXX_STANDARD_REQUIRED     ON)
-set(CMAKE_CXX_EXTENSIONS            ON)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS ON)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS ON)
 
-#
-# Core MCU flags, CPU, instruction set and FPU setup
-#
-set(CPU_PARAMETERS
-    -mthumb
+# Core MCU flags, CPU type, instruction set and FPU setup
+set(cpu_PARAMS -mthumb
+
     # Other parameters
     # -mcpu, -mfloat, -mfloat-abi, ...
-    -mcpu=cortex-m7
-    -mfpu=fpv5-d16
-    -mfloat-abi=hard
 )
 
-# Set linker script
-set(linker_script_SRC               ${PROJ_PATH}/STM32CubeIDE/STM32H735IGKX_FLASH.ld)
-set(EXECUTABLE                      ${CMAKE_PROJECT_NAME})
+# Sources
+set(sources_SRCS)
 
-#
-# Source files
-#
-set(src__SRCS 
-    ${PROJ_PATH}/STM32H735G-DK.ioc)
+# Include directories for each compiler
+set(include_c_DIRS)
+set(include_cxx_DIRS)
+set(include_asm_DIRS)
 
-set(src_drivers_cmsis_SRCS 
-    ${PROJ_PATH}/Core/Src/system_stm32h7xx.c)
+# Symbols definition for each compiler
+set(symbols_c_SYMB)
+set(symbols_cxx_SYMB)
+set(symbols_asm_SYMB)
 
-set(src_drivers_stm32h7xx_hal_driver_SRCS 
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c)
+# Link directories and names of libraries
+set(link_DIRS)
+set(link_LIBS)
 
-set(src_middlewares_freertos_SRCS 
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/croutine.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/list.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/queue.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/tasks.c
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/timers.c)
+# Linker script
+set(linker_script_SRC)
 
-set(src_application_user_core_SRCS 
-    ${PROJ_PATH}/Core/Src/freertos.c
-    ${PROJ_PATH}/Core/Src/main.c
-    ${PROJ_PATH}/Core/Src/stm32h7xx_hal_msp.c
-    ${PROJ_PATH}/Core/Src/stm32h7xx_hal_timebase_tim.c
-    ${PROJ_PATH}/Core/Src/stm32h7xx_it.c
-    ${PROJ_PATH}/STM32CubeIDE/Application/User/Core/syscalls.c
-    ${PROJ_PATH}/STM32CubeIDE/Application/User/Core/sysmem.c)
+# Compiler options
+set(compiler_OPTS)
 
-set(src_drivers_bsp_components_SRCS 
-    ${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336.c
-    ${PROJ_PATH}/Drivers/BSP/Components/ft5336/ft5336_reg.c
-    ${PROJ_PATH}/Drivers/BSP/Components/mx25lm51245g/mx25lm51245g.c
-    ${PROJ_PATH}/Drivers/BSP/Components/s70kl1281/s70kl1281.c)
+# Linker options
+set(linker_OPTS)
 
-set(src_drivers_bsp_stm32h735g_dk_SRCS 
-    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.c
-    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.c
-    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c)
+# Now call generated cmake
+# This will add script generated
+# information to the project
+include("cmake_generated/cmake_generated.cmake")
 
-set(src_application_user_touchgfx_app_SRCS 
-    ${PROJ_PATH}/TouchGFX/App/app_touchgfx.c)
-
-set(src_application_user_touchgfx_target_SRCS 
-    ${PROJ_PATH}/TouchGFX/target/CortexMMCUInstrumentation.cpp
-    ${PROJ_PATH}/TouchGFX/target/STM32TouchController.cpp
-    ${PROJ_PATH}/TouchGFX/target/TouchGFXGPIO.cpp
-    ${PROJ_PATH}/TouchGFX/target/TouchGFXHAL.cpp)
-
-set(src_application_user_touchgfx_target_generated_SRCS 
-    ${PROJ_PATH}/TouchGFX/target/generated/OSWrappers.cpp
-    ${PROJ_PATH}/TouchGFX/target/generated/STM32DMA.cpp
-    ${PROJ_PATH}/TouchGFX/target/generated/TouchGFXConfiguration.cpp
-    ${PROJ_PATH}/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp)
-
-set(src_application_user_gui_SRCS 
-    ${PROJ_PATH}/TouchGFX/gui/src/common/FrontendApplication.cpp
-    ${PROJ_PATH}/TouchGFX/gui/src/containers/ScrollList_myContainer.cpp
-    ${PROJ_PATH}/TouchGFX/gui/src/model/Model.cpp
-    ${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1Presenter.cpp
-    ${PROJ_PATH}/TouchGFX/gui/src/screen1_screen/Screen1View.cpp)
-
-set(src_application_user_generated_SRCS 
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/CachedFont.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/FontCache.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_10_4bpp_0.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_20_4bpp_0.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Font_verdana_40_4bpp_0.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/GeneratedFont.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_10_4bpp.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_20_4bpp.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Kerning_verdana_40_4bpp.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_10_4bpp.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_20_4bpp.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/Table_verdana_40_4bpp.cpp
-    ${PROJ_PATH}/TouchGFX/generated/fonts/src/UnmappedDataFont.cpp
-    ${PROJ_PATH}/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp
-    ${PROJ_PATH}/TouchGFX/generated/gui_generated/src/containers/ScrollList_myContainerBase.cpp
-    ${PROJ_PATH}/TouchGFX/generated/gui_generated/src/screen1_screen/Screen1ViewBase.cpp
-    ${PROJ_PATH}/TouchGFX/generated/images/src/BitmapDatabase.cpp
-    ${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Blue_Buttons_Round_large.cpp
-    ${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Blue_Icons_Add_new_32.cpp
-    ${PROJ_PATH}/TouchGFX/generated/images/src/__designer/image_Dark_Backgrounds_Main_bg_texture_320x240px.cpp
-    ${PROJ_PATH}/TouchGFX/generated/texts/src/LanguageGb.cpp
-    ${PROJ_PATH}/TouchGFX/generated/texts/src/Texts.cpp
-    ${PROJ_PATH}/TouchGFX/generated/texts/src/TypedTextDatabase.cpp)
-
-set(src_application_user_startup_SRCS 
-    ${PROJ_PATH}/STM32CubeIDE/Application/User/Startup/startup_stm32h735igkx.s)
-
-#
-# Include directories
-#
-set(include_c_DIRS
-    ${PROJ_PATH}/Core/Inc
-    ${PROJ_PATH}/TouchGFX/App
-    ${PROJ_PATH}/TouchGFX/target/generated
-    ${PROJ_PATH}/TouchGFX/target
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/include
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
-    ${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
-    ${PROJ_PATH}/Drivers/CMSIS/Include
-    ${PROJ_PATH}/Drivers/BSP/Components/Common
-    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK
-    ${PROJ_PATH}/Middlewares/ST/touchgfx/framework/include
-    ${PROJ_PATH}/TouchGFX/generated/fonts/include
-    ${PROJ_PATH}/TouchGFX/generated/gui_generated/include
-    ${PROJ_PATH}/TouchGFX/generated/images/include
-    ${PROJ_PATH}/TouchGFX/generated/texts/include
-    ${PROJ_PATH}/TouchGFX/gui/include
-    ${PROJ_PATH}/TouchGFX/generated/videos/include
-)
-set(include_cxx_DIRS
-    ${PROJ_PATH}/Core/Inc
-    ${PROJ_PATH}/TouchGFX/App
-    ${PROJ_PATH}/TouchGFX/target/generated
-    ${PROJ_PATH}/TouchGFX/target
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/include
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
-    ${PROJ_PATH}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
-    ${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
-    ${PROJ_PATH}/Drivers/CMSIS/Include
-    ${PROJ_PATH}/Drivers/BSP/Components/Common
-    ${PROJ_PATH}/Drivers/BSP/STM32H735G-DK
-    ${PROJ_PATH}/Middlewares/ST/touchgfx/framework/include
-    ${PROJ_PATH}/TouchGFX/generated/fonts/include
-    ${PROJ_PATH}/TouchGFX/generated/gui_generated/include
-    ${PROJ_PATH}/TouchGFX/generated/images/include
-    ${PROJ_PATH}/TouchGFX/generated/texts/include
-    ${PROJ_PATH}/TouchGFX/gui/include
-    ${PROJ_PATH}/TouchGFX/generated/videos/include
-)
-set(include_asm_DIRS
-    
-)
-
-#
-# Symbols definition
-#
-set(symbols_c_SYMB
-    "USE_HAL_DRIVER"
-    "DEBUG"
-    "STM32H735xx"
-)
-set(symbols_cxx_SYMB
-    "USE_HAL_DRIVER"
-    "DEBUG"
-    "STM32H735xx"
-)
-set(symbols_asm_SYMB
-    "DEBUG"
-)
-
-#
 # Link directories setup
 # Must be before executable is added
-#
-set(link_DIRS
-    ${PROJ_PATH}/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc
+link_directories(${CMAKE_PROJECT_NAME} ${link_DIRS})
+
+# Create an executable object type
+add_executable(${CMAKE_PROJECT_NAME})
+
+# Add sources to executable
+target_sources(${CMAKE_PROJECT_NAME} PUBLIC ${sources_SRCS})
+
+# Add include paths
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    $<$<COMPILE_LANGUAGE:C>: ${include_c_DIRS}>
+    $<$<COMPILE_LANGUAGE:CXX>: ${include_cxx_DIRS}>
+    $<$<COMPILE_LANGUAGE:ASM>: ${include_asm_DIRS}>
 )
-link_directories(${EXECUTABLE} ${link_DIRS})
 
-#
-# Executable files
-#
-add_executable(${EXECUTABLE} 
-    ${src__SRCS}
-    ${src_drivers_cmsis_SRCS}
-    ${src_drivers_stm32h7xx_hal_driver_SRCS}
-    ${src_middlewares_freertos_SRCS}
-    ${src_application_user_core_SRCS}
-    ${src_drivers_bsp_components_SRCS}
-    ${src_drivers_bsp_stm32h735g_dk_SRCS}
-    ${src_application_user_touchgfx_app_SRCS}
-    ${src_application_user_touchgfx_target_SRCS}
-    ${src_application_user_touchgfx_target_generated_SRCS}
-    ${src_application_user_gui_SRCS}
-    ${src_application_user_generated_SRCS}
-    ${src_application_user_startup_SRCS})
-
-#
-# Add linked libraries for linker
-#
-set(link_LIBS
-    :libtouchgfx-float-abi-hard.a
-)
-target_link_libraries(${EXECUTABLE} ${link_LIBS})
-
-#
-# Project symbols
-#
-target_compile_definitions(${EXECUTABLE} PRIVATE
-    # Language specific only
+# Add project symbols (macros)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     $<$<COMPILE_LANGUAGE:C>: ${symbols_c_SYMB}>
     $<$<COMPILE_LANGUAGE:CXX>: ${symbols_cxx_SYMB}>
     $<$<COMPILE_LANGUAGE:ASM>: ${symbols_asm_SYMB}>
 
     # Configuration specific
-    $<$<CONFIG:Debug>:
-        DEBUG
-    >
+    $<$<CONFIG:Debug>:DEBUG>
     $<$<CONFIG:Release>: >
 )
 
-#
-# Add include paths for each of the compiler
-#
-target_include_directories(${EXECUTABLE} PRIVATE
-    # Language specific only
-    $<$<COMPILE_LANGUAGE:C>: ${include_c_DIRS}>
-    $<$<COMPILE_LANGUAGE:CXX>: ${include_cxx_DIRS}>
-    $<$<COMPILE_LANGUAGE:ASM>: ${include_asm_DIRS}>
+# Add linked libraries
+target_link_libraries(${CMAKE_PROJECT_NAME} ${link_LIBS})
 
-    # Configuration specific
-    $<$<CONFIG:Debug>: >
-    $<$<CONFIG:Release>: >
-)
-
-# Compiler and linker options
-target_compile_options(${EXECUTABLE} PRIVATE
-    ${CPU_PARAMETERS}
+# Compiler options
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
+    ${cpu_PARAMS}
+    ${compiler_OPTS}
     -Wall
     -Wextra
     -Wpedantic
     -Wno-unused-parameter
-    $<$<COMPILE_LANGUAGE:C>:
-
-    >
+    $<$<COMPILE_LANGUAGE:C>: >
     $<$<COMPILE_LANGUAGE:CXX>:
-        #-Wno-volatile
-        #-Wold-style-cast
-        #-Wuseless-cast
-        #-Wsuggest-override
+
+    # -Wno-volatile
+    # -Wold-style-cast
+    # -Wuseless-cast
+    # -Wsuggest-override
     >
-    $<$<COMPILE_LANGUAGE:ASM>:
-        -x assembler-with-cpp
-        -MMD
-        -MP
-    >
-    $<$<CONFIG:Debug>:
-        -Og -g3 -ggdb
-    >
-    $<$<CONFIG:Release>:
-        -Og -g0
-    >
+    $<$<COMPILE_LANGUAGE:ASM>:-x assembler-with-cpp -MMD -MP>
+    $<$<CONFIG:Debug>:-Og -g3 -ggdb>
+    $<$<CONFIG:Release>:-Og -g0>
 )
 
-# Setup linker parameters
-target_link_options(${EXECUTABLE} PRIVATE
+# Linker options
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
     -T${linker_script_SRC}
-    ${CPU_PARAMETERS}
+    ${cpu_PARAMS}
+    ${linker_OPTS}
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
-    -u _printf_float              # STDIO float formatting support (remove if not used)
+    -u _printf_float # STDIO float formatting support (remove if not used)
     --specs=nosys.specs
     -Wl,--start-group
     -lc
@@ -327,22 +117,21 @@ target_link_options(${EXECUTABLE} PRIVATE
     -lstdc++
     -lsupc++
     -Wl,--end-group
+    -Wl,-z,max-page-size=8 # Allow good software remapping across address space (with proper GCC section making)
     -Wl,--print-memory-usage
 )
 
 # Execute post-build to print size
-add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
-    COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${EXECUTABLE}>
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
 )
 
 # Convert output to hex and binary
-add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.hex
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.hex
 )
 
 # Convert to bin file -> add conditional check?
-add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.bin
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.bin
 )
-
-message("Exiting ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt")

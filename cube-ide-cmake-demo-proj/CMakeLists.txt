@@ -1,188 +1,115 @@
 cmake_minimum_required(VERSION 3.22)
 
-message("Entering ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt")
-
-#
 # Core project settings
-#
-set(PROJ_PATH                       ${CMAKE_CURRENT_SOURCE_DIR})
 project(cube-ide-cmake-demo-proj)
 enable_language(C CXX ASM)
-message("Build type: "              ${CMAKE_BUILD_TYPE})
+message("Build type: " ${CMAKE_BUILD_TYPE})
 
 # Setup compiler settings
-set(CMAKE_C_STANDARD                11)
-set(CMAKE_C_STANDARD_REQUIRED       ON)
-set(CMAKE_C_EXTENSIONS              ON)
-set(CMAKE_CXX_STANDARD              20)
-set(CMAKE_CXX_STANDARD_REQUIRED     ON)
-set(CMAKE_CXX_EXTENSIONS            ON)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS ON)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS ON)
 
-#
-# Core MCU flags, CPU, instruction set and FPU setup
-#
-set(CPU_PARAMETERS
-    -mthumb
+# Core MCU flags, CPU type, instruction set and FPU setup
+set(cpu_PARAMS -mthumb
+
     # Other parameters
     # -mcpu, -mfloat, -mfloat-abi, ...
-    -mcpu=cortex-m7
-    -mfpu=fpv5-d16
-    -mfloat-abi=hard
 )
 
-# Set linker script
-set(linker_script_SRC               ${PROJ_PATH}/STM32H735IGKX_FLASH.ld)
-set(EXECUTABLE                      ${CMAKE_PROJECT_NAME})
+# Sources
+set(sources_SRCS)
 
-#
-# Source files
-#
-set(src_core_src_SRCS 
-    ${PROJ_PATH}/Core/Src/main.c
-    ${PROJ_PATH}/Core/Src/stm32h7xx_it.c
-    ${PROJ_PATH}/Core/Src/syscalls.c
-    ${PROJ_PATH}/Core/Src/sysmem.c
-    ${PROJ_PATH}/Core/Src/system_stm32h7xx.c)
+# Include directories for each compiler
+set(include_c_DIRS)
+set(include_cxx_DIRS)
+set(include_asm_DIRS)
 
-set(src_core_startup_SRCS 
-    ${PROJ_PATH}/Core/Startup/startup_stm32h735igkx.s)
+# Symbols definition for each compiler
+set(symbols_c_SYMB)
+set(symbols_cxx_SYMB)
+set(symbols_asm_SYMB)
 
-set(src_drivers_stm32h7xx_hal_driver_src_SRCS 
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c)
+# Link directories and names of libraries
+set(link_DIRS)
+set(link_LIBS)
 
-#
-# Include directories
-#
-set(include_c_DIRS
-    ${PROJ_PATH}/Core/Inc
-    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Inc
-    ${PROJ_PATH}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
-    ${PROJ_PATH}/Drivers/CMSIS/Include
-)
-set(include_cxx_DIRS
-    
-)
-set(include_asm_DIRS
-    
-)
+# Linker script
+set(linker_script_SRC)
 
-#
-# Symbols definition
-#
-set(symbols_c_SYMB
-    "DEBUG"
-    "STM32H735xx"
-    "USE_FULL_LL_DRIVER"
-    "HSE_VALUE=25000000"
-    "HSE_STARTUP_TIMEOUT=100"
-    "LSE_STARTUP_TIMEOUT=5000"
-    "LSE_VALUE=32768"
-    "EXTERNAL_CLOCK_VALUE=12288000"
-    "HSI_VALUE=64000000"
-    "LSI_VALUE=32000"
-    "VDD_VALUE=3300"
-)
-set(symbols_cxx_SYMB
-    
-)
-set(symbols_asm_SYMB
-    "DEBUG"
-)
+# Compiler options
+set(compiler_OPTS)
 
-#
+# Linker options
+set(linker_OPTS)
+
+# Now call generated cmake
+# This will add script generated
+# information to the project
+include("cmake_generated/cmake_generated.cmake")
+
 # Link directories setup
 # Must be before executable is added
-#
-set(link_DIRS
-    
+link_directories(${CMAKE_PROJECT_NAME} ${link_DIRS})
+
+# Create an executable object type
+add_executable(${CMAKE_PROJECT_NAME})
+
+# Add sources to executable
+target_sources(${CMAKE_PROJECT_NAME} PUBLIC ${sources_SRCS})
+
+# Add include paths
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    $<$<COMPILE_LANGUAGE:C>: ${include_c_DIRS}>
+    $<$<COMPILE_LANGUAGE:CXX>: ${include_cxx_DIRS}>
+    $<$<COMPILE_LANGUAGE:ASM>: ${include_asm_DIRS}>
 )
-link_directories(${EXECUTABLE} ${link_DIRS})
 
-#
-# Executable files
-#
-add_executable(${EXECUTABLE} 
-    ${src_core_src_SRCS}
-    ${src_core_startup_SRCS}
-    ${src_drivers_stm32h7xx_hal_driver_src_SRCS})
-
-#
-# Add linked libraries for linker
-#
-set(link_LIBS
-    
-)
-target_link_libraries(${EXECUTABLE} ${link_LIBS})
-
-#
-# Project symbols
-#
-target_compile_definitions(${EXECUTABLE} PRIVATE
-    # Language specific only
+# Add project symbols (macros)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     $<$<COMPILE_LANGUAGE:C>: ${symbols_c_SYMB}>
     $<$<COMPILE_LANGUAGE:CXX>: ${symbols_cxx_SYMB}>
     $<$<COMPILE_LANGUAGE:ASM>: ${symbols_asm_SYMB}>
 
     # Configuration specific
-    $<$<CONFIG:Debug>:
-        DEBUG
-    >
+    $<$<CONFIG:Debug>:DEBUG>
     $<$<CONFIG:Release>: >
 )
 
-#
-# Add include paths for each of the compiler
-#
-target_include_directories(${EXECUTABLE} PRIVATE
-    # Language specific only
-    $<$<COMPILE_LANGUAGE:C>: ${include_c_DIRS}>
-    $<$<COMPILE_LANGUAGE:CXX>: ${include_cxx_DIRS}>
-    $<$<COMPILE_LANGUAGE:ASM>: ${include_asm_DIRS}>
+# Add linked libraries
+target_link_libraries(${CMAKE_PROJECT_NAME} ${link_LIBS})
 
-    # Configuration specific
-    $<$<CONFIG:Debug>: >
-    $<$<CONFIG:Release>: >
-)
-
-# Compiler and linker options
-target_compile_options(${EXECUTABLE} PRIVATE
-    ${CPU_PARAMETERS}
+# Compiler options
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
+    ${cpu_PARAMS}
+    ${compiler_OPTS}
     -Wall
     -Wextra
     -Wpedantic
     -Wno-unused-parameter
-    $<$<COMPILE_LANGUAGE:C>:
-
-    >
+    $<$<COMPILE_LANGUAGE:C>: >
     $<$<COMPILE_LANGUAGE:CXX>:
-        #-Wno-volatile
-        #-Wold-style-cast
-        #-Wuseless-cast
-        #-Wsuggest-override
+
+    # -Wno-volatile
+    # -Wold-style-cast
+    # -Wuseless-cast
+    # -Wsuggest-override
     >
-    $<$<COMPILE_LANGUAGE:ASM>:
-        -x assembler-with-cpp
-        -MMD
-        -MP
-    >
-    $<$<CONFIG:Debug>:
-        -Og -g3 -ggdb
-    >
-    $<$<CONFIG:Release>:
-        -Og -g0
-    >
+    $<$<COMPILE_LANGUAGE:ASM>:-x assembler-with-cpp -MMD -MP>
+    $<$<CONFIG:Debug>:-Og -g3 -ggdb>
+    $<$<CONFIG:Release>:-Og -g0>
 )
 
-# Setup linker parameters
-target_link_options(${EXECUTABLE} PRIVATE
+# Linker options
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
     -T${linker_script_SRC}
-    ${CPU_PARAMETERS}
+    ${cpu_PARAMS}
+    ${linker_OPTS}
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
-    -u _printf_float              # STDIO float formatting support (remove if not used)
+    -u _printf_float # STDIO float formatting support (remove if not used)
     --specs=nosys.specs
     -Wl,--start-group
     -lc
@@ -190,22 +117,21 @@ target_link_options(${EXECUTABLE} PRIVATE
     -lstdc++
     -lsupc++
     -Wl,--end-group
+    -Wl,-z,max-page-size=8 # Allow good software remapping across address space (with proper GCC section making)
     -Wl,--print-memory-usage
 )
 
 # Execute post-build to print size
-add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
-    COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${EXECUTABLE}>
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
 )
 
 # Convert output to hex and binary
-add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.hex
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.hex
 )
 
 # Convert to bin file -> add conditional check?
-add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${EXECUTABLE}> ${EXECUTABLE}.bin
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.bin
 )
-
-message("Exiting ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt")
