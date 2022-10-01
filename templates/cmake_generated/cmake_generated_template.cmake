@@ -54,3 +54,9 @@ set(link_DIRS ${link_DIRS}
 set(link_LIBS ${link_LIBS}
     {{sr:link_LIBS}}
 )
+
+# Compiler options
+set(compiler_OPTS ${compiler_OPTS})
+
+# Linker options
+set(linker_OPTS ${linker_OPTS})
