@@ -14,7 +14,7 @@
             "device": "",                       //MCU used, ex. "STM32H735IG"
             "interface": "swd",
             "serialNumber": "",                 //Set ST-Link ID if you use multiple at the same time
-            "runToMain": true,
+            "runToEntryPoint": "main",
             "svdFile": "path/to/file.svd",      //Path to SVD file to see registers
             "v1": false,
             "showDevDebugOutput": "both",
