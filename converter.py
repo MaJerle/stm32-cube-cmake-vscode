@@ -1,4 +1,25 @@
-import time
+"""python converter.py [-f] [-path ...]
+
+Converter reads ".cproject" and ".project" files from STM32CubeIDE project (eclipse)
+and tries to parse files used for build, find include paths, precompiled headers and any link libraries (including search path)
+
+Use STM32CubeMX or STM32CubeIDE to create project for GCC, then run the script to generate
+appropriate CMakeLists.txt file (with its respective dependencies) to develop, compile and run project from VSCode.
+
+Script will generate multiple files, out of which there is a "*generated" folder that is re-generated
+each time the script is run. Other files are generated only once (if they do not exist).
+This let's user to further customize files for its own purpose.
+
+Remember: Always make a backup before re-running converter script.
+
+-f          Force.      It forces rebuild of all files,
+                        including those that are normally not touched after first generation.
+                        Mostly useful when using new version of converter, 
+                        to completely rebuild everything from scratch
+-path       Path[s].    List of paths to run converter on.
+                        Paths must be a folder containing ".cproject" and ".project" files from
+                        STM32CubeIDE project.
+"""
 import os
 import glob
 import xml.etree.ElementTree as ET
@@ -11,7 +32,9 @@ import traceback
 
 NEWLINE_INDENTED = '\n    '
 
-
+#
+# Generate parser object
+#
 def get_parser():
     parser = argparse.ArgumentParser(
         description='Generate CMakeLists.txt from STM32CubeIDE project path')
@@ -25,8 +48,6 @@ def get_parser():
 #
 # Copy tree of data
 #
-
-
 def copytree(src, dst, symlinks=False, ignore=None, dirs_exist_ok=True):
     for item in os.listdir(src):
         s = os.path.join(src, item)
@@ -42,8 +63,6 @@ def copytree(src, dst, symlinks=False, ignore=None, dirs_exist_ok=True):
 #
 # Useful for fast search in the tree, usually by ID
 #
-
-
 def normalize_xml_tree(treeRoot):
     normalized = [{"tag": treeRoot.tag,
                    "attr": treeRoot.attrib, "obj": treeRoot}]
@@ -55,8 +74,6 @@ def normalize_xml_tree(treeRoot):
 # Creates path relative to CMakeLists.txt base path
 # And adds (optionally) CMake prefix
 #
-
-
 def gen_relative_path_to_cmake_folder(cmakefolder, path, add_prefix=True, replace_ds=True):
     try:
         path = os.path.relpath(path, cmakefolder)
@@ -74,8 +91,6 @@ def gen_relative_path_to_cmake_folder(cmakefolder, path, add_prefix=True, replac
 #
 # Main function to parse and generate CMakeLists.txt file
 #
-
-
 def parse_and_generate(projectFolderBasePath, args):
     print("--------")
     print("Configuring project with base path:", projectFolderBasePath)
