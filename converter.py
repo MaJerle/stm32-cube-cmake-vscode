@@ -1,4 +1,4 @@
-"""python converter.py [-f] [-path ...]
+"""python converter.py [-f] --path path1 [path2 [path3 ...]]
 
 Converter reads ".cproject" and ".project" files from STM32CubeIDE project (eclipse)
 and tries to parse files used for build, find include paths, precompiled headers and any link libraries (including search path)
