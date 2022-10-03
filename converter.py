@@ -105,92 +105,36 @@ def parse_and_generate(projectFolderBasePath, args):
         os.path.join(projectFolderBasePath, ".cproject")
     ]
 
-    # Glob for all source and header files
+    # Prepare global data object
     data_obj = {
         'project_name': '',
-        'confs': {
-            'debug': {
-                'target_mcu': '',
-                'source_folders': [],
-                'fpu': '',
-                'float_abi': '',
-                'c': {
-                    'symbols': [],
-                    'incl_paths': [],
-                    'libs': [],
-                    'libs_dirs': [],
-                    'ddbg_lvl': '',
-                    'optim_lvl': '',
-                    'other_flags': [],
-                    'linker_script': '',
-                },
-                'cxx': {
-                    'symbols': [],
-                    'incl_paths': [],
-                    'libs': [],
-                    'libs_dirs': [],
-                    'ddbg_lvl': '',
-                    'optim_lvl': '',
-                    'other_flags': [],
-                    'linker_script': '',
-                },
-                'asm': {
-                    'symbols': [],
-                    'incl_paths': [],
-                    'libs': [],
-                    'libs_dirs': [],
-                    'ddbg_lvl': '',
-                    'optim_lvl': '',
-                    'other_flags': [],
-                    'linker_script': '',
-                },
-                'libs': [],
-                'libs_dirs': [],
-                'source_folders': [],
-            },
-            'release': {
-                'target_mcu': '',
-                'source_folders': [],
-                'fpu': '',
-                'float_abi': '',
-                'c': {
-                    'symbols': [],
-                    'incl_paths': [],
-                    'libs': [],
-                    'libs_dirs': [],
-                    'ddbg_lvl': '',
-                    'optim_lvl': '',
-                    'other_flags': [],
-                    'linker_script': '',
-                },
-                'cxx': {
-                    'symbols': [],
-                    'incl_paths': [],
-                    'libs': [],
-                    'libs_dirs': [],
-                    'ddbg_lvl': '',
-                    'optim_lvl': '',
-                    'other_flags': [],
-                    'linker_script': '',
-                },
-                'asm': {
-                    'symbols': [],
-                    'incl_paths': [],
-                    'libs': [],
-                    'libs_dirs': [],
-                    'ddbg_lvl': '',
-                    'optim_lvl': '',
-                    'other_flags': [],
-                    'linker_script': '',
-                },
-                'libs': [],
-                'libs_dirs': [],
-                'source_folders': [],
-            },
-        },
+        'confs': {},
         'linked_files': {},
         'all_source_files_in_path': []
     }
+    # Add configuration object
+    for conf in ['debug', 'release']:
+        data_obj['confs'][conf] = {
+            'target_mcu': '',
+            'source_folders': [],
+            'fpu': '',
+            'float_abi': '',
+            'libs': [],
+            'libs_dirs': [],
+            'source_folders': [],
+        }
+        # Add language objects to configuration
+        for lang in ['c', 'cxx', 'asm']:
+            data_obj['confs'][conf][lang] = {
+                'symbols': [],
+                'incl_paths': [],
+                'libs': [],
+                'libs_dirs': [],
+                'ddbg_lvl': '',
+                'optim_lvl': '',
+                'other_flags': [],
+                'linker_script': '',
+            }
 
     # Parse XML files
     cproj_parsed = False
@@ -226,16 +170,14 @@ def parse_and_generate(projectFolderBasePath, args):
     # Print values to user
     print("Project top folder path:                  ", projectFolderBasePath)
     print("Project .cproject and .project basepath:  ", CProjBasePath)
-    print("Project base vs .c/.cproj difference path:",
-          CProjBasePath_ProjectBasePath_diff)
+    print("Project base vs .c/.cproj difference path:", CProjBasePath_ProjectBasePath_diff)
 
     #
     # We can normalize tree to one array once we are inside one configuration.
     # Every feature has a "superClass" tag, that can be used for identification purpose
     #
     print("Processing .cproject file")
-    fTreeRootCproj = fTreeCproj.getroot()
-    fTreeCprojNormalized = normalize_xml_tree(fTreeRootCproj)
+    fTreeCprojNormalized = normalize_xml_tree(fTreeCproj.getroot())
     for tEntry in fTreeCprojNormalized:
         #
         # We want to parse debug configuration only for the moment
@@ -428,8 +370,7 @@ def parse_and_generate(projectFolderBasePath, args):
     # Handle .project file
     #
     print("Processing .project file")
-    fTreeRootProj = fTreeProj.getroot()
-    fTreeRootProjNormalized = normalize_xml_tree(fTreeRootProj)
+    fTreeRootProjNormalized = normalize_xml_tree(fTreeProj.getroot())
     for treeEntry in fTreeRootProjNormalized:
         # Check project description
         if treeEntry['tag'] == 'projectDescription':
@@ -476,8 +417,7 @@ def parse_and_generate(projectFolderBasePath, args):
         for sourceGroup in data_obj['confs'][conf]['source_folders']:
             files = sourceGroup['files']
             for f in files:
-                folder_name = os.path.dirname(f.replace(os.path.join(CProjBasePath, ''), '')).replace(
-                    '/', '_').replace('\\', '_').replace('-', '_').lower()
+                folder_name = os.path.dirname(f.replace(os.path.join(CProjBasePath, ''), '')).replace('/', '_').replace('\\', '_').replace('-', '_').lower()
                 if folder_name not in data_obj['linked_files']:
                     data_obj['linked_files'][folder_name] = []
                 if f not in data_obj['linked_files'][folder_name]:
@@ -676,43 +616,47 @@ def parse_and_generate(projectFolderBasePath, args):
 
     #
     # Check if user's top cmake file exists
+    # 
+    # File is generated if it does not exist,
+    # or if regeneration is being forced by user
     #
-    cmakefilename = os.path.normpath(os.path.join(
-        projectFolderBasePath, 'CMakeLists.txt'))
+    cmakefilename = os.path.normpath(os.path.join(projectFolderBasePath, 'CMakeLists.txt'))
     if args.f or not os.path.exists(cmakefilename):
-        # We should create first cmakefile
         cmakelistsdata = ''
         with open("templates/CMakeLists_template.txt", "r") as file:
             cmakelistsdata = file.read()
 
-        # Set project name
+        # Set project name to cmakelists file
         project_name = data_obj['project_name']
         if len(project_name) == 0:
             project_name = 'unknown'
-        cmakelistsdata = cmakelistsdata.replace(
-            '{{sr:project_name}}', project_name)
+        cmakelistsdata = cmakelistsdata.replace('{{sr:project_name}}', project_name)
 
         # Write data to CMakeLists.txt for user
         with open(cmakefilename, "w") as file:
             file.write(cmakelistsdata)
         print("Generated user CMakeLists.txt file:", cmakefilename)
 
-    #  Copy all files to user folder
+    # Copy all files to user folder
+    # It will be copied only if it does not exists
     try:
         copytree('templates/', os.path.join(projectFolderBasePath))
     except Exception as e:
         traceback.print_exc()
         pass
 
-    # Remove remaining files
+    #
+    # Remove any *_template* files that were copied to user's folder
+    # TODO: Consider using another folder for templates
+    #
     for f in ['CMakeLists_template.txt', 'cmake_generated/cmake_generated_template.cmake']:
         try:
-            # Remove template file 1
+            # Remove template files
             os.remove(os.path.join(projectFolderBasePath, f))
         except Exception as e:
             pass
 
-    # That's it
+    # That's it - thank you for your service
     print("--------")
     print("Finished")
     print("--------")
