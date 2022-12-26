@@ -43,7 +43,9 @@
                 "--connect",
                 "port=swd",
                 "--download", "${command:cmake.launchTargetPath}",
-                "-hardRst"
+                "-hardRst", // Hardware reset - if rst pin is connected
+                "-rst",     // Software reset (backup)
+                "--start"   // Start execution
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -59,7 +61,9 @@
                 "port=swd",
                 "sn=<yourserialnumber>",
                 "--download", "${command:cmake.launchTargetPath}",
-                "-hardRst"
+                "-hardRst", // Hardware reset - if rst pin is connected
+                "-rst",     // Software reset (backup)
+                "--start"   // Start execution
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

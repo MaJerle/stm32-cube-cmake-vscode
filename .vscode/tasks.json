@@ -5,11 +5,13 @@
             "type": "shell",
             "label": "Run converter",
             "command": "python",
-            "args": ["converter.py",
+            "args": [
+                "stm32-cube-cmake-vscode.py",
+
                 "-f",       //Force
-                "--path",
 
                 //Repository projects
+                "--path",
                 "cube-ide-cmake-demo-proj",
                 "script-projects/h735g-dk-usart/",
                 "script-projects/h735g-dk-touchgfx/",

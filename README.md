@@ -923,7 +923,7 @@ Full project from this tutorial is available in `cube-ide-cmake-demo-proj` folde
 
 # Automatic STM32CubeIDE script
 
-Part of this repository is also `converter.py` experimetal script, target being taking location of your STM32CubeIDE generated project as an input, finding `.cproject` and `.project` files and generate appropriate `CMakeLists.txt` file, to allow users to use VSCode environment, fully automatically.
+Part of this repository is also `stm32-cube-cmake-vscode.py` experimetal script, target being taking location of your STM32CubeIDE generated project as an input, finding `.cproject` and `.project` files and generate appropriate `CMakeLists.txt` file, to allow users to use VSCode environment, fully automatically.
 
 > It is very experimental use case, however it works well for basic projects generated with STM32CubeIDE. It has not been tested extensively for the moment and bugs may still appear.
 
@@ -966,12 +966,12 @@ Part of this repository is also `converter.py` experimetal script, target being 
 
 Run script with arguments:
 ```
-python converter.py --path "path1" ["path2" ["pathn", [...]]]
+python stm32-cube-cmake-vscode [-f] --path "path1" ["path2" ["pathn", [...]]]
 ```
 
 As an example, giving demo projects in `script-projects/` dir, script shall be executed as
 ```
-python converter.py --path "script-projects/h735g-dk-touchgfx/" "script-projects/h735g-dk-usart/"
+python stm32-cube-cmake-vscode [-f] --path "script-projects/h735g-dk-touchgfx/" "script-projects/h735g-dk-usart/"
 ```
 `CMakeLists.txt` will be generated in the provided paths, but only if converter is able to find `.project` and `.cproject` files inside project directory
 

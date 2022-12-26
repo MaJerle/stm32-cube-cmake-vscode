@@ -165,12 +165,12 @@ def parse_and_generate(projectFolderBasePath, args):
         print(".cproject or .project not found or could not be parsed. Exiting the parse process")
         print("--------")
         return
-    print(".cproject or .project files parsed")
 
     # Print values to user
     print("Project top folder path:                  ", projectFolderBasePath)
     print("Project .cproject and .project basepath:  ", CProjBasePath)
     print("Project base vs .c/.cproj difference path:", CProjBasePath_ProjectBasePath_diff)
+    print(".cproject or .project files parsed")
 
     #
     # We can normalize tree to one array once we are inside one configuration.
