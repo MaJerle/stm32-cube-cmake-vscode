@@ -8,7 +8,7 @@ set(FLAGS                           "-fdata-sections -ffunction-sections --specs
 set(CPP_FLAGS                       "-fno-rtti -fno-exceptions -fno-threadsafe-statics")
 
 set(CMAKE_C_FLAGS                   ${FLAGS})
-set(CMAKE_CPP_FLAGS                 ${FLAGS} ${CPP_FLAGS})
+set(CMAKE_CXX_FLAGS                 ${FLAGS} ${CPP_FLAGS})
 
 set(CMAKE_C_COMPILER                ${TOOLCHAIN_PREFIX}gcc)
 set(CMAKE_ASM_COMPILER              ${CMAKE_C_COMPILER})
