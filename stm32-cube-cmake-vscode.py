@@ -472,22 +472,33 @@ def parse_and_generate(projectFolderBasePath, args):
             print(
                 "Target_MCU len is less than 7 characters. Not enough to determine STM32 Cortex-M CPU")
             continue
-        target_mcu = target_mcu[0:7].upper()
-        if target_mcu in ['STM32F0']:
-            target_cpu = '-mcpu=cortex-m0'
-        elif target_mcu in ['STM32L0', 'STM32G0', 'STM32C0']:
-            target_cpu = '-mcpu=cortex-m0plus'
-        elif target_mcu in ['STM32F1', 'STM32F2', 'STM32L1']:
-            target_cpu = '-mcpu=cortex-m3'
-        elif target_mcu in ['STM32F3', 'STM32F4', 'STM32L4', 'STM32G4', 'STM32WB', 'STM32WL']:
-            target_cpu = '-mcpu=cortex-m4'
-        elif target_mcu in ['STM32L5', 'STM32U5']:
-            target_cpu = '-mcpu=cortex-m33'
-        elif target_mcu in ['STM32F7', 'STM32H7']:
-            target_cpu = '-mcpu=cortex-m7'
-        else:
-            print("Unknown STM32")
-            return
+
+        found_mcu = False
+        # First try WBA w/ different core
+        if len(target_mcu) >= 8: 
+            target_mcu = target_mcu[0:8].upper()
+            if target_mcu in ['STM32WBA']:
+                target_cpu = '-mcpu=cortex-m33'
+                found_mcu = True
+        
+        # Then try to analyze other options
+        if not found_mcu:
+            target_mcu = target_mcu[0:7].upper()
+            if target_mcu in ['STM32F0']:
+                target_cpu = '-mcpu=cortex-m0'
+            elif target_mcu in ['STM32L0', 'STM32G0', 'STM32C0']:
+                target_cpu = '-mcpu=cortex-m0plus'
+            elif target_mcu in ['STM32F1', 'STM32F2', 'STM32L1']:
+                target_cpu = '-mcpu=cortex-m3'
+            elif target_mcu in ['STM32F3', 'STM32F4', 'STM32L4', 'STM32G4', 'STM32WB', 'STM32WL']:
+                target_cpu = '-mcpu=cortex-m4'
+            elif target_mcu in ['STM32L5', 'STM32U5', 'STM32H5']:
+                target_cpu = '-mcpu=cortex-m33'
+            elif target_mcu in ['STM32F7', 'STM32H7']:
+                target_cpu = '-mcpu=cortex-m7'
+            else:
+                print("Unknown STM32")
+                return
         cpu_params.append(target_cpu)
 
         # Set floating point
