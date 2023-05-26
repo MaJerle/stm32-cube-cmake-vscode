@@ -530,6 +530,7 @@ def parse_and_generate(projectFolderBasePath, args):
             source_files_paths.append(f)
     for p in data_obj['all_source_files_in_path']:
         source_files_paths.append(p)
+    source_files_paths.sort()
 
     # Check all files in the same directory as .cproject/.project directory
     templatefiledata = templatefiledata.replace(
