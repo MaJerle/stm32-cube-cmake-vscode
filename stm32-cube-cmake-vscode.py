@@ -516,6 +516,7 @@ def parse_and_generate(projectFolderBasePath, args):
             cpu_params.append(target_fpu_abi)
 
         # Make replacements
+        cpu_params.sort()
         templatefiledata = templatefiledata.replace(
             '{{sr:cpu_params}}', NEWLINE_INDENTED.join(cpu_params))
 
@@ -557,6 +558,7 @@ def parse_and_generate(projectFolderBasePath, args):
 
                 # Normalize path to remove "Debug" from path
                 paths.append(os.path.normpath(path))
+            paths.sort()
             templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', NEWLINE_INDENTED.join(
                 [gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in paths]))
 
@@ -567,6 +569,7 @@ def parse_and_generate(projectFolderBasePath, args):
     for conf in ['debug']:
         for compiler in ['c', 'cxx', 'asm']:
             varname = 'symbols_' + compiler + '_SYMB'
+            data_obj['confs'][conf][compiler]['symbols'].sort()
             templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', NEWLINE_INDENTED.join(
                 ["\"" + f + "\"" for f in data_obj['confs'][conf][compiler]['symbols']]))
 
@@ -579,6 +582,7 @@ def parse_and_generate(projectFolderBasePath, args):
         for i in range(len(paths)):
             # Do some optimizations with path if necessary
             pass
+        libs.sort()
         templatefiledata = templatefiledata.replace('{{sr:link_DIRS}}', NEWLINE_INDENTED.join([gen_relative_path_to_cmake_folder(
             projectFolderBasePath, os.path.normpath(os.path.join(CProjBasePath, 'Debug', p))) for p in paths]))
         templatefiledata = templatefiledata.replace(
