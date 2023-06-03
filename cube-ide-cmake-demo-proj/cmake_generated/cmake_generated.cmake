@@ -11,8 +11,8 @@ set(cpu_PARAMS ${cpu_PARAMS}
     # Other parameters
     # -mcpu, -mfloat, -mfloat-abi, ...
     -mcpu=cortex-m7
-    -mfpu=fpv5-d16
     -mfloat-abi=hard
+    -mfpu=fpv5-d16
 )
 
 # Linker script
@@ -38,9 +38,9 @@ set(sources_SRCS ${sources_SRCS}
 # Include directories
 set(include_c_DIRS ${include_c_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Include
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Inc
 )
 set(include_cxx_DIRS ${include_cxx_DIRS}
     
@@ -52,15 +52,15 @@ set(include_asm_DIRS ${include_asm_DIRS}
 # Symbols definition
 set(symbols_c_SYMB ${symbols_c_SYMB}
     "DEBUG"
-    "STM32H735xx"
-    "USE_FULL_LL_DRIVER"
-    "HSE_VALUE=25000000"
+    "EXTERNAL_CLOCK_VALUE=12288000"
     "HSE_STARTUP_TIMEOUT=100"
+    "HSE_VALUE=25000000"
+    "HSI_VALUE=64000000"
     "LSE_STARTUP_TIMEOUT=5000"
     "LSE_VALUE=32768"
-    "EXTERNAL_CLOCK_VALUE=12288000"
-    "HSI_VALUE=64000000"
     "LSI_VALUE=32000"
+    "STM32H735xx"
+    "USE_FULL_LL_DRIVER"
     "VDD_VALUE=3300"
 )
 set(symbols_cxx_SYMB ${symbols_cxx_SYMB}

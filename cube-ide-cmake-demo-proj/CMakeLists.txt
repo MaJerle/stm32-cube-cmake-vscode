@@ -30,10 +30,16 @@ set(cpu_PARAMS
 # Sources
 set(sources_SRCS)
 
+# Include directories for all compilers
+set(include_DIRS)
+
 # Include directories for each compiler
 set(include_c_DIRS)
 set(include_cxx_DIRS)
 set(include_asm_DIRS)
+
+# Symbols definition for all compilers
+set(symbols_SYMB)
 
 # Symbols definition for each compiler
 set(symbols_c_SYMB)
@@ -70,6 +76,7 @@ target_sources(${CMAKE_PROJECT_NAME} PUBLIC ${sources_SRCS})
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    ${include_DIRS}
     $<$<COMPILE_LANGUAGE:C>: ${include_c_DIRS}>
     $<$<COMPILE_LANGUAGE:CXX>: ${include_cxx_DIRS}>
     $<$<COMPILE_LANGUAGE:ASM>: ${include_asm_DIRS}>
@@ -77,6 +84,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+    ${symbols_SYMB}
     $<$<COMPILE_LANGUAGE:C>: ${symbols_c_SYMB}>
     $<$<COMPILE_LANGUAGE:CXX>: ${symbols_cxx_SYMB}>
     $<$<COMPILE_LANGUAGE:ASM>: ${symbols_asm_SYMB}>
@@ -128,17 +136,9 @@ target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
     -Wl,--print-memory-usage
 )
 
-# Execute post-build to print size
+# Execute post-build to print size, generate hex and bin
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
-)
-
-# Convert output to hex and binary
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.hex
-)
-
-# Convert to bin file -> add conditional check?
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.bin
 )

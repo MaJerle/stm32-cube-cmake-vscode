@@ -1,6 +1,6 @@
 {
-	"version": "2.0.0",
-	"tasks": [
+    "version": "2.0.0",
+    "tasks": [
         {
             "type": "cppbuild",
             "label": "Build project",

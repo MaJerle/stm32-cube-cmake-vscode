@@ -11,8 +11,8 @@ set(cpu_PARAMS ${cpu_PARAMS}
     # Other parameters
     # -mcpu, -mfloat, -mfloat-abi, ...
     -mcpu=cortex-m7
-    -mfpu=fpv5-d16
     -mfloat-abi=hard
+    -mfpu=fpv5-d16
 )
 
 # Linker script
@@ -29,12 +29,6 @@ set(sources_SRCS ${sources_SRCS}
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/system_stm32h7xx.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Startup/startup_stm32h735igkx.s
-    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/App/fatfs.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/Target/user_diskio.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/diskio.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/ff.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/option/syscall.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
@@ -55,18 +49,24 @@ set(sources_SRCS ${sources_SRCS}
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/App/fatfs.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/Target/user_diskio.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/diskio.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/ff.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src/option/syscall.c
 )
 
 # Include directories
 set(include_c_DIRS ${include_c_DIRS}
-    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/Target
-    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/App
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
-    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32H7xx/Include
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Include
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/App
+    ${CMAKE_CURRENT_SOURCE_DIR}/FATFS/Target
+    ${CMAKE_CURRENT_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
 )
 set(include_cxx_DIRS ${include_cxx_DIRS}
     
@@ -78,8 +78,8 @@ set(include_asm_DIRS ${include_asm_DIRS}
 # Symbols definition
 set(symbols_c_SYMB ${symbols_c_SYMB}
     "DEBUG"
-    "USE_HAL_DRIVER"
     "STM32H735xx"
+    "USE_HAL_DRIVER"
 )
 set(symbols_cxx_SYMB ${symbols_cxx_SYMB}
     
