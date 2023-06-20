@@ -31,11 +31,22 @@ STM32CubeIDE also provides necessary tools needed later for *VSCode* development
 **Environmental path setup**
 
 `3` paths should be added to environmental settings from STM32CubeIDE installation, one path for each of above-mentioned tools.
+
+### Windows
+
 In case of my computer, using STM32CubeIDE 1.8 (updated through eclipse, hence my actual installation path is still showing version `1.0.2`) paths are defined as:
 
 - GCC compiler: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\tools\bin\`
 - ST-Link GDB server: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.win32_2.0.100.202109301221\tools\bin\`
 - STM32Cube Programmer CLI: `c:\ST\STM32CubeIDE_1.0.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.0.100.202110141430\tools\bin\`
+
+### MacOS
+
+- GCC compiler: `/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.macos64_1.0.200.202301161003/tools/bin`
+- ST-Link GDB server: `/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.macos64_2.0.500.202301161003/tools/bin/`
+- STM32Cube Programmer CLI: `/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.macos64_2.0.600.202301161003/tools/bin`
+
+To include the tools in the `$PATH` open `~/.zshrc`, add `export PATH="$PATH:<the example path as stated above>"` and save.
 
 > Your paths may differ at version numbers
 
@@ -361,7 +372,7 @@ Symbols and include paths can be found in *STM32CubeIDE* under project settings.
 ![STM32CubeIDE - symbols](docs/images/cubeide-symbols.png)
 
 Cortex-Mxx setup needs a special attention, especially with floating point setup.
-For `STM32H735xx`, settings should be set as below. 
+For `STM32H735xx`, settings should be set as below.
 ```cmake
 set(CPU_PARAMETERS
     -mthumb
@@ -451,6 +462,16 @@ set(sources_SRCS                    # Modified
     ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c
     ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c
 )
+
+
+#
+# Or add them dinamically
+#
+# file(GLOB sources_SRCS CONFIGURE_DEPENDS
+#    ${PROJ_PATH}/Core/Src/*.c
+#    ${PROJ_PATH}/Core/Startup/*.s
+#    ${PROJ_PATH}/Drivers/STM32H7xx_HAL_Driver/Src/*.c
+# )
 
 #
 # Include directories
@@ -656,7 +677,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 ```
 
 > To disable `.bin` file generation, simply delete `POST_BUILD` line for `.bin` and regenerate CMake build system commands.
-> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories. It may generate very large files (`>= 2GB`) with plenty of non-used zeros. 
+> Generating `.bin` files may have a negative effect when memory is split between internal and external flash memories. It may generate very large files (`>= 2GB`) with plenty of non-used zeros.
 
 There is a list of useful commands to keep in mind during project development:
 
@@ -807,9 +828,9 @@ To overcome this problem, let's create `.vscode/c_cpp_properties.json` file and 
     "version": 4,
     "configurations": [
         {
-            /* 
+            /*
              * ms-vscode.cmake-tools plugin should be installed.
-             * 
+             *
              * It provides data for C/C++ plugin,
              * such as include paths, browse paths, defines, etc.
              */
@@ -846,7 +867,7 @@ First thing is to create `.vscode/launch.json` file and copy below content to it
         {
             "name": "Debug Microcontroller - STLink-V3",
             "cwd": "${workspaceFolder}",        //Path from where commands are executed
-            "type": "cortex-debug",             //Debug 
+            "type": "cortex-debug",             //Debug
             "executable": "${command:cmake.launchTargetPath}", //or fixed file path: build/project-name.elf
             "request": "launch",                //Use "attach" to connect to target w/o elf download
             "servertype": "stlink",             //Use stlink setup of cortex-M debug
