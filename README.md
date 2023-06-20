@@ -858,6 +858,9 @@ You can test it by going to one resource (ex. with mouse over a function name), 
 Our `.elf` file has been built in previous section and can't wait to be uploaded into MCU flash and executed by *Cortex-M core*.
 We will use `Cortex-Debug` extension for debugging purpose, that will also flash firmware for us.
 
+You can find the `.svd` file in such a path:
+- `/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.productdb.debug_2.0.500.202302211408/resources/cmsis/STMicroelectronics_CMSIS_SVD`
+
 First thing is to create `.vscode/launch.json` file and copy below content to it:
 
 ```json
