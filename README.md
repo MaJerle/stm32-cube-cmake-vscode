@@ -881,6 +881,7 @@ First thing is to create `.vscode/launch.json` file and copy below content to it
             "svdFile": "STM32H73x.svd",         //SVD file to see reisters
             "v1": false,
             "showDevDebugOutput": "both",
+            "serverArgs": ["-m", "1", "-k", "-l", "1", "-s"] 
 
             /* Will get automatically detected if STM32CubeIDE is installed to default directory
                or it can be manually provided if necessary.. */
