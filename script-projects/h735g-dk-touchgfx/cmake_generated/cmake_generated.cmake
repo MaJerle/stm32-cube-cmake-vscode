@@ -178,7 +178,9 @@ set(link_DIRS ${link_DIRS}
 )
 
 # Link libraries
-set(link_LIBS ${link_LIBS}:libtouchgfx-float-abi-hard.a)
+set(link_LIBS ${link_LIBS}
+    :libtouchgfx-float-abi-hard.a
+)
 
 # Compiler options
 set(compiler_OPTS ${compiler_OPTS})

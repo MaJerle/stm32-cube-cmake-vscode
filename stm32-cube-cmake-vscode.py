@@ -586,7 +586,8 @@ def parse_and_generate(projectFolderBasePath, args):
         libs.sort()
         templatefiledata = templatefiledata.replace('{{sr:link_DIRS}}',
             (NEWLINE_INDENTED + NEWLINE_INDENTED.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, os.path.normpath(os.path.join(CProjBasePath, 'Debug', p))) for p in paths]) + NEWLINE) if len(paths) > 0 else '')
-        templatefiledata = templatefiledata.replace('{{sr:link_LIBS}}', NEWLINE_INDENTED.join(libs))
+        templatefiledata = templatefiledata.replace('{{sr:link_LIBS}}',
+            (NEWLINE_INDENTED + NEWLINE_INDENTED.join(libs) + NEWLINE) if len(libs) > 0 else '')
 
     #
     # Setup linker script
