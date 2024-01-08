@@ -21,11 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
 # Core MCU flags, CPU type, instruction set and FPU setup
-set(cpu_PARAMS 
-    # Other parameters
-    # -mthumb
-    # -mcpu, -mfloat, -mfloat-abi, ...
-)
+set(cpu_PARAMS)
 
 # Sources
 set(sources_SRCS)

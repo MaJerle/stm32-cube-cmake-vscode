@@ -31,6 +31,7 @@ import shutil
 import traceback
 
 NEWLINE_INDENTED = '\n    '
+NEWLINE = '\n'
 
 #
 # Generate parser object
@@ -536,8 +537,7 @@ def parse_and_generate(projectFolderBasePath, args):
     # Check all files in the same directory as .cproject/.project directory
     templatefiledata = templatefiledata.replace(
         '{{sr:sources_SRCS}}',
-        NEWLINE_INDENTED.join([gen_relative_path_to_cmake_folder(
-            projectFolderBasePath, p) for p in source_files_paths])
+        (NEWLINE_INDENTED + NEWLINE_INDENTED.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in source_files_paths]) + NEWLINE) if len(source_files_paths) > 0 else ''
     )
 
     #
@@ -559,8 +559,9 @@ def parse_and_generate(projectFolderBasePath, args):
                 # Normalize path to remove "Debug" from path
                 paths.append(os.path.normpath(path))
             paths.sort()
-            templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', NEWLINE_INDENTED.join(
-                [gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in paths]))
+            templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', 
+                (NEWLINE_INDENTED + NEWLINE_INDENTED.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, p) for p in paths]) + NEWLINE) if len(paths) > 0 else '')
+                
 
     #
     # Check all symbols (global defines)
@@ -570,8 +571,8 @@ def parse_and_generate(projectFolderBasePath, args):
         for compiler in ['c', 'cxx', 'asm']:
             varname = 'symbols_' + compiler + '_SYMB'
             data_obj['confs'][conf][compiler]['symbols'].sort()
-            templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}', NEWLINE_INDENTED.join(
-                ["\"" + f + "\"" for f in data_obj['confs'][conf][compiler]['symbols']]))
+            templatefiledata = templatefiledata.replace('{{sr:' + varname + '}}',
+                (NEWLINE_INDENTED + NEWLINE_INDENTED.join(["\"" + f + "\"" for f in data_obj['confs'][conf][compiler]['symbols']]) + NEWLINE) if len(data_obj['confs'][conf][compiler]['symbols']) else '')
 
     #
     # Setup linked libraries
@@ -583,10 +584,9 @@ def parse_and_generate(projectFolderBasePath, args):
             # Do some optimizations with path if necessary
             pass
         libs.sort()
-        templatefiledata = templatefiledata.replace('{{sr:link_DIRS}}', NEWLINE_INDENTED.join([gen_relative_path_to_cmake_folder(
-            projectFolderBasePath, os.path.normpath(os.path.join(CProjBasePath, 'Debug', p))) for p in paths]))
-        templatefiledata = templatefiledata.replace(
-            '{{sr:link_LIBS}}', NEWLINE_INDENTED.join(libs))
+        templatefiledata = templatefiledata.replace('{{sr:link_DIRS}}',
+            (NEWLINE_INDENTED + NEWLINE_INDENTED.join([gen_relative_path_to_cmake_folder(projectFolderBasePath, os.path.normpath(os.path.join(CProjBasePath, 'Debug', p))) for p in paths]) + NEWLINE) if len(paths) > 0 else '')
+        templatefiledata = templatefiledata.replace('{{sr:link_LIBS}}', NEWLINE_INDENTED.join(libs))
 
     #
     # Setup linker script

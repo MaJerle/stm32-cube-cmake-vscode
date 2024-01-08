@@ -8,17 +8,14 @@ cmake_minimum_required(VERSION 3.22)
 set(cpu_PARAMS ${cpu_PARAMS}
     -mthumb
 
-    # Other parameters
-    # -mcpu, -mfloat, -mfloat-abi, ...
+    # -mcpu, -mfloat, -mfloat-abi config
     -mcpu=cortex-m7
     -mfloat-abi=hard
     -mfpu=fpv5-d16
 )
 
 # Linker script
-set(linker_script_SRC ${linker_script_SRC}
-    ${CMAKE_CURRENT_SOURCE_DIR}/STM32CubeIDE/STM32H735IGKX_FLASH.ld
-)
+set(linker_script_SRC ${linker_script_SRC}${CMAKE_CURRENT_SOURCE_DIR}/STM32CubeIDE/STM32H735IGKX_FLASH.ld)
 
 # Sources
 set(sources_SRCS ${sources_SRCS}
@@ -158,9 +155,7 @@ set(include_cxx_DIRS ${include_cxx_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/TouchGFX/target
     ${CMAKE_CURRENT_SOURCE_DIR}/TouchGFX/target/generated
 )
-set(include_asm_DIRS ${include_asm_DIRS}
-    
-)
+set(include_asm_DIRS ${include_asm_DIRS})
 
 # Symbols definition
 set(symbols_c_SYMB ${symbols_c_SYMB}
@@ -183,9 +178,7 @@ set(link_DIRS ${link_DIRS}
 )
 
 # Link libraries
-set(link_LIBS ${link_LIBS}
-    :libtouchgfx-float-abi-hard.a
-)
+set(link_LIBS ${link_LIBS}:libtouchgfx-float-abi-hard.a)
 
 # Compiler options
 set(compiler_OPTS ${compiler_OPTS})
