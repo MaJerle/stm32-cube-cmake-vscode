@@ -13,7 +13,7 @@ set(cpu_PARAMS ${cpu_PARAMS}
 )
 
 # Linker script
-set(linker_script_SRC ${linker_script_SRC}{{sr:linker_script_SRC}})
+set(linker_script_SRC ${linker_script_SRC} {{sr:linker_script_SRC}})
 
 # Sources
 set(sources_SRCS ${sources_SRCS}{{sr:sources_SRCS}})

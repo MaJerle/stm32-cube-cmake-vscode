@@ -15,7 +15,7 @@ set(cpu_PARAMS ${cpu_PARAMS}
 )
 
 # Linker script
-set(linker_script_SRC ${linker_script_SRC}${CMAKE_CURRENT_SOURCE_DIR}/STM32CubeIDE/STM32H735IGKX_FLASH.ld)
+set(linker_script_SRC ${linker_script_SRC} ${CMAKE_CURRENT_SOURCE_DIR}/STM32CubeIDE/STM32H735IGKX_FLASH.ld)
 
 # Sources
 set(sources_SRCS ${sources_SRCS}
