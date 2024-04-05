@@ -386,17 +386,21 @@ General rule for settings would be as per table below
 | STM32G0     | `cortex-m0plus` | `Not used`    | `soft`      |
 | STM32C0     | `cortex-m0plus` | `Not used`    | `soft`      |
 | STM32G4     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
+| STM32H5     | `cortex-m33`    | `fpv5-sp-d16` | `hard`      |
 | STM32H7     | `cortex-m7`     | `fpv5-d16`    | `hard`      |
 | STM32L0     | `cortex-m0plus` | `Not used`    | `soft`      |
 | STM32L1     | `cortex-m3`     | `Not used`    | `soft`      |
 | STM32L4     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
 | STM32L5     | `cortex-m33`    | `fpv5-sp-d16` | `hard`      |
+| STM32U0     | `cortex-m0plus` | `Not used`    | `soft`      |
 | STM32U5     | `cortex-m33`    | `fpv5-sp-d16` | `hard`      |
 | STM32WB     | `cortex-m4`     | `fpv4-sp-d16` | `hard`      |
+| STM32WBA    | `cortex-m33`    | `fpv5-sp-d16` | `hard`      |
 | STM32WL CM4 | `cortex-m4`     | `Not used`    | `soft`      |
 | STM32WL CM0 | `cortex-m0plus` | `Not used`    | `soft`      |
 
-> This table is a subject of potential mistakes, not tested with *GCC compiler* for all lines. For STM32F7, go to [STM32F7xx official site](https://www.st.com/en/microcontrollers-microprocessors/stm32f7-series.html) and check if your device has single or double precision FPU, then apply settings accordingly.
+> This table is a subject of potential mistakes, not tested with *GCC compiler* for all lines. For `STM32F7`, go to [STM32F7xx official site](https://www.st.com/en/microcontrollers-microprocessors/stm32f7-series.html) and check if your device has single or double precision FPU, then apply settings accordingly.
+> Products list is not exhaustive.
 
 Final `CMakeLists.txt` file after source files, include paths, MCU core settings and defines are set:
 ```cmake
