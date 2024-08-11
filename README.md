@@ -16,6 +16,14 @@ Things you will learn
 
 # Tools installation
 
+## August 2024 update
+
+The tools installation tutorial will help you to understand the necessary tools required to work with STM32 and is generally good for beginners to get up to speed and correctly understand necessary requirements.
+
+Since some time, ST has a new [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeide.html) software tool, that includes the build tools necessary for vscode, includes *Ninja* build system and *CMake* build generator. STM32CubeCLT (Command Line Tools) is a simple and easy way to quickly get up to speed for vscode development. It will also setup your build environment variables (*Path* in case of Windows) automatically, allowing you to invoke *ninja*, *cmake* or other commands directly from command line tool.
+
+> By installing the *STM32CubeCLT*, you won't get *STM32CubeIDE* graphical tool, nor you will get any MCU configuration tool capability, rather just command line tools to invoke build and debug, normally from within *vscode*. You will still need to separately install vscode and necessary extensions.
+
 ## STM32CubeIDE
 
 First step is to install [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), that will be used to easily start new *STM32* project and it comes with integrated *STM32CubeMX* tool - allowing us graphical configuration.
@@ -52,11 +60,15 @@ That should produce output similar to the picture below
 
 ## CMake
 
+> This step is not necessary if you have installed the build tools with *STM32CubeCLT*
+
 Download and install [CMake](https://cmake.org/).
 
 Installation wizard will ask you to add CMake to environmental paths. Select the option or add `bin` folder of CMake installation folder to environmental path.
 
 ## Ninja
+
+> This step is not necessary if you have installed the build tools with *STM32CubeCLT*
 
 Download [Ninja build system](https://github.com/ninja-build/ninja/releases) from Github releases page.
 It comes as portable executable, without need to install anything.
