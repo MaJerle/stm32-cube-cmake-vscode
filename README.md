@@ -20,7 +20,7 @@ Things you will learn
 
 The tools installation tutorial will help you to understand the necessary tools required to work with STM32 and is generally good for beginners to get up to speed and correctly understand necessary requirements.
 
-Since some time, ST has a new [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeide.html) software tool, that includes the build tools necessary for vscode, includes *Ninja* build system and *CMake* build generator. STM32CubeCLT (Command Line Tools) is a simple and easy way to quickly get up to speed for vscode development. It will also setup your build environment variables (*Path* in case of Windows) automatically, allowing you to invoke *ninja*, *cmake* or other commands directly from command line tool.
+Since some time, ST has a new [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html) software tool, that includes the build tools necessary for vscode, includes *Ninja* build system and *CMake* build generator. STM32CubeCLT (Command Line Tools) is a simple and easy way to quickly get up to speed for vscode development. It will also setup your build environment variables (*Path* in case of Windows) automatically, allowing you to invoke *ninja*, *cmake* or other commands directly from command line tool.
 
 > By installing the *STM32CubeCLT*, you won't get *STM32CubeIDE* graphical tool, nor you will get any MCU configuration tool capability, rather just command line tools to invoke build and debug, normally from within *vscode*. You will still need to separately install vscode and necessary extensions.
 
