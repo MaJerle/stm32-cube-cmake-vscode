@@ -1,5 +1,7 @@
 # STM32 development environment with Visual Studio Code and CMake
 
+>[!info]- Учебный форк.
+
 This tutorial explains steps to effectively develop and debug STM32 application in *Visual Studio Code* using *CMake* build generator, *Ninja* build tool and *GCC* compiler.
 
 Things you will learn
